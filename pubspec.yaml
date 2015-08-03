@@ -1,0 +1,9 @@
+name: gl
+version: "1.0.0"
+description: Dart GLES2 bindings
+author: Harry Stern <hstern@google.com>
+homepage:
+environment:
+  sdk: ">=1.0.0 <=2.0.0"
+dev_dependencies:
+  glfw: any  # for examples in example/dart_example/
