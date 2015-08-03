@@ -32,7 +32,7 @@ option to use the .a library as well.
 ## Other Platforms
 TODO
 
-# Functions with interfaces with APIs different from GLE2.
+# Functions with interfaces with APIs different from GLES2.
 If a function's only difference is moving pointer parameters to the return
 value, it is not listed. See `lib/src/manual_bindings.dart` for a full list.
 
