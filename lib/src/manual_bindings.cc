@@ -746,7 +746,7 @@ void glTexParameterfv_native(Dart_NativeArguments arguments) {
   Dart_Handle params_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
   GLfloat *params = NULL;
   if (Dart_IsList(params_obj) && !Dart_IsNull(params_obj)) {
-    int64_t length;
+    intptr_t length;
     HandleError(Dart_ListLength(params_obj, &length));
 
     params = static_cast<GLfloat *>(malloc(sizeof(GLfloat) * length));
@@ -780,7 +780,7 @@ void glTexParameteriv_native(Dart_NativeArguments arguments) {
   Dart_Handle params_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
   GLint *params = NULL;
   if (Dart_IsList(params_obj) && !Dart_IsNull(params_obj)) {
-    int64_t length;
+    intptr_t length;
     HandleError(Dart_ListLength(params_obj, &length));
 
     params = static_cast<GLint *>(malloc(sizeof(GLint) * length));
