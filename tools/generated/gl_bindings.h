@@ -7,7 +7,7 @@
 #ifndef THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 #define THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
 // Header file for generated GL function bindings.
 
@@ -119,4 +119,4 @@ void glVertexAttrib4fv_native(Dart_NativeArguments arguments);
 void glVertexAttribPointer_native(Dart_NativeArguments arguments);
 void glViewport_native(Dart_NativeArguments arguments);
 
-#endif  // THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
+#endif // THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_

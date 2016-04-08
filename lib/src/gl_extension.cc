@@ -5,8 +5,6 @@
 
 #include <string.h>
 
-#include "dart_api.h"
-
 #include "gl_extension.h"
 
 #include "manual_bindings.h"

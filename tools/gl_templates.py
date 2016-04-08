@@ -21,7 +21,7 @@ GL_GENERATED_BINDINGS_HEADER_HEADER = GL_LICENSE_HEADER + (
     """#ifndef THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 #define THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
 """)
 
@@ -36,11 +36,11 @@ GL_GENERATED_BINDINGS_HEADER = GL_LICENSE_HEADER + (
 #include <string.h>
 #include <stdlib.h>
 
-#include "third_party/GL/gl/include/GLES2/gl2.h"
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "GLES2/gl2.h"
+#include "dart_api.h"
 
-#include "third_party/dart/gl/lib/src/util.h"
-#include "third_party/dart/gl/lib/src/generated/gl_bindings.h"
+#include "../util.h"
+#include "gl_bindings.h"
 
 """)
 
@@ -63,7 +63,7 @@ GL_FUNCTION_LIST_HEADER_BODY = GL_LICENSE_HEADER + (
 #ifndef THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
 struct FunctionLookup {
   const char* name;
@@ -78,11 +78,11 @@ extern const struct FunctionLookup *function_list;
 GL_FUNCTION_LIST_HEADER = GL_LICENSE_HEADER + (
     """
 #include <stdlib.h>
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
-#include "third_party/dart/gl/lib/src/manual_bindings.h"
-#include "third_party/dart/gl/lib/src/generated/function_list.h"
-#include "third_party/dart/gl/lib/src/generated/gl_bindings.h"
+#include "../manual_bindings.h"
+#include "function_list.h"
+#include "gl_bindings.h"
 
 // function_list is used by ResolveName in lib/src/gl_extension.cc.
 const struct FunctionLookup _function_list[] = {

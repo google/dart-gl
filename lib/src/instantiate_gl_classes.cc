@@ -9,7 +9,6 @@
 #include <stdlib.h>
 
 #include "GLES2/gl2.h"
-#include "dart_api.h"
 
 #include "gl_extension.h"
 #include "util.h"

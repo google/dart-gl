@@ -8,13 +8,13 @@
 #ifndef THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "dart_api.h"
 
 struct FunctionLookup {
   const char* name;
   Dart_NativeFunction function;
 };
 
-extern const struct FunctionLookup* function_list;
+extern const struct FunctionLookup *function_list;
 
-#endif  // THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
+#endif // THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_

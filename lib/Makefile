@@ -1,4 +1,6 @@
-CC=clang
+CC=gcc
+#CC=clang
+
 CFLAGS = -Wall -Werror
 
 ifneq ($(strip $(GL_INCLUDE)),)

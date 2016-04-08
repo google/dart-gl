@@ -6,7 +6,6 @@
 #include <stdlib.h>
 
 #include "GLES2/gl2.h"
-#include "dart_api.h"
 
 #include "manual_bindings.h"
 
