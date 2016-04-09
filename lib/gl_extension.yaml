@@ -1,0 +1,45 @@
+bits: 0  # 0 means the bits of Dart SDK
+compiler:
+  includes: ['{DART_SDK}/include', '{GLFW_INCLUDE}']
+  input_files:
+  - 'src/gl_extension.cc'
+  - 'src/instantiate_gl_classes.cc'
+  - 'src/manual_bindings.cc'
+  - 'src/util.cc'
+  - 'src/generated/function_list.cc'
+  - 'src/generated/gl_bindings.cc'
+clean: [ '*.exp', '*.lib', '*.o', '*.obj']
+linker:
+  input_files:
+  - 'gl_extension'
+  - 'instantiate_gl_classes'
+  - 'manual_bindings'
+  - 'util'
+  - 'function_list'
+  - 'gl_bindings'
+platforms:
+  linux:
+    compiler:
+      arguments: ['-fPIC', '-Wall', '-Werror']
+      defines: {'DART_SHARED_LIB'}
+    linker:
+      arguments: ['-shared', '-lGL']
+      output_file: 'libgl_extension.so'
+  macos:
+    compiler:
+      arguments: ['-fPIC', '-Wall']
+      defines: {'DART_SHARED_LIB'}
+    linker:
+      arguments: ['-dynamiclib', '-undefined', 'dynamic_lookup']
+      output_file: 'libgl_extension.dylib'
+  windows:
+    compiler:
+      arguments: ['/EHsc']
+      defines: {'DART_SHARED_LIB'}
+    linker:
+      arguments: ['/DLL']
+      input_files:
+      - 'dart.lib'
+      - 'glfw3dll.lib'
+      libpaths: ['{DART_SDK}/bin', '{GLFW_LIB}']
+      output_file: 'gl_extension.dll'

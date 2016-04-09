@@ -6,4 +6,6 @@ homepage:
 environment:
   sdk: ">=1.0.0 <=2.0.0"
 dev_dependencies:
-  glfw: any  # for examples in example/dart_example/
+  #glfw: any  # for examples in example/dart_example/ - needs to symlink locally
+  ccompile: "^0.2.10"
+  path: "^1.3.9"
