@@ -1,6 +1,6 @@
 bits: 0  # 0 means the bits of Dart SDK
 compiler:
-  includes: ['{DART_SDK}/include', '{GLFW_INCLUDE}']
+  includes: ['{DART_SDK}/include', '{GL_INCLUDE}']
   input_files:
   - 'src/gl_extension.cc'
   - 'src/instantiate_gl_classes.cc'
@@ -40,6 +40,6 @@ platforms:
       arguments: ['/DLL']
       input_files:
       - 'dart.lib'
-      - 'glfw3dll.lib'
-      libpaths: ['{DART_SDK}/bin', '{GLFW_LIB}']
+      - '{GL_LIB_NAME}'
+      libpaths: ['{DART_SDK}/bin', '{GL_LIB}']
       output_file: 'gl_extension.dll'
