@@ -26,6 +26,9 @@ TODO(hstern): It is convenient for development to use the .so file,
 but for distribution purposes it is less useful. It would be nice to have an
 option to use the .a library as well.
 
+## Windows
+Test to work with NVIDIA, just requires building glfw with EGL support.
+
 ## Other Platforms
 TODO
 
