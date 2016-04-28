@@ -12,14 +12,11 @@ cp generated/* ../lib/src/generated/
 ```
 # Steps to compile the bindings
 
-## Linux with GNU Make:
-If your `dart_api.h`, `GLES2/gl2.h`, or `libGL.so` files are not in the
-standard locations, set the enviroment variables `DART_INCLUDE`, `GL_INCLUDE`,
-and/or `GL_LIB` and `GL_LIB_NAME` and run the following commands.
+Set DART_INCLUDE, GL_INCLUDE, GL_LIB and GL_LIB_NAME.
 
 ```shell
 cd lib/
-make
+dart ../tools/gl_compile.dart
 ```
 Note that if you set the `GL_LIB` variable when compiling, you must also set
 `LD_LIBRARY_PATH` to include the same directory when running your program or
@@ -28,6 +25,9 @@ the Dart VM will not be able to find `libGL.so`/`lib$(GL_LIB_NAME).so`.
 TODO(hstern): It is convenient for development to use the .so file,
 but for distribution purposes it is less useful. It would be nice to have an
 option to use the .a library as well.
+
+## Windows
+Test to work with NVIDIA, just requires building glfw with EGL support.
 
 ## Other Platforms
 TODO
