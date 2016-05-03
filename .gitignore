@@ -1,13 +1,15 @@
-# Don’t commit the following directories created by pub.
+# Don’t commit the following files or directories created by pub.
+.packages
+.pub/
 build/
-packages
+packages/
 
 # according to https://www.dartlang.org/tools/pub/package-layout.html
 # pubspec.lock is not included if not application package
 # remove this line if your package is an application package
 pubspec.lock
 
-# Or the files created by dart2js.
+# Files created by dart2js.
 *.dart.js
 *.dart.precompiled.js
 *.js_
