@@ -67,7 +67,18 @@ class Program {
     return pathos.dirname(Platform.script.toFilePath());
   }
 
+  static void _checkEnv() {
+    var undef = const ['DART_SDK', 'GL_INCLUDE']
+        .where((v) => !Platform.environment.containsKey(v));
+    if (undef.isNotEmpty) {
+      stderr.writeln(
+          'Required environment variables are undefined: ${undef.join(", ")}');
+      exit(1);
+    }
+  }
+
   static void main(List<String> args) {
+    _checkEnv();
     if (args.isEmpty) args = ['gl_extension.yaml'];
     var basePath = Directory.current.path;
     var projectPath = toAbsolutePath(args[0], basePath);
