@@ -14,21 +14,32 @@ int vbo;
 
 int v_shader, f_shader, shader_program;
 
-Float32List verts = new Float32List.fromList(
-    const [-1.0, -1.0, 0.0, 1.0, 1.0, -1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]);
+Float32List verts = new Float32List.fromList(const [
+  -1.0, -1.0, 1.0, 0.0, 0.0, 1.0, // x, y, r, g, b, a
+  0.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+  1.0, -1.0, 0.0, 0.0, 1.0, 1.0,
+]);
+const int float32Size = Float32List.BYTES_PER_ELEMENT;
 
 const String vshader_text = """
 #version 100
 attribute vec4 position;
+attribute vec4 color;
+varying vec4 vcolor;
+
 void main() {
   gl_Position = position;
+  vcolor = color;
 }
 """;
 
 const String fshader_text = """
 #version 100
+precision mediump float;
+varying vec4 vcolor;
+
 void main() {
-  gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+  gl_FragColor = vcolor;
 }
 """;
 
@@ -61,11 +72,9 @@ void setup_buffers() {
   vbo = glGenBuffers(1).first;
 
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glBufferData(GL_ARRAY_BUFFER, verts.length * Float32List.BYTES_PER_ELEMENT,
-      verts, GL_STATIC_DRAW);
+  glBufferData(
+      GL_ARRAY_BUFFER, verts.length * float32Size, verts, GL_STATIC_DRAW);
 
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, null);
   check_error();
 }
 
@@ -98,8 +107,26 @@ void setup_shaders() {
 
 void render_triangle() {
   glBindBuffer(GL_ARRAY_BUFFER, vbo);
-  glEnableVertexAttribArray(0);
-  glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 0, null);
+
+  var vertexId = glGetAttribLocation(shader_program, 'position');
+  glEnableVertexAttribArray(vertexId);
+  glVertexAttribPointer(
+      vertexId, // Describe vertex information.
+      2, // Two values: x, y
+      GL_FLOAT, // Each has sizeof float.
+      GL_FALSE, // Don't normalize values.
+      6 * float32Size, // Stride to next vertex is 6 elements.
+      0); // Offset to vertex info.
+
+  var colorId = glGetAttribLocation(shader_program, 'color');
+  glEnableVertexAttribArray(colorId);
+  glVertexAttribPointer(
+      colorId, // Describe color information.
+      4, // Four values: r, g, b, a
+      GL_FLOAT, // Each has sizeof float.
+      GL_FALSE, // Don't normalize values.
+      6 * float32Size, // Stride to next vertex is 6 elements.
+      2 * float32Size); // Offset to vertex info (skip x,y).
 
   glUseProgram(shader_program);
   glDrawArrays(GL_TRIANGLES, 0, 3);

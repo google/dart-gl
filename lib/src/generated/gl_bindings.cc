@@ -96,7 +96,8 @@ void glBindFramebuffer_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(target_obj, &target));
   }
 
-  Dart_Handle framebuffer_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle framebuffer_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 1));
 
   int64_t framebuffer = 0;
   if (Dart_IsInteger(framebuffer_obj)) {
@@ -114,7 +115,8 @@ void glBindRenderbuffer_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(target_obj, &target));
   }
 
-  Dart_Handle renderbuffer_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle renderbuffer_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 1));
 
   int64_t renderbuffer = 0;
   if (Dart_IsInteger(renderbuffer_obj)) {
@@ -222,28 +224,32 @@ void glBlendFunc_native(Dart_NativeArguments arguments) {
 }
 
 void glBlendFuncSeparate_native(Dart_NativeArguments arguments) {
-  Dart_Handle sfactorRGB_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  Dart_Handle sfactorRGB_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 0));
 
   int64_t sfactorRGB = 0;
   if (Dart_IsInteger(sfactorRGB_obj)) {
     HandleError(Dart_IntegerToInt64(sfactorRGB_obj, &sfactorRGB));
   }
 
-  Dart_Handle dfactorRGB_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle dfactorRGB_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 1));
 
   int64_t dfactorRGB = 0;
   if (Dart_IsInteger(dfactorRGB_obj)) {
     HandleError(Dart_IntegerToInt64(dfactorRGB_obj, &dfactorRGB));
   }
 
-  Dart_Handle sfactorAlpha_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  Dart_Handle sfactorAlpha_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 2));
 
   int64_t sfactorAlpha = 0;
   if (Dart_IsInteger(sfactorAlpha_obj)) {
     HandleError(Dart_IntegerToInt64(sfactorAlpha_obj, &sfactorAlpha));
   }
 
-  Dart_Handle dfactorAlpha_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
+  Dart_Handle dfactorAlpha_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 3));
 
   int64_t dfactorAlpha = 0;
   if (Dart_IsInteger(dfactorAlpha_obj)) {
@@ -274,7 +280,8 @@ void glBufferData_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t data_typeddata_length = 0;
   if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data, &data_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
+                                          &data_data, &data_typeddata_length));
   }
   const void* data = static_cast<const void*>(data_data);
 
@@ -319,7 +326,8 @@ void glBufferSubData_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t data_typeddata_length = 0;
   if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data, &data_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
+                                          &data_data, &data_typeddata_length));
   }
   const void* data = static_cast<const void*>(data_data);
 
@@ -464,7 +472,8 @@ void glCompressedTexImage2D_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(level_obj, &level));
   }
 
-  Dart_Handle internalformat_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  Dart_Handle internalformat_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 2));
 
   int64_t internalformat = 0;
   if (Dart_IsInteger(internalformat_obj)) {
@@ -505,11 +514,13 @@ void glCompressedTexImage2D_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t data_typeddata_length = 0;
   if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data, &data_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
+                                          &data_data, &data_typeddata_length));
   }
   const void* data = static_cast<const void*>(data_data);
 
-  glCompressedTexImage2D(target, level, internalformat, width, height, border, imageSize, data);
+  glCompressedTexImage2D(target, level, internalformat, width, height, border,
+                         imageSize, data);
   if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
     HandleError(Dart_TypedDataReleaseData(data_obj));
   }
@@ -578,11 +589,13 @@ void glCompressedTexSubImage2D_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t data_typeddata_length = 0;
   if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data, &data_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
+                                          &data_data, &data_typeddata_length));
   }
   const void* data = static_cast<const void*>(data_data);
 
-  glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height, format, imageSize, data);
+  glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height,
+                            format, imageSize, data);
   if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
     HandleError(Dart_TypedDataReleaseData(data_obj));
   }
@@ -603,7 +616,8 @@ void glCopyTexImage2D_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(level_obj, &level));
   }
 
-  Dart_Handle internalformat_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  Dart_Handle internalformat_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 2));
 
   int64_t internalformat = 0;
   if (Dart_IsInteger(internalformat_obj)) {
@@ -891,7 +905,9 @@ void glDrawElements_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type indices_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t indices_typeddata_length = 0;
   if (Dart_IsTypedData(indices_obj) && !Dart_IsNull(indices_obj)) {
-    HandleError(Dart_TypedDataAcquireData(indices_obj, &indices_typeddata_type, &indices_data, &indices_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(indices_obj, &indices_typeddata_type,
+                                          &indices_data,
+                                          &indices_typeddata_length));
   }
   const void* indices = static_cast<const void*>(indices_data);
 
@@ -923,13 +939,9 @@ void glEnableVertexAttribArray_native(Dart_NativeArguments arguments) {
   glEnableVertexAttribArray(index);
 }
 
-void glFinish_native(Dart_NativeArguments arguments) {
-  glFinish();
-}
+void glFinish_native(Dart_NativeArguments arguments) { glFinish(); }
 
-void glFlush_native(Dart_NativeArguments arguments) {
-  glFlush();
-}
+void glFlush_native(Dart_NativeArguments arguments) { glFlush(); }
 
 void glFramebufferRenderbuffer_native(Dart_NativeArguments arguments) {
   Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
@@ -939,28 +951,33 @@ void glFramebufferRenderbuffer_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(target_obj, &target));
   }
 
-  Dart_Handle attachment_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle attachment_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 1));
 
   int64_t attachment = 0;
   if (Dart_IsInteger(attachment_obj)) {
     HandleError(Dart_IntegerToInt64(attachment_obj, &attachment));
   }
 
-  Dart_Handle renderbuffertarget_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  Dart_Handle renderbuffertarget_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 2));
 
   int64_t renderbuffertarget = 0;
   if (Dart_IsInteger(renderbuffertarget_obj)) {
-    HandleError(Dart_IntegerToInt64(renderbuffertarget_obj, &renderbuffertarget));
+    HandleError(
+        Dart_IntegerToInt64(renderbuffertarget_obj, &renderbuffertarget));
   }
 
-  Dart_Handle renderbuffer_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
+  Dart_Handle renderbuffer_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 3));
 
   int64_t renderbuffer = 0;
   if (Dart_IsInteger(renderbuffer_obj)) {
     HandleError(Dart_IntegerToInt64(renderbuffer_obj, &renderbuffer));
   }
 
-  glFramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
+  glFramebufferRenderbuffer(target, attachment, renderbuffertarget,
+                            renderbuffer);
 }
 
 void glFramebufferTexture2D_native(Dart_NativeArguments arguments) {
@@ -971,7 +988,8 @@ void glFramebufferTexture2D_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(target_obj, &target));
   }
 
-  Dart_Handle attachment_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle attachment_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 1));
 
   int64_t attachment = 0;
   if (Dart_IsInteger(attachment_obj)) {
@@ -1057,7 +1075,8 @@ void glGetString_native(Dart_NativeArguments arguments) {
   }
 
   const GLubyte* ret = glGetString(name);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewStringFromGLubyteString(ret)));
+  Dart_SetReturnValue(arguments,
+                      HandleError(Dart_NewStringFromGLubyteString(ret)));
 }
 
 void glGetUniformLocation_native(Dart_NativeArguments arguments) {
@@ -1122,7 +1141,8 @@ void glIsEnabled_native(Dart_NativeArguments arguments) {
 }
 
 void glIsFramebuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle framebuffer_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  Dart_Handle framebuffer_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 0));
 
   int64_t framebuffer = 0;
   if (Dart_IsInteger(framebuffer_obj)) {
@@ -1146,7 +1166,8 @@ void glIsProgram_native(Dart_NativeArguments arguments) {
 }
 
 void glIsRenderbuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle renderbuffer_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  Dart_Handle renderbuffer_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 0));
 
   int64_t renderbuffer = 0;
   if (Dart_IsInteger(renderbuffer_obj)) {
@@ -1251,7 +1272,8 @@ void glRenderbufferStorage_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(target_obj, &target));
   }
 
-  Dart_Handle internalformat_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  Dart_Handle internalformat_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 1));
 
   int64_t internalformat = 0;
   if (Dart_IsInteger(internalformat_obj)) {
@@ -1483,7 +1505,8 @@ void glTexImage2D_native(Dart_NativeArguments arguments) {
     HandleError(Dart_IntegerToInt64(level_obj, &level));
   }
 
-  Dart_Handle internalformat_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  Dart_Handle internalformat_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 2));
 
   int64_t internalformat = 0;
   if (Dart_IsInteger(internalformat_obj)) {
@@ -1531,11 +1554,14 @@ void glTexImage2D_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type pixels_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t pixels_typeddata_length = 0;
   if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
-    HandleError(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type, &pixels_data, &pixels_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type,
+                                          &pixels_data,
+                                          &pixels_typeddata_length));
   }
   const void* pixels = static_cast<const void*>(pixels_data);
 
-  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+  glTexImage2D(target, level, internalformat, width, height, border, format,
+               type, pixels);
   if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
     HandleError(Dart_TypedDataReleaseData(pixels_obj));
   }
@@ -1654,11 +1680,14 @@ void glTexSubImage2D_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type pixels_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t pixels_typeddata_length = 0;
   if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
-    HandleError(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type, &pixels_data, &pixels_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type,
+                                          &pixels_data,
+                                          &pixels_typeddata_length));
   }
   const void* pixels = static_cast<const void*>(pixels_data);
 
-  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
+  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type,
+                  pixels);
   if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
     HandleError(Dart_TypedDataReleaseData(pixels_obj));
   }
@@ -1703,7 +1732,9 @@ void glUniform1fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -1752,7 +1783,9 @@ void glUniform1iv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLint* value = static_cast<const GLint*>(value_data);
 
@@ -1808,7 +1841,9 @@ void glUniform2fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -1864,7 +1899,9 @@ void glUniform2iv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLint* value = static_cast<const GLint*>(value_data);
 
@@ -1927,7 +1964,9 @@ void glUniform3fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -1990,7 +2029,9 @@ void glUniform3iv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLint* value = static_cast<const GLint*>(value_data);
 
@@ -2060,7 +2101,9 @@ void glUniform4fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -2130,7 +2173,9 @@ void glUniform4iv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLint* value = static_cast<const GLint*>(value_data);
 
@@ -2168,7 +2213,9 @@ void glUniformMatrix2fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -2206,7 +2253,9 @@ void glUniformMatrix3fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -2244,7 +2293,9 @@ void glUniformMatrix4fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t value_typeddata_length = 0;
   if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type, &value_data, &value_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                          &value_data,
+                                          &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
@@ -2308,7 +2359,8 @@ void glVertexAttrib1fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t v_typeddata_length = 0;
   if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data, &v_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                          &v_typeddata_length));
   }
   const GLfloat* v = static_cast<const GLfloat*>(v_data);
 
@@ -2357,7 +2409,8 @@ void glVertexAttrib2fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t v_typeddata_length = 0;
   if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data, &v_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                          &v_typeddata_length));
   }
   const GLfloat* v = static_cast<const GLfloat*>(v_data);
 
@@ -2413,7 +2466,8 @@ void glVertexAttrib3fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t v_typeddata_length = 0;
   if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data, &v_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                          &v_typeddata_length));
   }
   const GLfloat* v = static_cast<const GLfloat*>(v_data);
 
@@ -2476,65 +2530,14 @@ void glVertexAttrib4fv_native(Dart_NativeArguments arguments) {
   Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
   intptr_t v_typeddata_length = 0;
   if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data, &v_typeddata_length));
+    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                          &v_typeddata_length));
   }
   const GLfloat* v = static_cast<const GLfloat*>(v_data);
 
   glVertexAttrib4fv(index, v);
   if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
     HandleError(Dart_TypedDataReleaseData(v_obj));
-  }
-}
-
-void glVertexAttribPointer_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
-
-  Dart_Handle size_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t size = 0;
-  if (Dart_IsInteger(size_obj)) {
-    HandleError(Dart_IntegerToInt64(size_obj, &size));
-  }
-
-  Dart_Handle type_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t type = 0;
-  if (Dart_IsInteger(type_obj)) {
-    HandleError(Dart_IntegerToInt64(type_obj, &type));
-  }
-
-  Dart_Handle normalized_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  bool normalized = 0;
-  if (Dart_IsBoolean(normalized_obj)) {
-    HandleError(Dart_BooleanValue(normalized_obj, &normalized));
-  }
-
-  Dart_Handle stride_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t stride = 0;
-  if (Dart_IsInteger(stride_obj)) {
-    HandleError(Dart_IntegerToInt64(stride_obj, &stride));
-  }
-
-  Dart_Handle pointer_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  void* pointer_data = NULL;
-  Dart_TypedData_Type pointer_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t pointer_typeddata_length = 0;
-  if (Dart_IsTypedData(pointer_obj) && !Dart_IsNull(pointer_obj)) {
-    HandleError(Dart_TypedDataAcquireData(pointer_obj, &pointer_typeddata_type, &pointer_data, &pointer_typeddata_length));
-  }
-  const void* pointer = static_cast<const void*>(pointer_data);
-
-  glVertexAttribPointer(index, size, type, normalized, stride, pointer);
-  if (Dart_IsTypedData(pointer_obj) && !Dart_IsNull(pointer_obj)) {
-    HandleError(Dart_TypedDataReleaseData(pointer_obj));
   }
 }
 

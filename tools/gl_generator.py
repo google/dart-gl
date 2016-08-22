@@ -58,6 +58,7 @@ HAS_MANUAL_BINDINGS = [
     "glShaderSource",
     "glTexParameterfv",
     "glTexParameteriv",
+    "glVertexAttribPointer",
 ]
 
 
