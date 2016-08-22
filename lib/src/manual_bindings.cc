@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include "GLES2/gl2.h"
+#include "dart_api.h"
 
 #include "manual_bindings.h"
 
@@ -793,4 +794,52 @@ void glTexParameteriv_native(Dart_NativeArguments arguments) {
   }
   glTexParameteriv(target, pname, params);
   free(params);
+}
+
+void glVertexAttribPointer_native(Dart_NativeArguments arguments) {
+  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+
+  int64_t index = 0;
+  if (Dart_IsInteger(index_obj)) {
+    HandleError(Dart_IntegerToInt64(index_obj, &index));
+  }
+
+  Dart_Handle size_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+
+  int64_t size = 0;
+  if (Dart_IsInteger(size_obj)) {
+    HandleError(Dart_IntegerToInt64(size_obj, &size));
+  }
+
+  Dart_Handle type_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+
+  int64_t type = 0;
+  if (Dart_IsInteger(type_obj)) {
+    HandleError(Dart_IntegerToInt64(type_obj, &type));
+  }
+
+  Dart_Handle normalized_obj =
+      HandleError(Dart_GetNativeArgument(arguments, 3));
+
+  bool normalized = 0;
+  if (Dart_IsBoolean(normalized_obj)) {
+    HandleError(Dart_BooleanValue(normalized_obj, &normalized));
+  }
+
+  Dart_Handle stride_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
+
+  int64_t stride = 0;
+  if (Dart_IsInteger(stride_obj)) {
+    HandleError(Dart_IntegerToInt64(stride_obj, &stride));
+  }
+
+  Dart_Handle offset_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
+
+  int64_t offset = 0;
+  if (Dart_IsInteger(offset_obj)) {
+    HandleError(Dart_IntegerToInt64(offset_obj, &offset));
+  }
+  const void *pointer = reinterpret_cast<const void *>(offset);
+
+  glVertexAttribPointer(index, size, type, normalized, stride, pointer);
 }

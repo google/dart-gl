@@ -43,5 +43,6 @@ void glReadPixels_native(Dart_NativeArguments arguments);
 void glShaderSource_native(Dart_NativeArguments arguments);
 void glTexParameterfv_native(Dart_NativeArguments arguments);
 void glTexParameteriv_native(Dart_NativeArguments arguments);
+void glVertexAttribPointer_native(Dart_NativeArguments arguments);
 
 #endif  // SRC_MANUAL_BINDINGS_H_

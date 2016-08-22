@@ -116,7 +116,6 @@ void glVertexAttrib3f_native(Dart_NativeArguments arguments);
 void glVertexAttrib3fv_native(Dart_NativeArguments arguments);
 void glVertexAttrib4f_native(Dart_NativeArguments arguments);
 void glVertexAttrib4fv_native(Dart_NativeArguments arguments);
-void glVertexAttribPointer_native(Dart_NativeArguments arguments);
 void glViewport_native(Dart_NativeArguments arguments);
 
 #endif // THIRD_PARTY_DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_

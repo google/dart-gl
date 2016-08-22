@@ -187,6 +187,4 @@ void glVertexAttrib3fv(int index, TypedData v) native "glVertexAttrib3fv";
 void glVertexAttrib4f(int index, double x, double y, double z, double w)
     native "glVertexAttrib4f";
 void glVertexAttrib4fv(int index, TypedData v) native "glVertexAttrib4fv";
-void glVertexAttribPointer(int index, int size, int type, bool normalized,
-    int stride, TypedData pointer) native "glVertexAttribPointer";
 void glViewport(int x, int y, int width, int height) native "glViewport";
