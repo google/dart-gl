@@ -3,8 +3,6 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-import 'dart:io';
-
 import 'package:gl/gl.dart';
 import 'package:glfw/glfw.dart';
 
@@ -18,5 +16,9 @@ void main() {
 
   glfwMakeContextCurrent(window);
   print(glGetString(GL_VERSION));
+
+  var shader = glGetIntegerv(GL_CURRENT_PROGRAM);
+  print('shader program: $shader');
+
   glfwTerminate();
 }
