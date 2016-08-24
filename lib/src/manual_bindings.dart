@@ -36,7 +36,7 @@ ActiveInfo glGetActiveAttrib(int program, int index) native "glGetActiveAttrib";
 
 /// Create an [ActiveInfo] object for the given [program] and [index]
 ActiveInfo glGetActiveUniform(int program, int index)
-    native "glGetActiveAttrib";
+    native "glGetActiveUniform";
 
 /// Returns a list of shaders attached to [program]
 List<int> glGetAttachedShaders(int program) native "glGetAttachedShaders";
