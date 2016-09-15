@@ -13,6 +13,7 @@ library gl;
 /// [OpenGL ES2 man pages](https://www.khronos.org/opengles/sdk/docs/man/)
 /// for more detail.
 
+import 'dart:typed_data' show TypedData;
 import 'dart-ext:gl_extension';
 
 part 'src/generated/gl_constants.dart';

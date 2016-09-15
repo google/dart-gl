@@ -36,8 +36,7 @@ void glClearColor(double red, double green, double blue, double alpha)
     native "glClearColor";
 void glClearDepthf(double d) native "glClearDepthf";
 void glClearStencil(int s) native "glClearStencil";
-void glColorMask(bool red, bool green, bool blue, bool alpha)
-    native "glColorMask";
+void glColorMask(int red, int green, int blue, int alpha) native "glColorMask";
 void glCompileShader(int shader) native "glCompileShader";
 void glCompressedTexImage2D(
     int target,
@@ -68,7 +67,7 @@ void glCullFace(int mode) native "glCullFace";
 void glDeleteProgram(int program) native "glDeleteProgram";
 void glDeleteShader(int shader) native "glDeleteShader";
 void glDepthFunc(int func) native "glDepthFunc";
-void glDepthMask(bool flag) native "glDepthMask";
+void glDepthMask(int flag) native "glDepthMask";
 void glDepthRangef(double n, double f) native "glDepthRangef";
 void glDetachShader(int program, int shader) native "glDetachShader";
 void glDisable(int cap) native "glDisable";
@@ -109,7 +108,7 @@ void glPolygonOffset(double factor, double units) native "glPolygonOffset";
 void glReleaseShaderCompiler() native "glReleaseShaderCompiler";
 void glRenderbufferStorage(int target, int internalformat, int width,
     int height) native "glRenderbufferStorage";
-void glSampleCoverage(double value, bool invert) native "glSampleCoverage";
+void glSampleCoverage(double value, int invert) native "glSampleCoverage";
 void glScissor(int x, int y, int width, int height) native "glScissor";
 void glStencilFunc(int func, int ref, int mask) native "glStencilFunc";
 void glStencilFuncSeparate(int face, int func, int ref, int mask)
@@ -169,12 +168,12 @@ void glUniform4i(int location, int v0, int v1, int v2, int v3)
     native "glUniform4i";
 void glUniform4iv(int location, int count, TypedData value)
     native "glUniform4iv";
-void glUniformMatrix2fv(int location, int count, bool transpose,
-    TypedData value) native "glUniformMatrix2fv";
-void glUniformMatrix3fv(int location, int count, bool transpose,
-    TypedData value) native "glUniformMatrix3fv";
-void glUniformMatrix4fv(int location, int count, bool transpose,
-    TypedData value) native "glUniformMatrix4fv";
+void glUniformMatrix2fv(int location, int count, int transpose, TypedData value)
+    native "glUniformMatrix2fv";
+void glUniformMatrix3fv(int location, int count, int transpose, TypedData value)
+    native "glUniformMatrix3fv";
+void glUniformMatrix4fv(int location, int count, int transpose, TypedData value)
+    native "glUniformMatrix4fv";
 void glUseProgram(int program) native "glUseProgram";
 void glValidateProgram(int program) native "glValidateProgram";
 void glVertexAttrib1f(int index, double x) native "glVertexAttrib1f";
