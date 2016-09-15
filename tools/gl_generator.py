@@ -107,7 +107,8 @@ def main():
       function_declarations=api_lines,
       has_manual_bindings=HAS_MANUAL_BINDINGS)
   gl_gen.alias_map.update(gl_alias_map)
-  gl_gen.type_map.update(gl_type_map)
+  gl_gen.input_type_map.update(gl_type_map)
+  gl_gen.return_type_map.update(gl_type_map)
   gl_gen.handle_to_c_map.update(gl_handle_c_map)
   gl_gen.new_handle_map.update(gl_new_handle_map)
   gl_gen.ret_hint_map.update(gl_return_type_hint_map)

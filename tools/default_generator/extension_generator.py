@@ -63,7 +63,7 @@ class CFunction(object):
   """
 
   def __init__(
-      self, c_def, type_map,
+      self, c_def, input_type_map, return_type_map,
       ret_type_hint_map=None,
       arg_type_hint_map=None):
     self.function_name = str()
@@ -77,7 +77,8 @@ class CFunction(object):
     self.needs_manual_bindings = False
     self.has_manual_bindings = False
 
-    self.type_map = type_map
+    self.input_type_map = input_type_map
+    self.return_type_map = return_type_map
     self.ret_type_hint_map = ret_type_hint_map
     self.arg_type_hint_map = arg_type_hint_map
 
@@ -94,11 +95,11 @@ class CFunction(object):
 
     try:
       if self.function_name in self.ret_type_hint_map:
-        self.dart_ret_type = self.type_map[
+        self.dart_ret_type = self.return_type_map[
             self.ret_type_hint_map[self.function_name]
         ]
       else:
-        self.dart_ret_type = self.type_map[self.c_ret_type]
+        self.dart_ret_type = self.return_type_map[self.c_ret_type]
     except KeyError:
       # there is some type we cannot handle, so this function's binding has to
       # be hand-written
@@ -120,7 +121,7 @@ class CFunction(object):
           self.dart_arguments.append([self.arg_type_hint_map[" ".join(
               [arg_type, arg_name])], arg_name])
         else:
-          self.dart_arguments.append([self.type_map[arg_type], arg_name])
+          self.dart_arguments.append([self.input_type_map[arg_type], arg_name])
       except KeyError:
         # there is some type we cannot handle, so this function's binding has to
         # be hand-written
@@ -155,7 +156,7 @@ class DefaultExtensionGenerator(object):
 
   Usage:
     gen = DefaultExtensioNGenerator()
-    gen.type_map.update({'GLvoid':'void'})
+    gen.return_type_map.update({'GLvoid':'void'})
     gen.generate_bindings()
 
   Attributes:
@@ -168,7 +169,10 @@ class DefaultExtensionGenerator(object):
     dart_constants: A list of Dart constant definitions for all defined
       constants passed in constant_defines.
     alias_map: A dict of C types:C types to undo typedefs, basically.
-    type_map: A dict of C types:Dart types to supplement the default map.
+    input_type_map: A dict of C types:Dart types for input arguments
+        to supplement the default map.
+    return_type_map: A dict of C types:Dart types for return values
+        to supplement the default map.
     handle_to_c_map: A dict of Dart types:C templates to marshal Dart_Handle
         objects into native C types.
     new_handle_map: A dict of C types:C templates to marshal the
@@ -182,9 +186,17 @@ class DefaultExtensionGenerator(object):
     arg_hint_map: A dict of C argument:Dart type to hint what type the Dart
         argument should be for all arguments with the exact type and name.
   """
-  default_type_map = {
+  default_input_type_map = {
       "int": "int",
-      "bool": "bool",
+      "bool": "int", # Treat bool values as ints, the way GL does.
+      "void": "void",
+      "const char*": "String",
+      "double": "double",
+      "float": "double",
+  }
+  default_return_type_map = {
+      "int": "int",
+      "bool": "bool", # Treat bool values as bools, so logical tests work
       "void": "void",
       "const char*": "String",
       "double": "double",
@@ -229,7 +241,8 @@ class DefaultExtensionGenerator(object):
 
     self.alias_map = dict()
 
-    self.type_map = {k: v for k, v in self.default_type_map.items()}
+    self.input_type_map = {k: v for k, v in self.default_input_type_map.items()}
+    self.return_type_map = {k: v for k, v in self.default_return_type_map.items()}
     self.handle_to_c_map = {
         k: v
         for k, v in self.default_handle_to_c_map.items()
@@ -259,7 +272,7 @@ class DefaultExtensionGenerator(object):
     self.dart_constants = self.parse_constant_defines(self.constant_defines)
     self.parse_functions()
     for func in self.c_functions:
-      if func.needs_manual_bindings:
+      if func.needs_manual_bindings or func.has_manual_bindings:
         self.needs_manual_binding_functions.append(func)
       else:
         self.bind_function(func)
@@ -269,8 +282,10 @@ class DefaultExtensionGenerator(object):
   def update_maps(self):
     """Update type_map and new_handle_map based on the alias_map."""
     for c_type, alias in self.alias_map.items():
-      if alias in self.type_map:
-        self.type_map[c_type] = self.type_map[alias]
+      if alias in self.input_type_map:
+        self.input_type_map[c_type] = self.input_type_map[alias]
+      if alias in self.return_type_map:
+        self.return_type_map[c_type] = self.return_type_map[alias]
       if alias in self.new_handle_map:
         self.new_handle_map[c_type] = self.new_handle_map[alias]
 
@@ -278,8 +293,7 @@ class DefaultExtensionGenerator(object):
     """Parse the C declarations into CFunctions and generate function_list."""
     self.c_functions = self.parse_function_declarations(self.c_declarations)
     for func in self.c_functions:
-      if func.needs_manual_bindings and (
-          func.function_name in self.has_manual_bindings):
+      if func.function_name in self.has_manual_bindings:
         func.has_manual_bindings = True
 
     self.function_list = self.generate_function_list(self.c_functions)
@@ -336,7 +350,7 @@ class DefaultExtensionGenerator(object):
       The corresponding CFunction object.
     """
     return CFunction(
-        declaration, self.type_map, self.ret_hint_map, self.arg_hint_map)
+        declaration, self.input_type_map, self.return_type_map, self.ret_hint_map, self.arg_hint_map)
 
   def generate_function_list(self, c_functions):
     """Generates a list of C arrays for name resolution.

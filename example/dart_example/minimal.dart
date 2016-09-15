@@ -20,5 +20,13 @@ void main() {
   var shader = glGetIntegerv(GL_CURRENT_PROGRAM);
   print('shader program: $shader');
 
+  // Note that boolean arguments (e.g., GL_TRUE below) are integer values
+  // (consistent with OpenGL), but return values are boolean to simplify
+  // the handling of return results.
+  print('close status: ${glfwWindowShouldCloseAsBool(window)}');
+  print('closing...');
+  glfwSetWindowShouldClose(window, GL_TRUE);
+  print('close status: ${glfwWindowShouldCloseAsBool(window)}');
+
   glfwTerminate();
 }
