@@ -27,12 +27,12 @@ but for distribution purposes it is less useful. It would be nice to have an
 option to use the .a library as well.
 
 ## Windows
-Test to work with NVIDIA, just requires building glfw with EGL support.
+Tested to work with NVIDIA, just requires building glfw with EGL support.
 
 ## Other Platforms
 TODO
 
-# Functions with interfaces with APIs different from GLES2.
+# Functions with interfaces with APIs different from GLES2
 If a function's only difference is moving pointer parameters to the return
 value, it is not listed. See `lib/src/manual_bindings.dart` for a full list.
 
@@ -53,3 +53,91 @@ value, it is not listed. See `lib/src/manual_bindings.dart` for a full list.
   format.
 - `glShaderSource` just takes the parameters `int shader` and `String string`.
   The original API is not really appropriate for Dart.
+
+# A note about OpenGL, the Dart VM, and native threads
+OpenGL is a thread-bound API.  That is, an OpenGL context must be bound (or
+"made current" on a thread before any other OpenGL functions may be called.
+
+The Dart VM uses a pool of native threads under the hood to carry out tasks
+on the event queue ([overview of the Dart event loop](https://webdev.dartlang.org/articles/performance/event-loop)).
+
+This leads to an unfortunate restriction on the use of asynchronous code while
+making OpenGL calls from Dart.  This is bad:
+
+```dart
+glfwMakeContextCurrent(context);
+
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+// other OpenGL calls ...
+
+// Wait for an async task to finish.
+await someFuture;
+
+// Draw a triangle.
+glDrawArrays(GL_TRIANGLES, 0, 3);
+// etc...
+```
+
+The issue is that the context is made current, then there is a call to await,
+which causes the current task to return to the event loop until `someFuture`
+completes.  When control returns to the next line, it may be running on a
+completely different native thread, where the context is not bound.
+
+To avoid this issue, the code must be changed to something resembling the
+following:
+
+```dart
+glfwMakeContextCurrent(context);
+
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+// other OpenGL calls ...
+
+// Release the context before waiting.
+glfwMakeContextCurrent(NULL);
+
+// Wait for an async task to finish.
+await someFuture;
+
+// We're back!  Reacquire the context.
+glfwMakeContextCurrent(context);
+
+// Draw a triangle.
+glDrawArrays(GL_TRIANGLES, 0, 3);
+// etc...
+```
+
+This way, the context is released from the thread before control returns to
+the event loop and then reacquired when it comes back.
+
+Note that this applies to any asynchronous code (not just an await).  Here's
+another bad example:
+
+```dart
+glfwMakeContextCurrent(context);
+
+glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+// other OpenGL calls ...
+
+// Load an image, then create a texture.
+var f = new File("image.rgb");
+f.readFileAsBytes().then((bytes) {
+  var tex = glGenTextures(1);
+  glBindTexture(GL_TEXTURE_2D, tex);
+  glTexImage2D(GL_TEXTURE_2D, 1, GL_RGBA, width, height, 0, GL_UNSIGNED_BYTE,
+      GL_RGBA, bytes);
+});
+
+// etc...
+```
+
+In this case, there's no guarantee that the callback to the `Future` returned
+by `readFileAsBytes` would be running on the same thread as the original task.
+
+In practice, most OpenGL code is written synchronously, as it's generally not
+advisable to be waiting for other tasks to complete while in the middle of
+rendering a frame.  However, it's important to be aware of this restriction.
+When making OpenGL calls, either avoid awaiting asynchronous methods and
+making OpenGL calls in async callbacks, or properly release the context and
+anytime control returns to the event loop, and reacquire it when ready to
+make OpenGL calls again.
+

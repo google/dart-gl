@@ -41,22 +41,22 @@ ActiveInfo glGetActiveUniform(int program, int index)
 /// Returns a list of shaders attached to [program]
 List<int> glGetAttachedShaders(int program) native "glGetAttachedShaders";
 
-/// Returns the [bool] result of [glGetBooleanv]
-bool glGetBooleanv(int pname) native "glGetBooleanv";
+/// Returns the [bool] result(s) of [glGetBooleanv]
+List<bool> glGetBooleanv(int pname) native "glGetBooleanv";
 
 /// Returns the [int] result of [glGetBufferParameteriv]
 int glGetBufferParameteriv(int target, int pname)
     native "glGetBufferParameteriv";
 
-/// Returns the [double] result of [glGetFloatv]
-double glFloatv(int pname) native "glGetFloatv";
+/// Returns the [double] result(s) of [glGetFloatv]
+List<double> glGetFloatv(int pname) native "glGetFloatv";
 
 /// Returns the [int] result of [glGetFramebufferAttachmentParameteriv]
 int glGetFramebufferAttachmentParameteriv(int target, int attachment, int pname)
     native "glGetFramebufferAttachmentParameteriv";
 
-/// Returns the [int] result of [glGetIntegerv]
-int glGetIntegerv(int pname) native "glGetIntegerv";
+/// Returns the [int] result(s) of [glGetIntegerv]
+List<int> glGetIntegerv(int pname) native "glGetIntegerv";
 
 /// Return the programiv as an [int]
 int glGetProgramiv(int program, int pname) native "glGetProgramiv";

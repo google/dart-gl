@@ -5,13 +5,13 @@
 
 #include <stdlib.h>
 
-#include "GLES2/gl2.h"
-#include "dart_api.h"
+#include "third_party/GL/gl/include/GLES2/gl2.h"
+#include "third_party/dart_lang/runtime/include/dart_api.h"
 
-#include "manual_bindings.h"
+#include "third_party/dart/gl/lib/src/manual_bindings.h"
 
-#include "instantiate_gl_classes.h"
-#include "util.h"
+#include "third_party/dart/gl/lib/src/instantiate_gl_classes.h"
+#include "third_party/dart/gl/lib/src/util.h"
 
 // This file contains native extension functions which have to be manually
 // written due to the corresponding C functions returning values via pointer
@@ -268,17 +268,25 @@ void glGetAttachedShaders_native(Dart_NativeArguments arguments) {
 }
 
 void glGetBooleanv_native(Dart_NativeArguments arguments) {
-  Dart_Handle pname_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
   int64_t pname = 0;
-  if (Dart_IsInteger(pname_obj)) {
-    HandleError(Dart_IntegerToInt64(pname_obj, &pname));
-  }
+  HandleError(Dart_GetNativeIntegerArgument(arguments, 0, &pname));
 
-  GLboolean data;
-  glGetBooleanv(pname, &data);
-  Dart_SetReturnValue(arguments,
-                      HandleError(Dart_NewBoolean(static_cast<bool>(data))));
+  int length = GetGlGetResultLength(pname);
+
+  Dart_Handle list;
+  if (length > 0) {
+    list = HandleError(Dart_NewList(length));
+    GLboolean *data = (GLboolean *)malloc(sizeof(GLboolean) * length);
+    glGetBooleanv(pname, data);
+    for (int i = 0; i < length; i++) {
+      Dart_Handle item = HandleError(Dart_NewBoolean((bool)data[i]));
+      HandleError(Dart_ListSetAt(list, (intptr_t)i, item));
+    }
+    free(data);
+  } else {
+    list = HandleError(Dart_NewList(0));
+  }
+  Dart_SetReturnValue(arguments, list);
 }
 
 void glGetBufferParameteriv_native(Dart_NativeArguments arguments) {
@@ -302,16 +310,25 @@ void glGetBufferParameteriv_native(Dart_NativeArguments arguments) {
 }
 
 void glGetFloatv_native(Dart_NativeArguments arguments) {
-  Dart_Handle pname_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
   int64_t pname = 0;
-  if (Dart_IsInteger(pname_obj)) {
-    HandleError(Dart_IntegerToInt64(pname_obj, &pname));
-  }
+  HandleError(Dart_GetNativeIntegerArgument(arguments, 0, &pname));
 
-  GLfloat data;
-  glGetFloatv(pname, &data);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewDouble(data)));
+  int length = GetGlGetResultLength(pname);
+
+  Dart_Handle list;
+  if (length > 0) {
+    list = HandleError(Dart_NewList(length));
+    GLfloat *data = (GLfloat *)malloc(sizeof(GLfloat) * length);
+    glGetFloatv(pname, data);
+    for (int i = 0; i < length; i++) {
+      Dart_Handle item = HandleError(Dart_NewDouble((double)data[i]));
+      HandleError(Dart_ListSetAt(list, (intptr_t)i, item));
+    }
+    free(data);
+  } else {
+    list = HandleError(Dart_NewList(0));
+  }
+  Dart_SetReturnValue(arguments, list);
 }
 
 void glGetFramebufferAttachmentParameteriv_native(
@@ -344,16 +361,25 @@ void glGetFramebufferAttachmentParameteriv_native(
 }
 
 void glGetIntegerv_native(Dart_NativeArguments arguments) {
-  Dart_Handle pname_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
   int64_t pname = 0;
-  if (Dart_IsInteger(pname_obj)) {
-    HandleError(Dart_IntegerToInt64(pname_obj, &pname));
-  }
+  HandleError(Dart_GetNativeIntegerArgument(arguments, 0, &pname));
 
-  GLint data;
-  glGetIntegerv(pname, &data);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(data)));
+  int length = GetGlGetResultLength(pname);
+
+  Dart_Handle list;
+  if (length > 0) {
+    list = HandleError(Dart_NewList(length));
+    GLint *data = (GLint *)malloc(sizeof(GLint) * length);
+    glGetIntegerv(pname, data);
+    for (int i = 0; i < length; i++) {
+      Dart_Handle item = HandleError(Dart_NewInteger((int64_t)data[i]));
+      HandleError(Dart_ListSetAt(list, (intptr_t)i, item));
+    }
+    free(data);
+  } else {
+    list = HandleError(Dart_NewList(0));
+  }
+  Dart_SetReturnValue(arguments, list);
 }
 
 void glGetProgramiv_native(Dart_NativeArguments arguments) {
