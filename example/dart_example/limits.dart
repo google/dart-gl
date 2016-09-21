@@ -42,6 +42,15 @@ void main() {
   print("  Fragment: ${glGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS)}");
   print("Max Vertex Attributes: ${glGetIntegerv(GL_MAX_VERTEX_ATTRIBS)}");
   print("Max Varying Vectors:   ${glGetIntegerv(GL_MAX_VARYING_VECTORS)}");
+  print("");
+  var formats = glGetIntegerv(GL_SHADER_BINARY_FORMATS)
+      .map((fmt) => "0x${fmt.toRadixString(16)}")
+      .toList();
+  print("Shader Binary Formats: $formats");
+  formats = glGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS)
+      .map((fmt) => "0x${fmt.toRadixString(16)}")
+      .toList();
+  print("Compressed Texture Formats: $formats");
 
   var empty = glGetIntegerv(0xf00d);
   if (empty.isNotEmpty) {
