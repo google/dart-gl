@@ -32,7 +32,7 @@ Dart_Handle Dart_IntegerToUInt(Dart_Handle integer, unsigned int *value) {
     return Dart_True();
   } else {
     char buf[50];  // Technically we only need 46 characters for this.
-    snprintf(buf, sizeof(buf), "%ld does not fit into an unsigned int.",
+    snprintf(buf, sizeof(buf), "%" PRId64 " does not fit into an unsigned int.",
              actual);
     return Dart_NewApiError(buf);
   }
@@ -43,9 +43,10 @@ Dart_Handle Dart_NewStringFromGLubyteString(const GLubyte *string) {
 }
 
 // The length of the resulting array of values for a call to glGetBooleanv,
-// glGetFloatv, or glGetIntegerv with the given parameter.  A resultLength
-// of 0 means that the list is variable length, and must be determined by
-// another call to glGetIntegerv.
+// glGetFloatv, or glGetIntegerv with the given parameter.  Note that some
+// parameters return a variable-length list of values. The length of the list
+// must be queried via another call to glGetIntegerv (these parameters are
+// not in the map below, but are handled specially in `GetGlGetResultLength`).
 const std::map<GLenum, GLint> kGlGetResultLengths = {
     {GL_ACTIVE_TEXTURE, 1},
     {GL_ALIASED_LINE_WIDTH_RANGE, 2},
@@ -63,7 +64,6 @@ const std::map<GLenum, GLint> kGlGetResultLengths = {
     {GL_BLUE_BITS, 1},
     {GL_COLOR_CLEAR_VALUE, 4},
     {GL_COLOR_WRITEMASK, 4},
-    {GL_COMPRESSED_TEXTURE_FORMATS, 0},
     {GL_CULL_FACE, 1},
     {GL_CULL_FACE_MODE, 1},
     {GL_CURRENT_PROGRAM, 1},
@@ -109,7 +109,6 @@ const std::map<GLenum, GLint> kGlGetResultLengths = {
     {GL_SAMPLES, 1},
     {GL_SCISSOR_BOX, 4},
     {GL_SCISSOR_TEST, 1},
-    {GL_SHADER_BINARY_FORMATS, 0},
     {GL_SHADER_COMPILER, 1},
     {GL_STENCIL_CLEAR_VALUE, 1},
     {GL_STENCIL_BACK_FAIL, 1},
