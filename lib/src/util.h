@@ -6,8 +6,8 @@
 #ifndef THIRD_PARTY_DART_GL_LIB_SRC_UTIL_H_
 #define THIRD_PARTY_DART_GL_LIB_SRC_UTIL_H_
 
-#include "third_party/GL/gl/include/GLES2/gl2.h"
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "GLES2/gl2.h"
+#include "dart_api.h"
 
 Dart_Handle HandleError(Dart_Handle handle);
 Dart_Handle Dart_IntegerToUInt(Dart_Handle integer, unsigned int* value);
@@ -16,5 +16,28 @@ Dart_Handle Dart_NewStringFromGLubyteString(const GLubyte* string);
 // Fetches the length of the array of return values for a call to
 // glGetBooleanv, glGetFloatv, or glGetIntegerv.
 GLint GetGlGetResultLength(GLenum param);
+
+#if defined(GL_TRACING)
+#include "dart_tools_api.h"
+#define TRACE_START(name)                                \
+  Dart_TimelineEvent(#name, Dart_TimelineGetMicros(), 0, \
+                     Dart_Timeline_Event_Begin, 0, NULL, NULL)
+#define TRACE_END(name)                                  \
+  Dart_TimelineEvent(#name, Dart_TimelineGetMicros(), 0, \
+                     Dart_Timeline_Event_End, 0, NULL, NULL)
+#else
+#define TRACE_START(name) \
+  do {                    \
+  } while (0)
+#define TRACE_END(name) \
+  do {                  \
+  } while (0)
+#endif
+
+#if defined(GL_TESTING)
+#define HANDLE(handle) HandleError(handle)
+#else
+#define HANDLE(handle) handle
+#endif
 
 #endif  // THIRD_PARTY_DART_GL_LIB_SRC_UTIL_H_

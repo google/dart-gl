@@ -52,19 +52,25 @@ void check_error() {
 }
 
 void get_shader_error(int shader) {
-  String strInfoLog = glGetShaderInfoLog(shader);
-  if (strInfoLog.length > 0) {
-    stderr.writeln("Compile failure in shader:\n$strInfoLog\n");
+  int err = glGetShaderiv(shader, GL_COMPILE_STATUS);
+  if (err == GL_FALSE) {
+    String strInfoLog = glGetShaderInfoLog(shader);
+    if (strInfoLog.length > 0) {
+      stderr.writeln("Compile failure in shader:\n$strInfoLog\n");
 
-    String shaderSource = glGetShaderSource(shader);
-    stderr.writeln("Shader source: \n$shaderSource\n");
+      String shaderSource = glGetShaderSource(shader);
+      stderr.writeln("Shader source: \n$shaderSource\n");
+    }
   }
 }
 
 void get_program_error(int program) {
-  String strInfoLog = glGetProgramInfoLog(program);
-  if (strInfoLog.length > 0) {
-    stderr.writeln("Program error:\n$strInfoLog\n");
+  int err = glGetProgramiv(program, GL_LINK_STATUS);
+  if (err == GL_FALSE) {
+    String strInfoLog = glGetProgramInfoLog(program);
+    if (strInfoLog.length > 0) {
+      stderr.writeln("Program error:\n$strInfoLog\n");
+    }
   }
 }
 

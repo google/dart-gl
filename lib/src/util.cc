@@ -11,10 +11,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "third_party/GL/gl/include/GLES2/gl2.h"
-#include "third_party/dart_lang/runtime/include/dart_api.h"
+#include "GLES2/gl2.h"
+#include "dart_api.h"
 
-#include "third_party/dart/gl/lib/src/util.h"
+#include "util.h"
 
 Dart_Handle HandleError(Dart_Handle handle) {
   if (Dart_IsError(handle)) {

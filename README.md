@@ -5,14 +5,15 @@ due to platform requirements that the main thread be the one handling events.
 
 # Steps to generate the bindings
 ```shell
-mkdir lib/src/generated/
-cd tools
-./generate_bindings.sh
-cp generated/* ../lib/src/generated/
+pub run tools/gl_generate.dart
+mv tools/generated lib/src/
 ```
 # Steps to compile the bindings
 
-Set DART_INCLUDE, GL_INCLUDE, GL_LIB and GL_LIB_NAME.
+## Linux with GNU Make:
+If your `dart_api.h`, `GLES2/gl2.h`, or `libGL.so` files are not in the
+standard locations, set the enviroment variables `DART_INCLUDE`, `GL_INCLUDE`,
+and/or `GL_LIB` and `GL_LIB_NAME` and run the following commands.
 
 ```shell
 cd lib/
@@ -56,7 +57,7 @@ value, it is not listed. See `lib/src/manual_bindings.dart` for a full list.
 
 # A note about OpenGL, the Dart VM, and native threads
 OpenGL is a thread-bound API.  That is, an OpenGL context must be bound (or
-"made current" on a thread before any other OpenGL functions may be called.
+"made current") on a thread before any other OpenGL functions may be called.
 
 The Dart VM uses a pool of native threads under the hood to carry out tasks
 on the event queue ([overview of the Dart event loop](https://webdev.dartlang.org/articles/performance/event-loop)).

@@ -9,2566 +9,1836 @@
 #include <string.h>
 
 #include "GLES2/gl2.h"
-#include "dart_api.h"
 
 #include "gl_bindings.h"
-#include "util.h"
+#include "../util.h"
 
 // Generated GL function bindings for Dart.
 
 void glActiveTexture_native(Dart_NativeArguments arguments) {
-  Dart_Handle texture_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t texture = 0;
-  if (Dart_IsInteger(texture_obj)) {
-    HandleError(Dart_IntegerToInt64(texture_obj, &texture));
-  }
+  TRACE_START(glActiveTexture_);
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &texture));
 
   glActiveTexture(texture);
+
+  TRACE_END(glActiveTexture_);
 }
 
 void glAttachShader_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glAttachShader_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
-
-  Dart_Handle shader_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t shader = 0;
-  if (Dart_IsInteger(shader_obj)) {
-    HandleError(Dart_IntegerToInt64(shader_obj, &shader));
-  }
+  int64_t shader;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &shader));
 
   glAttachShader(program, shader);
+
+  TRACE_END(glAttachShader_);
 }
 
 void glBindAttribLocation_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBindAttribLocation_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &index));
 
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
-
-  Dart_Handle name_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  const char* name = NULL;
-  if (Dart_IsString(name_obj)) {
-    HandleError(Dart_StringToCString(name_obj, &name));
-  }
+  void* name_peer = NULL;
+  Dart_Handle name_arg =
+      HANDLE(Dart_GetNativeStringArgument(arguments, 2, (void**)&name_peer));
+  const char* name;
+  HANDLE(Dart_StringToCString(name_arg, &name));
 
   glBindAttribLocation(program, index, name);
+
+  TRACE_END(glBindAttribLocation_);
 }
 
 void glBindBuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBindBuffer_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
-
-  Dart_Handle buffer_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t buffer = 0;
-  if (Dart_IsInteger(buffer_obj)) {
-    HandleError(Dart_IntegerToInt64(buffer_obj, &buffer));
-  }
+  int64_t buffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &buffer));
 
   glBindBuffer(target, buffer);
+
+  TRACE_END(glBindBuffer_);
 }
 
 void glBindFramebuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBindFramebuffer_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
-
-  Dart_Handle framebuffer_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t framebuffer = 0;
-  if (Dart_IsInteger(framebuffer_obj)) {
-    HandleError(Dart_IntegerToInt64(framebuffer_obj, &framebuffer));
-  }
+  int64_t framebuffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &framebuffer));
 
   glBindFramebuffer(target, framebuffer);
+
+  TRACE_END(glBindFramebuffer_);
 }
 
 void glBindRenderbuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBindRenderbuffer_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
-
-  Dart_Handle renderbuffer_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t renderbuffer = 0;
-  if (Dart_IsInteger(renderbuffer_obj)) {
-    HandleError(Dart_IntegerToInt64(renderbuffer_obj, &renderbuffer));
-  }
+  int64_t renderbuffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &renderbuffer));
 
   glBindRenderbuffer(target, renderbuffer);
+
+  TRACE_END(glBindRenderbuffer_);
 }
 
 void glBindTexture_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBindTexture_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
-
-  Dart_Handle texture_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t texture = 0;
-  if (Dart_IsInteger(texture_obj)) {
-    HandleError(Dart_IntegerToInt64(texture_obj, &texture));
-  }
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &texture));
 
   glBindTexture(target, texture);
+
+  TRACE_END(glBindTexture_);
 }
 
 void glBlendColor_native(Dart_NativeArguments arguments) {
-  Dart_Handle red_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBlendColor_);
+  double red;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &red));
 
-  double red = 0.0;
-  if (Dart_IsDouble(red_obj)) {
-    HandleError(Dart_DoubleValue(red_obj, &red));
-  }
+  double green;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &green));
 
-  Dart_Handle green_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double blue;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &blue));
 
-  double green = 0.0;
-  if (Dart_IsDouble(green_obj)) {
-    HandleError(Dart_DoubleValue(green_obj, &green));
-  }
-
-  Dart_Handle blue_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  double blue = 0.0;
-  if (Dart_IsDouble(blue_obj)) {
-    HandleError(Dart_DoubleValue(blue_obj, &blue));
-  }
-
-  Dart_Handle alpha_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  double alpha = 0.0;
-  if (Dart_IsDouble(alpha_obj)) {
-    HandleError(Dart_DoubleValue(alpha_obj, &alpha));
-  }
+  double alpha;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &alpha));
 
   glBlendColor(red, green, blue, alpha);
+
+  TRACE_END(glBlendColor_);
 }
 
 void glBlendEquation_native(Dart_NativeArguments arguments) {
-  Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t mode = 0;
-  if (Dart_IsInteger(mode_obj)) {
-    HandleError(Dart_IntegerToInt64(mode_obj, &mode));
-  }
+  TRACE_START(glBlendEquation_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
 
   glBlendEquation(mode);
+
+  TRACE_END(glBlendEquation_);
 }
 
 void glBlendEquationSeparate_native(Dart_NativeArguments arguments) {
-  Dart_Handle modeRGB_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBlendEquationSeparate_);
+  int64_t modeRGB;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &modeRGB));
 
-  int64_t modeRGB = 0;
-  if (Dart_IsInteger(modeRGB_obj)) {
-    HandleError(Dart_IntegerToInt64(modeRGB_obj, &modeRGB));
-  }
-
-  Dart_Handle modeAlpha_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t modeAlpha = 0;
-  if (Dart_IsInteger(modeAlpha_obj)) {
-    HandleError(Dart_IntegerToInt64(modeAlpha_obj, &modeAlpha));
-  }
+  int64_t modeAlpha;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &modeAlpha));
 
   glBlendEquationSeparate(modeRGB, modeAlpha);
+
+  TRACE_END(glBlendEquationSeparate_);
 }
 
 void glBlendFunc_native(Dart_NativeArguments arguments) {
-  Dart_Handle sfactor_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBlendFunc_);
+  int64_t sfactor;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &sfactor));
 
-  int64_t sfactor = 0;
-  if (Dart_IsInteger(sfactor_obj)) {
-    HandleError(Dart_IntegerToInt64(sfactor_obj, &sfactor));
-  }
-
-  Dart_Handle dfactor_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t dfactor = 0;
-  if (Dart_IsInteger(dfactor_obj)) {
-    HandleError(Dart_IntegerToInt64(dfactor_obj, &dfactor));
-  }
+  int64_t dfactor;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &dfactor));
 
   glBlendFunc(sfactor, dfactor);
+
+  TRACE_END(glBlendFunc_);
 }
 
 void glBlendFuncSeparate_native(Dart_NativeArguments arguments) {
-  Dart_Handle sfactorRGB_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBlendFuncSeparate_);
+  int64_t srcRGB;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &srcRGB));
 
-  int64_t sfactorRGB = 0;
-  if (Dart_IsInteger(sfactorRGB_obj)) {
-    HandleError(Dart_IntegerToInt64(sfactorRGB_obj, &sfactorRGB));
-  }
+  int64_t dstRGB;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &dstRGB));
 
-  Dart_Handle dfactorRGB_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t srcAlpha;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &srcAlpha));
 
-  int64_t dfactorRGB = 0;
-  if (Dart_IsInteger(dfactorRGB_obj)) {
-    HandleError(Dart_IntegerToInt64(dfactorRGB_obj, &dfactorRGB));
-  }
+  int64_t dstAlpha;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &dstAlpha));
 
-  Dart_Handle sfactorAlpha_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 2));
+  glBlendFuncSeparate(srcRGB, dstRGB, srcAlpha, dstAlpha);
 
-  int64_t sfactorAlpha = 0;
-  if (Dart_IsInteger(sfactorAlpha_obj)) {
-    HandleError(Dart_IntegerToInt64(sfactorAlpha_obj, &sfactorAlpha));
-  }
-
-  Dart_Handle dfactorAlpha_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t dfactorAlpha = 0;
-  if (Dart_IsInteger(dfactorAlpha_obj)) {
-    HandleError(Dart_IntegerToInt64(dfactorAlpha_obj, &dfactorAlpha));
-  }
-
-  glBlendFuncSeparate(sfactorRGB, dfactorRGB, sfactorAlpha, dfactorAlpha);
+  TRACE_END(glBlendFuncSeparate_);
 }
 
 void glBufferData_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBufferData_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
+  int64_t size;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &size));
+
+  Dart_Handle data_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* data_data = nullptr;
+  Dart_TypedData_Type data_typeddata_type;
+  intptr_t data_typeddata_length;
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data,
+                                     &data_typeddata_length));
   }
+  const GLvoid* data = static_cast<const GLvoid*>(data_data);
 
-  Dart_Handle size_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t size = 0;
-  if (Dart_IsInteger(size_obj)) {
-    HandleError(Dart_IntegerToInt64(size_obj, &size));
-  }
-
-  Dart_Handle data_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* data_data = NULL;
-  Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t data_typeddata_length = 0;
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
-                                          &data_data, &data_typeddata_length));
-  }
-  const void* data = static_cast<const void*>(data_data);
-
-  Dart_Handle usage_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t usage = 0;
-  if (Dart_IsInteger(usage_obj)) {
-    HandleError(Dart_IntegerToInt64(usage_obj, &usage));
-  }
+  int64_t usage;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &usage));
 
   glBufferData(target, size, data, usage);
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataReleaseData(data_obj));
+
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(data_obj));
   }
+
+  TRACE_END(glBufferData_);
 }
 
 void glBufferSubData_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glBufferSubData_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
+  int64_t offset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &offset));
+
+  int64_t size;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &size));
+
+  Dart_Handle data_obj = HANDLE(Dart_GetNativeArgument(arguments, 3));
+  void* data_data = nullptr;
+  Dart_TypedData_Type data_typeddata_type;
+  intptr_t data_typeddata_length;
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data,
+                                     &data_typeddata_length));
   }
-
-  Dart_Handle offset_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t offset = 0;
-  if (Dart_IsInteger(offset_obj)) {
-    HandleError(Dart_IntegerToInt64(offset_obj, &offset));
-  }
-
-  Dart_Handle size_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t size = 0;
-  if (Dart_IsInteger(size_obj)) {
-    HandleError(Dart_IntegerToInt64(size_obj, &size));
-  }
-
-  Dart_Handle data_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  void* data_data = NULL;
-  Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t data_typeddata_length = 0;
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
-                                          &data_data, &data_typeddata_length));
-  }
-  const void* data = static_cast<const void*>(data_data);
+  const GLvoid* data = static_cast<const GLvoid*>(data_data);
 
   glBufferSubData(target, offset, size, data);
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataReleaseData(data_obj));
+
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(data_obj));
   }
+
+  TRACE_END(glBufferSubData_);
 }
 
 void glCheckFramebufferStatus_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  TRACE_START(glCheckFramebufferStatus_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
   GLenum ret = glCheckFramebufferStatus(target);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glCheckFramebufferStatus_);
 }
 
 void glClear_native(Dart_NativeArguments arguments) {
-  Dart_Handle mask_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t mask = 0;
-  if (Dart_IsInteger(mask_obj)) {
-    HandleError(Dart_IntegerToInt64(mask_obj, &mask));
-  }
+  TRACE_START(glClear_);
+  int64_t mask;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mask));
 
   glClear(mask);
+
+  TRACE_END(glClear_);
 }
 
 void glClearColor_native(Dart_NativeArguments arguments) {
-  Dart_Handle red_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glClearColor_);
+  double red;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &red));
 
-  double red = 0.0;
-  if (Dart_IsDouble(red_obj)) {
-    HandleError(Dart_DoubleValue(red_obj, &red));
-  }
+  double green;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &green));
 
-  Dart_Handle green_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double blue;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &blue));
 
-  double green = 0.0;
-  if (Dart_IsDouble(green_obj)) {
-    HandleError(Dart_DoubleValue(green_obj, &green));
-  }
-
-  Dart_Handle blue_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  double blue = 0.0;
-  if (Dart_IsDouble(blue_obj)) {
-    HandleError(Dart_DoubleValue(blue_obj, &blue));
-  }
-
-  Dart_Handle alpha_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  double alpha = 0.0;
-  if (Dart_IsDouble(alpha_obj)) {
-    HandleError(Dart_DoubleValue(alpha_obj, &alpha));
-  }
+  double alpha;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &alpha));
 
   glClearColor(red, green, blue, alpha);
+
+  TRACE_END(glClearColor_);
 }
 
 void glClearDepthf_native(Dart_NativeArguments arguments) {
-  Dart_Handle d_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glClearDepthf_);
+  double depth;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &depth));
 
-  double d = 0.0;
-  if (Dart_IsDouble(d_obj)) {
-    HandleError(Dart_DoubleValue(d_obj, &d));
-  }
+  glClearDepthf(depth);
 
-  glClearDepthf(d);
+  TRACE_END(glClearDepthf_);
 }
 
 void glClearStencil_native(Dart_NativeArguments arguments) {
-  Dart_Handle s_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t s = 0;
-  if (Dart_IsInteger(s_obj)) {
-    HandleError(Dart_IntegerToInt64(s_obj, &s));
-  }
+  TRACE_START(glClearStencil_);
+  int64_t s;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &s));
 
   glClearStencil(s);
+
+  TRACE_END(glClearStencil_);
 }
 
 void glColorMask_native(Dart_NativeArguments arguments) {
-  Dart_Handle red_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glColorMask_);
+  int64_t red;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &red));
 
-  int64_t red = 0;
-  if (Dart_IsInteger(red_obj)) {
-    HandleError(Dart_IntegerToInt64(red_obj, &red));
-  }
+  int64_t green;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &green));
 
-  Dart_Handle green_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t blue;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &blue));
 
-  int64_t green = 0;
-  if (Dart_IsInteger(green_obj)) {
-    HandleError(Dart_IntegerToInt64(green_obj, &green));
-  }
-
-  Dart_Handle blue_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t blue = 0;
-  if (Dart_IsInteger(blue_obj)) {
-    HandleError(Dart_IntegerToInt64(blue_obj, &blue));
-  }
-
-  Dart_Handle alpha_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t alpha = 0;
-  if (Dart_IsInteger(alpha_obj)) {
-    HandleError(Dart_IntegerToInt64(alpha_obj, &alpha));
-  }
+  int64_t alpha;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &alpha));
 
   glColorMask(red, green, blue, alpha);
+
+  TRACE_END(glColorMask_);
 }
 
 void glCompileShader_native(Dart_NativeArguments arguments) {
-  Dart_Handle shader_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t shader = 0;
-  if (Dart_IsInteger(shader_obj)) {
-    HandleError(Dart_IntegerToInt64(shader_obj, &shader));
-  }
+  TRACE_START(glCompileShader_);
+  int64_t shader;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &shader));
 
   glCompileShader(shader);
+
+  TRACE_END(glCompileShader_);
 }
 
 void glCompressedTexImage2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glCompressedTexImage2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
+
+  int64_t internalformat;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &internalformat));
+
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &width));
+
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &height));
+
+  int64_t border;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &border));
+
+  int64_t imageSize;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &imageSize));
+
+  Dart_Handle data_obj = HANDLE(Dart_GetNativeArgument(arguments, 7));
+  void* data_data = nullptr;
+  Dart_TypedData_Type data_typeddata_type;
+  intptr_t data_typeddata_length;
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data,
+                                     &data_typeddata_length));
   }
-
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
-
-  Dart_Handle internalformat_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t internalformat = 0;
-  if (Dart_IsInteger(internalformat_obj)) {
-    HandleError(Dart_IntegerToInt64(internalformat_obj, &internalformat));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
-
-  Dart_Handle border_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  int64_t border = 0;
-  if (Dart_IsInteger(border_obj)) {
-    HandleError(Dart_IntegerToInt64(border_obj, &border));
-  }
-
-  Dart_Handle imageSize_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
-
-  int64_t imageSize = 0;
-  if (Dart_IsInteger(imageSize_obj)) {
-    HandleError(Dart_IntegerToInt64(imageSize_obj, &imageSize));
-  }
-
-  Dart_Handle data_obj = HandleError(Dart_GetNativeArgument(arguments, 7));
-
-  void* data_data = NULL;
-  Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t data_typeddata_length = 0;
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
-                                          &data_data, &data_typeddata_length));
-  }
-  const void* data = static_cast<const void*>(data_data);
+  const GLvoid* data = static_cast<const GLvoid*>(data_data);
 
   glCompressedTexImage2D(target, level, internalformat, width, height, border,
                          imageSize, data);
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataReleaseData(data_obj));
+
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(data_obj));
   }
+
+  TRACE_END(glCompressedTexImage2D_);
 }
 
 void glCompressedTexSubImage2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glCompressedTexSubImage2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
+
+  int64_t xoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &xoffset));
+
+  int64_t yoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &yoffset));
+
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &width));
+
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &height));
+
+  int64_t format;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &format));
+
+  int64_t imageSize;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 7, &imageSize));
+
+  Dart_Handle data_obj = HANDLE(Dart_GetNativeArgument(arguments, 8));
+  void* data_data = nullptr;
+  Dart_TypedData_Type data_typeddata_type;
+  intptr_t data_typeddata_length;
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data,
+                                     &data_typeddata_length));
   }
-
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
-
-  Dart_Handle xoffset_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t xoffset = 0;
-  if (Dart_IsInteger(xoffset_obj)) {
-    HandleError(Dart_IntegerToInt64(xoffset_obj, &xoffset));
-  }
-
-  Dart_Handle yoffset_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t yoffset = 0;
-  if (Dart_IsInteger(yoffset_obj)) {
-    HandleError(Dart_IntegerToInt64(yoffset_obj, &yoffset));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
-
-  Dart_Handle format_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
-
-  int64_t format = 0;
-  if (Dart_IsInteger(format_obj)) {
-    HandleError(Dart_IntegerToInt64(format_obj, &format));
-  }
-
-  Dart_Handle imageSize_obj = HandleError(Dart_GetNativeArgument(arguments, 7));
-
-  int64_t imageSize = 0;
-  if (Dart_IsInteger(imageSize_obj)) {
-    HandleError(Dart_IntegerToInt64(imageSize_obj, &imageSize));
-  }
-
-  Dart_Handle data_obj = HandleError(Dart_GetNativeArgument(arguments, 8));
-
-  void* data_data = NULL;
-  Dart_TypedData_Type data_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t data_typeddata_length = 0;
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type,
-                                          &data_data, &data_typeddata_length));
-  }
-  const void* data = static_cast<const void*>(data_data);
+  const GLvoid* data = static_cast<const GLvoid*>(data_data);
 
   glCompressedTexSubImage2D(target, level, xoffset, yoffset, width, height,
                             format, imageSize, data);
-  if (Dart_IsTypedData(data_obj) && !Dart_IsNull(data_obj)) {
-    HandleError(Dart_TypedDataReleaseData(data_obj));
+
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(data_obj));
   }
+
+  TRACE_END(glCompressedTexSubImage2D_);
 }
 
 void glCopyTexImage2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glCopyTexImage2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
 
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t internalformat;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &internalformat));
 
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &x));
 
-  Dart_Handle internalformat_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 2));
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &y));
 
-  int64_t internalformat = 0;
-  if (Dart_IsInteger(internalformat_obj)) {
-    HandleError(Dart_IntegerToInt64(internalformat_obj, &internalformat));
-  }
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &width));
 
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &height));
 
-  int64_t x = 0;
-  if (Dart_IsInteger(x_obj)) {
-    HandleError(Dart_IntegerToInt64(x_obj, &x));
-  }
-
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t y = 0;
-  if (Dart_IsInteger(y_obj)) {
-    HandleError(Dart_IntegerToInt64(y_obj, &y));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
-
-  Dart_Handle border_obj = HandleError(Dart_GetNativeArgument(arguments, 7));
-
-  int64_t border = 0;
-  if (Dart_IsInteger(border_obj)) {
-    HandleError(Dart_IntegerToInt64(border_obj, &border));
-  }
+  int64_t border;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 7, &border));
 
   glCopyTexImage2D(target, level, internalformat, x, y, width, height, border);
+
+  TRACE_END(glCopyTexImage2D_);
 }
 
 void glCopyTexSubImage2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glCopyTexSubImage2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
 
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t xoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &xoffset));
 
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
+  int64_t yoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &yoffset));
 
-  Dart_Handle xoffset_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &x));
 
-  int64_t xoffset = 0;
-  if (Dart_IsInteger(xoffset_obj)) {
-    HandleError(Dart_IntegerToInt64(xoffset_obj, &xoffset));
-  }
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &y));
 
-  Dart_Handle yoffset_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &width));
 
-  int64_t yoffset = 0;
-  if (Dart_IsInteger(yoffset_obj)) {
-    HandleError(Dart_IntegerToInt64(yoffset_obj, &yoffset));
-  }
-
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t x = 0;
-  if (Dart_IsInteger(x_obj)) {
-    HandleError(Dart_IntegerToInt64(x_obj, &x));
-  }
-
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  int64_t y = 0;
-  if (Dart_IsInteger(y_obj)) {
-    HandleError(Dart_IntegerToInt64(y_obj, &y));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 7));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 7, &height));
 
   glCopyTexSubImage2D(target, level, xoffset, yoffset, x, y, width, height);
+
+  TRACE_END(glCopyTexSubImage2D_);
 }
 
 void glCreateProgram_native(Dart_NativeArguments arguments) {
+  TRACE_START(glCreateProgram_);
   GLuint ret = glCreateProgram();
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glCreateProgram_);
 }
 
 void glCreateShader_native(Dart_NativeArguments arguments) {
-  Dart_Handle type_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t type = 0;
-  if (Dart_IsInteger(type_obj)) {
-    HandleError(Dart_IntegerToInt64(type_obj, &type));
-  }
+  TRACE_START(glCreateShader_);
+  int64_t type;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &type));
 
   GLuint ret = glCreateShader(type);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glCreateShader_);
 }
 
 void glCullFace_native(Dart_NativeArguments arguments) {
-  Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t mode = 0;
-  if (Dart_IsInteger(mode_obj)) {
-    HandleError(Dart_IntegerToInt64(mode_obj, &mode));
-  }
+  TRACE_START(glCullFace_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
 
   glCullFace(mode);
+
+  TRACE_END(glCullFace_);
 }
 
 void glDeleteProgram_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  TRACE_START(glDeleteProgram_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
   glDeleteProgram(program);
+
+  TRACE_END(glDeleteProgram_);
 }
 
 void glDeleteShader_native(Dart_NativeArguments arguments) {
-  Dart_Handle shader_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t shader = 0;
-  if (Dart_IsInteger(shader_obj)) {
-    HandleError(Dart_IntegerToInt64(shader_obj, &shader));
-  }
+  TRACE_START(glDeleteShader_);
+  int64_t shader;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &shader));
 
   glDeleteShader(shader);
+
+  TRACE_END(glDeleteShader_);
 }
 
 void glDepthFunc_native(Dart_NativeArguments arguments) {
-  Dart_Handle func_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t func = 0;
-  if (Dart_IsInteger(func_obj)) {
-    HandleError(Dart_IntegerToInt64(func_obj, &func));
-  }
+  TRACE_START(glDepthFunc_);
+  int64_t func;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &func));
 
   glDepthFunc(func);
+
+  TRACE_END(glDepthFunc_);
 }
 
 void glDepthMask_native(Dart_NativeArguments arguments) {
-  Dart_Handle flag_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t flag = 0;
-  if (Dart_IsInteger(flag_obj)) {
-    HandleError(Dart_IntegerToInt64(flag_obj, &flag));
-  }
+  TRACE_START(glDepthMask_);
+  int64_t flag;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &flag));
 
   glDepthMask(flag);
+
+  TRACE_END(glDepthMask_);
 }
 
 void glDepthRangef_native(Dart_NativeArguments arguments) {
-  Dart_Handle n_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glDepthRangef_);
+  double zNear;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &zNear));
 
-  double n = 0.0;
-  if (Dart_IsDouble(n_obj)) {
-    HandleError(Dart_DoubleValue(n_obj, &n));
-  }
+  double zFar;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &zFar));
 
-  Dart_Handle f_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  glDepthRangef(zNear, zFar);
 
-  double f = 0.0;
-  if (Dart_IsDouble(f_obj)) {
-    HandleError(Dart_DoubleValue(f_obj, &f));
-  }
-
-  glDepthRangef(n, f);
+  TRACE_END(glDepthRangef_);
 }
 
 void glDetachShader_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glDetachShader_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
-
-  Dart_Handle shader_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t shader = 0;
-  if (Dart_IsInteger(shader_obj)) {
-    HandleError(Dart_IntegerToInt64(shader_obj, &shader));
-  }
+  int64_t shader;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &shader));
 
   glDetachShader(program, shader);
+
+  TRACE_END(glDetachShader_);
 }
 
 void glDisable_native(Dart_NativeArguments arguments) {
-  Dart_Handle cap_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t cap = 0;
-  if (Dart_IsInteger(cap_obj)) {
-    HandleError(Dart_IntegerToInt64(cap_obj, &cap));
-  }
+  TRACE_START(glDisable_);
+  int64_t cap;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &cap));
 
   glDisable(cap);
+
+  TRACE_END(glDisable_);
 }
 
 void glDisableVertexAttribArray_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
+  TRACE_START(glDisableVertexAttribArray_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
 
   glDisableVertexAttribArray(index);
+
+  TRACE_END(glDisableVertexAttribArray_);
 }
 
 void glDrawArrays_native(Dart_NativeArguments arguments) {
-  Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glDrawArrays_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
 
-  int64_t mode = 0;
-  if (Dart_IsInteger(mode_obj)) {
-    HandleError(Dart_IntegerToInt64(mode_obj, &mode));
-  }
+  int64_t first;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &first));
 
-  Dart_Handle first_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t first = 0;
-  if (Dart_IsInteger(first_obj)) {
-    HandleError(Dart_IntegerToInt64(first_obj, &first));
-  }
-
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &count));
 
   glDrawArrays(mode, first, count);
+
+  TRACE_END(glDrawArrays_);
 }
 
 void glDrawElements_native(Dart_NativeArguments arguments) {
-  Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glDrawElements_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
 
-  int64_t mode = 0;
-  if (Dart_IsInteger(mode_obj)) {
-    HandleError(Dart_IntegerToInt64(mode_obj, &mode));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  int64_t type;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &type));
+
+  Dart_Handle indices_obj = HANDLE(Dart_GetNativeArgument(arguments, 3));
+  void* indices_data = nullptr;
+  Dart_TypedData_Type indices_typeddata_type;
+  intptr_t indices_typeddata_length;
+  if (!Dart_IsNull(indices_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(indices_obj, &indices_typeddata_type,
+                                     &indices_data, &indices_typeddata_length));
   }
-
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle type_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t type = 0;
-  if (Dart_IsInteger(type_obj)) {
-    HandleError(Dart_IntegerToInt64(type_obj, &type));
-  }
-
-  Dart_Handle indices_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  void* indices_data = NULL;
-  Dart_TypedData_Type indices_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t indices_typeddata_length = 0;
-  if (Dart_IsTypedData(indices_obj) && !Dart_IsNull(indices_obj)) {
-    HandleError(Dart_TypedDataAcquireData(indices_obj, &indices_typeddata_type,
-                                          &indices_data,
-                                          &indices_typeddata_length));
-  }
-  const void* indices = static_cast<const void*>(indices_data);
+  const GLvoid* indices = static_cast<const GLvoid*>(indices_data);
 
   glDrawElements(mode, count, type, indices);
-  if (Dart_IsTypedData(indices_obj) && !Dart_IsNull(indices_obj)) {
-    HandleError(Dart_TypedDataReleaseData(indices_obj));
+
+  if (!Dart_IsNull(indices_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(indices_obj));
   }
+
+  TRACE_END(glDrawElements_);
 }
 
 void glEnable_native(Dart_NativeArguments arguments) {
-  Dart_Handle cap_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t cap = 0;
-  if (Dart_IsInteger(cap_obj)) {
-    HandleError(Dart_IntegerToInt64(cap_obj, &cap));
-  }
+  TRACE_START(glEnable_);
+  int64_t cap;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &cap));
 
   glEnable(cap);
+
+  TRACE_END(glEnable_);
 }
 
 void glEnableVertexAttribArray_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
+  TRACE_START(glEnableVertexAttribArray_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
 
   glEnableVertexAttribArray(index);
+
+  TRACE_END(glEnableVertexAttribArray_);
 }
 
-void glFinish_native(Dart_NativeArguments arguments) { glFinish(); }
+void glFinish_native(Dart_NativeArguments arguments) {
+  TRACE_START(glFinish_);
+  glFinish();
 
-void glFlush_native(Dart_NativeArguments arguments) { glFlush(); }
+  TRACE_END(glFinish_);
+}
+
+void glFlush_native(Dart_NativeArguments arguments) {
+  TRACE_START(glFlush_);
+  glFlush();
+
+  TRACE_END(glFlush_);
+}
 
 void glFramebufferRenderbuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glFramebufferRenderbuffer_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t attachment;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &attachment));
 
-  Dart_Handle attachment_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t renderbuffertarget;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &renderbuffertarget));
 
-  int64_t attachment = 0;
-  if (Dart_IsInteger(attachment_obj)) {
-    HandleError(Dart_IntegerToInt64(attachment_obj, &attachment));
-  }
-
-  Dart_Handle renderbuffertarget_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t renderbuffertarget = 0;
-  if (Dart_IsInteger(renderbuffertarget_obj)) {
-    HandleError(
-        Dart_IntegerToInt64(renderbuffertarget_obj, &renderbuffertarget));
-  }
-
-  Dart_Handle renderbuffer_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t renderbuffer = 0;
-  if (Dart_IsInteger(renderbuffer_obj)) {
-    HandleError(Dart_IntegerToInt64(renderbuffer_obj, &renderbuffer));
-  }
+  int64_t renderbuffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &renderbuffer));
 
   glFramebufferRenderbuffer(target, attachment, renderbuffertarget,
                             renderbuffer);
+
+  TRACE_END(glFramebufferRenderbuffer_);
 }
 
 void glFramebufferTexture2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glFramebufferTexture2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t attachment;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &attachment));
 
-  Dart_Handle attachment_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t textarget;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &textarget));
 
-  int64_t attachment = 0;
-  if (Dart_IsInteger(attachment_obj)) {
-    HandleError(Dart_IntegerToInt64(attachment_obj, &attachment));
-  }
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &texture));
 
-  Dart_Handle textarget_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t textarget = 0;
-  if (Dart_IsInteger(textarget_obj)) {
-    HandleError(Dart_IntegerToInt64(textarget_obj, &textarget));
-  }
-
-  Dart_Handle texture_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t texture = 0;
-  if (Dart_IsInteger(texture_obj)) {
-    HandleError(Dart_IntegerToInt64(texture_obj, &texture));
-  }
-
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &level));
 
   glFramebufferTexture2D(target, attachment, textarget, texture, level);
+
+  TRACE_END(glFramebufferTexture2D_);
 }
 
 void glFrontFace_native(Dart_NativeArguments arguments) {
-  Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t mode = 0;
-  if (Dart_IsInteger(mode_obj)) {
-    HandleError(Dart_IntegerToInt64(mode_obj, &mode));
-  }
+  TRACE_START(glFrontFace_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
 
   glFrontFace(mode);
+
+  TRACE_END(glFrontFace_);
 }
 
 void glGenerateMipmap_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  TRACE_START(glGenerateMipmap_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
   glGenerateMipmap(target);
+
+  TRACE_END(glGenerateMipmap_);
 }
 
 void glGetAttribLocation_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glGetAttribLocation_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  void* name_peer = NULL;
+  Dart_Handle name_arg =
+      HANDLE(Dart_GetNativeStringArgument(arguments, 1, (void**)&name_peer));
+  const char* name;
+  HANDLE(Dart_StringToCString(name_arg, &name));
 
-  Dart_Handle name_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  const char* name = NULL;
-  if (Dart_IsString(name_obj)) {
-    HandleError(Dart_StringToCString(name_obj, &name));
-  }
-
-  GLint ret = glGetAttribLocation(program, name);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
+  int ret = glGetAttribLocation(program, name);
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glGetAttribLocation_);
 }
 
 void glGetError_native(Dart_NativeArguments arguments) {
+  TRACE_START(glGetError_);
   GLenum ret = glGetError();
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glGetError_);
 }
 
 void glGetString_native(Dart_NativeArguments arguments) {
-  Dart_Handle name_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t name = 0;
-  if (Dart_IsInteger(name_obj)) {
-    HandleError(Dart_IntegerToInt64(name_obj, &name));
-  }
+  TRACE_START(glGetString_);
+  int64_t name;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &name));
 
   const GLubyte* ret = glGetString(name);
-  Dart_SetReturnValue(arguments,
-                      HandleError(Dart_NewStringFromGLubyteString(ret)));
+  Dart_SetReturnValue(
+      arguments,
+      HANDLE(Dart_NewStringFromCString(reinterpret_cast<const char*>(ret))));
+  TRACE_END(glGetString_);
 }
 
 void glGetUniformLocation_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glGetUniformLocation_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  void* name_peer = NULL;
+  Dart_Handle name_arg =
+      HANDLE(Dart_GetNativeStringArgument(arguments, 1, (void**)&name_peer));
+  const char* name;
+  HANDLE(Dart_StringToCString(name_arg, &name));
 
-  Dart_Handle name_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  const char* name = NULL;
-  if (Dart_IsString(name_obj)) {
-    HandleError(Dart_StringToCString(name_obj, &name));
-  }
-
-  GLint ret = glGetUniformLocation(program, name);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewInteger(ret)));
+  int ret = glGetUniformLocation(program, name);
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glGetUniformLocation_);
 }
 
 void glHint_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glHint_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
-
-  Dart_Handle mode_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t mode = 0;
-  if (Dart_IsInteger(mode_obj)) {
-    HandleError(Dart_IntegerToInt64(mode_obj, &mode));
-  }
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &mode));
 
   glHint(target, mode);
+
+  TRACE_END(glHint_);
 }
 
 void glIsBuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle buffer_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t buffer = 0;
-  if (Dart_IsInteger(buffer_obj)) {
-    HandleError(Dart_IntegerToInt64(buffer_obj, &buffer));
-  }
+  TRACE_START(glIsBuffer_);
+  int64_t buffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &buffer));
 
   GLboolean ret = glIsBuffer(buffer);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsBuffer_);
 }
 
 void glIsEnabled_native(Dart_NativeArguments arguments) {
-  Dart_Handle cap_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t cap = 0;
-  if (Dart_IsInteger(cap_obj)) {
-    HandleError(Dart_IntegerToInt64(cap_obj, &cap));
-  }
+  TRACE_START(glIsEnabled_);
+  int64_t cap;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &cap));
 
   GLboolean ret = glIsEnabled(cap);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsEnabled_);
 }
 
 void glIsFramebuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle framebuffer_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t framebuffer = 0;
-  if (Dart_IsInteger(framebuffer_obj)) {
-    HandleError(Dart_IntegerToInt64(framebuffer_obj, &framebuffer));
-  }
+  TRACE_START(glIsFramebuffer_);
+  int64_t framebuffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &framebuffer));
 
   GLboolean ret = glIsFramebuffer(framebuffer);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsFramebuffer_);
 }
 
 void glIsProgram_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  TRACE_START(glIsProgram_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
   GLboolean ret = glIsProgram(program);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsProgram_);
 }
 
 void glIsRenderbuffer_native(Dart_NativeArguments arguments) {
-  Dart_Handle renderbuffer_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t renderbuffer = 0;
-  if (Dart_IsInteger(renderbuffer_obj)) {
-    HandleError(Dart_IntegerToInt64(renderbuffer_obj, &renderbuffer));
-  }
+  TRACE_START(glIsRenderbuffer_);
+  int64_t renderbuffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &renderbuffer));
 
   GLboolean ret = glIsRenderbuffer(renderbuffer);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsRenderbuffer_);
 }
 
 void glIsShader_native(Dart_NativeArguments arguments) {
-  Dart_Handle shader_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t shader = 0;
-  if (Dart_IsInteger(shader_obj)) {
-    HandleError(Dart_IntegerToInt64(shader_obj, &shader));
-  }
+  TRACE_START(glIsShader_);
+  int64_t shader;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &shader));
 
   GLboolean ret = glIsShader(shader);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsShader_);
 }
 
 void glIsTexture_native(Dart_NativeArguments arguments) {
-  Dart_Handle texture_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t texture = 0;
-  if (Dart_IsInteger(texture_obj)) {
-    HandleError(Dart_IntegerToInt64(texture_obj, &texture));
-  }
+  TRACE_START(glIsTexture_);
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &texture));
 
   GLboolean ret = glIsTexture(texture);
-  Dart_SetReturnValue(arguments, HandleError(Dart_NewBoolean(ret)));
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsTexture_);
 }
 
 void glLineWidth_native(Dart_NativeArguments arguments) {
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  double width = 0.0;
-  if (Dart_IsDouble(width_obj)) {
-    HandleError(Dart_DoubleValue(width_obj, &width));
-  }
+  TRACE_START(glLineWidth_);
+  double width;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &width));
 
   glLineWidth(width);
+
+  TRACE_END(glLineWidth_);
 }
 
 void glLinkProgram_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  TRACE_START(glLinkProgram_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
   glLinkProgram(program);
+
+  TRACE_END(glLinkProgram_);
 }
 
 void glPixelStorei_native(Dart_NativeArguments arguments) {
-  Dart_Handle pname_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glPixelStorei_);
+  int64_t pname;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &pname));
 
-  int64_t pname = 0;
-  if (Dart_IsInteger(pname_obj)) {
-    HandleError(Dart_IntegerToInt64(pname_obj, &pname));
-  }
-
-  Dart_Handle param_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t param = 0;
-  if (Dart_IsInteger(param_obj)) {
-    HandleError(Dart_IntegerToInt64(param_obj, &param));
-  }
+  int64_t param;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &param));
 
   glPixelStorei(pname, param);
+
+  TRACE_END(glPixelStorei_);
 }
 
 void glPolygonOffset_native(Dart_NativeArguments arguments) {
-  Dart_Handle factor_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glPolygonOffset_);
+  double factor;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &factor));
 
-  double factor = 0.0;
-  if (Dart_IsDouble(factor_obj)) {
-    HandleError(Dart_DoubleValue(factor_obj, &factor));
-  }
-
-  Dart_Handle units_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  double units = 0.0;
-  if (Dart_IsDouble(units_obj)) {
-    HandleError(Dart_DoubleValue(units_obj, &units));
-  }
+  double units;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &units));
 
   glPolygonOffset(factor, units);
+
+  TRACE_END(glPolygonOffset_);
 }
 
 void glReleaseShaderCompiler_native(Dart_NativeArguments arguments) {
+  TRACE_START(glReleaseShaderCompiler_);
   glReleaseShaderCompiler();
+
+  TRACE_END(glReleaseShaderCompiler_);
 }
 
 void glRenderbufferStorage_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glRenderbufferStorage_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t internalformat;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &internalformat));
 
-  Dart_Handle internalformat_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &width));
 
-  int64_t internalformat = 0;
-  if (Dart_IsInteger(internalformat_obj)) {
-    HandleError(Dart_IntegerToInt64(internalformat_obj, &internalformat));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &height));
 
   glRenderbufferStorage(target, internalformat, width, height);
+
+  TRACE_END(glRenderbufferStorage_);
 }
 
 void glSampleCoverage_native(Dart_NativeArguments arguments) {
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glSampleCoverage_);
+  double value;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &value));
 
-  double value = 0.0;
-  if (Dart_IsDouble(value_obj)) {
-    HandleError(Dart_DoubleValue(value_obj, &value));
-  }
-
-  Dart_Handle invert_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t invert = 0;
-  if (Dart_IsInteger(invert_obj)) {
-    HandleError(Dart_IntegerToInt64(invert_obj, &invert));
-  }
+  int64_t invert;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &invert));
 
   glSampleCoverage(value, invert);
+
+  TRACE_END(glSampleCoverage_);
 }
 
 void glScissor_native(Dart_NativeArguments arguments) {
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glScissor_);
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &x));
 
-  int64_t x = 0;
-  if (Dart_IsInteger(x_obj)) {
-    HandleError(Dart_IntegerToInt64(x_obj, &x));
-  }
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &y));
 
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &width));
 
-  int64_t y = 0;
-  if (Dart_IsInteger(y_obj)) {
-    HandleError(Dart_IntegerToInt64(y_obj, &y));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &height));
 
   glScissor(x, y, width, height);
+
+  TRACE_END(glScissor_);
 }
 
 void glStencilFunc_native(Dart_NativeArguments arguments) {
-  Dart_Handle func_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glStencilFunc_);
+  int64_t func;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &func));
 
-  int64_t func = 0;
-  if (Dart_IsInteger(func_obj)) {
-    HandleError(Dart_IntegerToInt64(func_obj, &func));
-  }
+  int64_t ref;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &ref));
 
-  Dart_Handle ref_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t ref = 0;
-  if (Dart_IsInteger(ref_obj)) {
-    HandleError(Dart_IntegerToInt64(ref_obj, &ref));
-  }
-
-  Dart_Handle mask_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t mask = 0;
-  if (Dart_IsInteger(mask_obj)) {
-    HandleError(Dart_IntegerToInt64(mask_obj, &mask));
-  }
+  int64_t mask;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &mask));
 
   glStencilFunc(func, ref, mask);
+
+  TRACE_END(glStencilFunc_);
 }
 
 void glStencilFuncSeparate_native(Dart_NativeArguments arguments) {
-  Dart_Handle face_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glStencilFuncSeparate_);
+  int64_t face;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &face));
 
-  int64_t face = 0;
-  if (Dart_IsInteger(face_obj)) {
-    HandleError(Dart_IntegerToInt64(face_obj, &face));
-  }
+  int64_t func;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &func));
 
-  Dart_Handle func_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t ref;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &ref));
 
-  int64_t func = 0;
-  if (Dart_IsInteger(func_obj)) {
-    HandleError(Dart_IntegerToInt64(func_obj, &func));
-  }
-
-  Dart_Handle ref_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t ref = 0;
-  if (Dart_IsInteger(ref_obj)) {
-    HandleError(Dart_IntegerToInt64(ref_obj, &ref));
-  }
-
-  Dart_Handle mask_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t mask = 0;
-  if (Dart_IsInteger(mask_obj)) {
-    HandleError(Dart_IntegerToInt64(mask_obj, &mask));
-  }
+  int64_t mask;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &mask));
 
   glStencilFuncSeparate(face, func, ref, mask);
+
+  TRACE_END(glStencilFuncSeparate_);
 }
 
 void glStencilMask_native(Dart_NativeArguments arguments) {
-  Dart_Handle mask_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t mask = 0;
-  if (Dart_IsInteger(mask_obj)) {
-    HandleError(Dart_IntegerToInt64(mask_obj, &mask));
-  }
+  TRACE_START(glStencilMask_);
+  int64_t mask;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mask));
 
   glStencilMask(mask);
+
+  TRACE_END(glStencilMask_);
 }
 
 void glStencilMaskSeparate_native(Dart_NativeArguments arguments) {
-  Dart_Handle face_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glStencilMaskSeparate_);
+  int64_t face;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &face));
 
-  int64_t face = 0;
-  if (Dart_IsInteger(face_obj)) {
-    HandleError(Dart_IntegerToInt64(face_obj, &face));
-  }
-
-  Dart_Handle mask_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t mask = 0;
-  if (Dart_IsInteger(mask_obj)) {
-    HandleError(Dart_IntegerToInt64(mask_obj, &mask));
-  }
+  int64_t mask;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &mask));
 
   glStencilMaskSeparate(face, mask);
+
+  TRACE_END(glStencilMaskSeparate_);
 }
 
 void glStencilOp_native(Dart_NativeArguments arguments) {
-  Dart_Handle fail_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glStencilOp_);
+  int64_t fail;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &fail));
 
-  int64_t fail = 0;
-  if (Dart_IsInteger(fail_obj)) {
-    HandleError(Dart_IntegerToInt64(fail_obj, &fail));
-  }
+  int64_t zfail;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &zfail));
 
-  Dart_Handle zfail_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t zfail = 0;
-  if (Dart_IsInteger(zfail_obj)) {
-    HandleError(Dart_IntegerToInt64(zfail_obj, &zfail));
-  }
-
-  Dart_Handle zpass_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t zpass = 0;
-  if (Dart_IsInteger(zpass_obj)) {
-    HandleError(Dart_IntegerToInt64(zpass_obj, &zpass));
-  }
+  int64_t zpass;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &zpass));
 
   glStencilOp(fail, zfail, zpass);
+
+  TRACE_END(glStencilOp_);
 }
 
 void glStencilOpSeparate_native(Dart_NativeArguments arguments) {
-  Dart_Handle face_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glStencilOpSeparate_);
+  int64_t face;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &face));
 
-  int64_t face = 0;
-  if (Dart_IsInteger(face_obj)) {
-    HandleError(Dart_IntegerToInt64(face_obj, &face));
-  }
+  int64_t fail;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &fail));
 
-  Dart_Handle sfail_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t zfail;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &zfail));
 
-  int64_t sfail = 0;
-  if (Dart_IsInteger(sfail_obj)) {
-    HandleError(Dart_IntegerToInt64(sfail_obj, &sfail));
-  }
+  int64_t zpass;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &zpass));
 
-  Dart_Handle dpfail_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  glStencilOpSeparate(face, fail, zfail, zpass);
 
-  int64_t dpfail = 0;
-  if (Dart_IsInteger(dpfail_obj)) {
-    HandleError(Dart_IntegerToInt64(dpfail_obj, &dpfail));
-  }
-
-  Dart_Handle dppass_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t dppass = 0;
-  if (Dart_IsInteger(dppass_obj)) {
-    HandleError(Dart_IntegerToInt64(dppass_obj, &dppass));
-  }
-
-  glStencilOpSeparate(face, sfail, dpfail, dppass);
+  TRACE_END(glStencilOpSeparate_);
 }
 
 void glTexImage2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glTexImage2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
+
+  int64_t internalformat;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &internalformat));
+
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &width));
+
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &height));
+
+  int64_t border;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &border));
+
+  int64_t format;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &format));
+
+  int64_t type;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 7, &type));
+
+  Dart_Handle pixels_obj = HANDLE(Dart_GetNativeArgument(arguments, 8));
+  void* pixels_data = nullptr;
+  Dart_TypedData_Type pixels_typeddata_type;
+  intptr_t pixels_typeddata_length;
+  if (!Dart_IsNull(pixels_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type,
+                                     &pixels_data, &pixels_typeddata_length));
   }
-
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
-
-  Dart_Handle internalformat_obj =
-      HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t internalformat = 0;
-  if (Dart_IsInteger(internalformat_obj)) {
-    HandleError(Dart_IntegerToInt64(internalformat_obj, &internalformat));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
-
-  Dart_Handle border_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  int64_t border = 0;
-  if (Dart_IsInteger(border_obj)) {
-    HandleError(Dart_IntegerToInt64(border_obj, &border));
-  }
-
-  Dart_Handle format_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
-
-  int64_t format = 0;
-  if (Dart_IsInteger(format_obj)) {
-    HandleError(Dart_IntegerToInt64(format_obj, &format));
-  }
-
-  Dart_Handle type_obj = HandleError(Dart_GetNativeArgument(arguments, 7));
-
-  int64_t type = 0;
-  if (Dart_IsInteger(type_obj)) {
-    HandleError(Dart_IntegerToInt64(type_obj, &type));
-  }
-
-  Dart_Handle pixels_obj = HandleError(Dart_GetNativeArgument(arguments, 8));
-
-  void* pixels_data = NULL;
-  Dart_TypedData_Type pixels_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t pixels_typeddata_length = 0;
-  if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
-    HandleError(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type,
-                                          &pixels_data,
-                                          &pixels_typeddata_length));
-  }
-  const void* pixels = static_cast<const void*>(pixels_data);
+  const GLvoid* pixels = static_cast<const GLvoid*>(pixels_data);
 
   glTexImage2D(target, level, internalformat, width, height, border, format,
                type, pixels);
-  if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
-    HandleError(Dart_TypedDataReleaseData(pixels_obj));
+
+  if (!Dart_IsNull(pixels_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(pixels_obj));
   }
+
+  TRACE_END(glTexImage2D_);
 }
 
 void glTexParameterf_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glTexParameterf_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t pname;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &pname));
 
-  Dart_Handle pname_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t pname = 0;
-  if (Dart_IsInteger(pname_obj)) {
-    HandleError(Dart_IntegerToInt64(pname_obj, &pname));
-  }
-
-  Dart_Handle param_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  double param = 0.0;
-  if (Dart_IsDouble(param_obj)) {
-    HandleError(Dart_DoubleValue(param_obj, &param));
-  }
+  double param;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &param));
 
   glTexParameterf(target, pname, param);
+
+  TRACE_END(glTexParameterf_);
 }
 
 void glTexParameteri_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glTexParameteri_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
-  }
+  int64_t pname;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &pname));
 
-  Dart_Handle pname_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t pname = 0;
-  if (Dart_IsInteger(pname_obj)) {
-    HandleError(Dart_IntegerToInt64(pname_obj, &pname));
-  }
-
-  Dart_Handle param_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t param = 0;
-  if (Dart_IsInteger(param_obj)) {
-    HandleError(Dart_IntegerToInt64(param_obj, &param));
-  }
+  int64_t param;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &param));
 
   glTexParameteri(target, pname, param);
+
+  TRACE_END(glTexParameteri_);
 }
 
 void glTexSubImage2D_native(Dart_NativeArguments arguments) {
-  Dart_Handle target_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glTexSubImage2D_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
 
-  int64_t target = 0;
-  if (Dart_IsInteger(target_obj)) {
-    HandleError(Dart_IntegerToInt64(target_obj, &target));
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
+
+  int64_t xoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &xoffset));
+
+  int64_t yoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &yoffset));
+
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &width));
+
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &height));
+
+  int64_t format;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &format));
+
+  int64_t type;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 7, &type));
+
+  Dart_Handle pixels_obj = HANDLE(Dart_GetNativeArgument(arguments, 8));
+  void* pixels_data = nullptr;
+  Dart_TypedData_Type pixels_typeddata_type;
+  intptr_t pixels_typeddata_length;
+  if (!Dart_IsNull(pixels_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type,
+                                     &pixels_data, &pixels_typeddata_length));
   }
-
-  Dart_Handle level_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t level = 0;
-  if (Dart_IsInteger(level_obj)) {
-    HandleError(Dart_IntegerToInt64(level_obj, &level));
-  }
-
-  Dart_Handle xoffset_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t xoffset = 0;
-  if (Dart_IsInteger(xoffset_obj)) {
-    HandleError(Dart_IntegerToInt64(xoffset_obj, &xoffset));
-  }
-
-  Dart_Handle yoffset_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t yoffset = 0;
-  if (Dart_IsInteger(yoffset_obj)) {
-    HandleError(Dart_IntegerToInt64(yoffset_obj, &yoffset));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 5));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
-
-  Dart_Handle format_obj = HandleError(Dart_GetNativeArgument(arguments, 6));
-
-  int64_t format = 0;
-  if (Dart_IsInteger(format_obj)) {
-    HandleError(Dart_IntegerToInt64(format_obj, &format));
-  }
-
-  Dart_Handle type_obj = HandleError(Dart_GetNativeArgument(arguments, 7));
-
-  int64_t type = 0;
-  if (Dart_IsInteger(type_obj)) {
-    HandleError(Dart_IntegerToInt64(type_obj, &type));
-  }
-
-  Dart_Handle pixels_obj = HandleError(Dart_GetNativeArgument(arguments, 8));
-
-  void* pixels_data = NULL;
-  Dart_TypedData_Type pixels_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t pixels_typeddata_length = 0;
-  if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
-    HandleError(Dart_TypedDataAcquireData(pixels_obj, &pixels_typeddata_type,
-                                          &pixels_data,
-                                          &pixels_typeddata_length));
-  }
-  const void* pixels = static_cast<const void*>(pixels_data);
+  const GLvoid* pixels = static_cast<const GLvoid*>(pixels_data);
 
   glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type,
                   pixels);
-  if (Dart_IsTypedData(pixels_obj) && !Dart_IsNull(pixels_obj)) {
-    HandleError(Dart_TypedDataReleaseData(pixels_obj));
+
+  if (!Dart_IsNull(pixels_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(pixels_obj));
   }
+
+  TRACE_END(glTexSubImage2D_);
 }
 
 void glUniform1f_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform1f_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  glUniform1f(location, x);
 
-  double v0 = 0.0;
-  if (Dart_IsDouble(v0_obj)) {
-    HandleError(Dart_DoubleValue(v0_obj, &v0));
-  }
-
-  glUniform1f(location, v0);
+  TRACE_END(glUniform1f_);
 }
 
 void glUniform1fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform1fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  glUniform1fv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLfloat* value = static_cast<const GLfloat*>(value_data);
-
-  glUniform1fv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform1fv_);
 }
 
 void glUniform1i_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform1i_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  glUniform1i(location, x);
 
-  int64_t v0 = 0;
-  if (Dart_IsInteger(v0_obj)) {
-    HandleError(Dart_IntegerToInt64(v0_obj, &v0));
-  }
-
-  glUniform1i(location, v0);
+  TRACE_END(glUniform1i_);
 }
 
 void glUniform1iv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform1iv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLint* v = static_cast<const GLint*>(v_data);
+
+  glUniform1iv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLint* value = static_cast<const GLint*>(value_data);
-
-  glUniform1iv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform1iv_);
 }
 
 void glUniform2f_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform2f_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
 
-  double v0 = 0.0;
-  if (Dart_IsDouble(v0_obj)) {
-    HandleError(Dart_DoubleValue(v0_obj, &v0));
-  }
+  glUniform2f(location, x, y);
 
-  Dart_Handle v1_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  double v1 = 0.0;
-  if (Dart_IsDouble(v1_obj)) {
-    HandleError(Dart_DoubleValue(v1_obj, &v1));
-  }
-
-  glUniform2f(location, v0, v1);
+  TRACE_END(glUniform2f_);
 }
 
 void glUniform2fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform2fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  glUniform2fv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLfloat* value = static_cast<const GLfloat*>(value_data);
-
-  glUniform2fv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform2fv_);
 }
 
 void glUniform2i_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform2i_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &y));
 
-  int64_t v0 = 0;
-  if (Dart_IsInteger(v0_obj)) {
-    HandleError(Dart_IntegerToInt64(v0_obj, &v0));
-  }
+  glUniform2i(location, x, y);
 
-  Dart_Handle v1_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t v1 = 0;
-  if (Dart_IsInteger(v1_obj)) {
-    HandleError(Dart_IntegerToInt64(v1_obj, &v1));
-  }
-
-  glUniform2i(location, v0, v1);
+  TRACE_END(glUniform2i_);
 }
 
 void glUniform2iv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform2iv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLint* v = static_cast<const GLint*>(v_data);
+
+  glUniform2iv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLint* value = static_cast<const GLint*>(value_data);
-
-  glUniform2iv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform2iv_);
 }
 
 void glUniform3f_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform3f_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
 
-  double v0 = 0.0;
-  if (Dart_IsDouble(v0_obj)) {
-    HandleError(Dart_DoubleValue(v0_obj, &v0));
-  }
+  double z;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &z));
 
-  Dart_Handle v1_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  glUniform3f(location, x, y, z);
 
-  double v1 = 0.0;
-  if (Dart_IsDouble(v1_obj)) {
-    HandleError(Dart_DoubleValue(v1_obj, &v1));
-  }
-
-  Dart_Handle v2_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  double v2 = 0.0;
-  if (Dart_IsDouble(v2_obj)) {
-    HandleError(Dart_DoubleValue(v2_obj, &v2));
-  }
-
-  glUniform3f(location, v0, v1, v2);
+  TRACE_END(glUniform3f_);
 }
 
 void glUniform3fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform3fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  glUniform3fv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLfloat* value = static_cast<const GLfloat*>(value_data);
-
-  glUniform3fv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform3fv_);
 }
 
 void glUniform3i_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform3i_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &y));
 
-  int64_t v0 = 0;
-  if (Dart_IsInteger(v0_obj)) {
-    HandleError(Dart_IntegerToInt64(v0_obj, &v0));
-  }
+  int64_t z;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &z));
 
-  Dart_Handle v1_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  glUniform3i(location, x, y, z);
 
-  int64_t v1 = 0;
-  if (Dart_IsInteger(v1_obj)) {
-    HandleError(Dart_IntegerToInt64(v1_obj, &v1));
-  }
-
-  Dart_Handle v2_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t v2 = 0;
-  if (Dart_IsInteger(v2_obj)) {
-    HandleError(Dart_IntegerToInt64(v2_obj, &v2));
-  }
-
-  glUniform3i(location, v0, v1, v2);
+  TRACE_END(glUniform3i_);
 }
 
 void glUniform3iv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform3iv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLint* v = static_cast<const GLint*>(v_data);
+
+  glUniform3iv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLint* value = static_cast<const GLint*>(value_data);
-
-  glUniform3iv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform3iv_);
 }
 
 void glUniform4f_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform4f_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
 
-  double v0 = 0.0;
-  if (Dart_IsDouble(v0_obj)) {
-    HandleError(Dart_DoubleValue(v0_obj, &v0));
-  }
+  double z;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &z));
 
-  Dart_Handle v1_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  double w;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 4, &w));
 
-  double v1 = 0.0;
-  if (Dart_IsDouble(v1_obj)) {
-    HandleError(Dart_DoubleValue(v1_obj, &v1));
-  }
+  glUniform4f(location, x, y, z, w);
 
-  Dart_Handle v2_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  double v2 = 0.0;
-  if (Dart_IsDouble(v2_obj)) {
-    HandleError(Dart_DoubleValue(v2_obj, &v2));
-  }
-
-  Dart_Handle v3_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  double v3 = 0.0;
-  if (Dart_IsDouble(v3_obj)) {
-    HandleError(Dart_DoubleValue(v3_obj, &v3));
-  }
-
-  glUniform4f(location, v0, v1, v2, v3);
+  TRACE_END(glUniform4f_);
 }
 
 void glUniform4fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform4fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  glUniform4fv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLfloat* value = static_cast<const GLfloat*>(value_data);
-
-  glUniform4fv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform4fv_);
 }
 
 void glUniform4i_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform4i_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &x));
 
-  Dart_Handle v0_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &y));
 
-  int64_t v0 = 0;
-  if (Dart_IsInteger(v0_obj)) {
-    HandleError(Dart_IntegerToInt64(v0_obj, &v0));
-  }
+  int64_t z;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &z));
 
-  Dart_Handle v1_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  int64_t w;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &w));
 
-  int64_t v1 = 0;
-  if (Dart_IsInteger(v1_obj)) {
-    HandleError(Dart_IntegerToInt64(v1_obj, &v1));
-  }
+  glUniform4i(location, x, y, z, w);
 
-  Dart_Handle v2_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t v2 = 0;
-  if (Dart_IsInteger(v2_obj)) {
-    HandleError(Dart_IntegerToInt64(v2_obj, &v2));
-  }
-
-  Dart_Handle v3_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  int64_t v3 = 0;
-  if (Dart_IsInteger(v3_obj)) {
-    HandleError(Dart_IntegerToInt64(v3_obj, &v3));
-  }
-
-  glUniform4i(location, v0, v1, v2, v3);
+  TRACE_END(glUniform4i_);
 }
 
 void glUniform4iv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniform4iv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLint* v = static_cast<const GLint*>(v_data);
+
+  glUniform4iv(location, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
   }
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
-  }
-  const GLint* value = static_cast<const GLint*>(value_data);
-
-  glUniform4iv(location, count, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
-  }
+  TRACE_END(glUniform4iv_);
 }
 
 void glUniformMatrix2fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniformMatrix2fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t transpose;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &transpose));
 
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle transpose_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t transpose = 0;
-  if (Dart_IsInteger(transpose_obj)) {
-    HandleError(Dart_IntegerToInt64(transpose_obj, &transpose));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
+  Dart_Handle value_obj = HANDLE(Dart_GetNativeArgument(arguments, 3));
+  void* value_data = nullptr;
+  Dart_TypedData_Type value_typeddata_type;
+  intptr_t value_typeddata_length;
+  if (!Dart_IsNull(value_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                     &value_data, &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
   glUniformMatrix2fv(location, count, transpose, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
+
+  if (!Dart_IsNull(value_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(value_obj));
   }
+
+  TRACE_END(glUniformMatrix2fv_);
 }
 
 void glUniformMatrix3fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniformMatrix3fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t transpose;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &transpose));
 
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle transpose_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t transpose = 0;
-  if (Dart_IsInteger(transpose_obj)) {
-    HandleError(Dart_IntegerToInt64(transpose_obj, &transpose));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
+  Dart_Handle value_obj = HANDLE(Dart_GetNativeArgument(arguments, 3));
+  void* value_data = nullptr;
+  Dart_TypedData_Type value_typeddata_type;
+  intptr_t value_typeddata_length;
+  if (!Dart_IsNull(value_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                     &value_data, &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
   glUniformMatrix3fv(location, count, transpose, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
+
+  if (!Dart_IsNull(value_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(value_obj));
   }
+
+  TRACE_END(glUniformMatrix3fv_);
 }
 
 void glUniformMatrix4fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle location_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glUniformMatrix4fv_);
+  int64_t location;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &location));
 
-  int64_t location = 0;
-  if (Dart_IsInteger(location_obj)) {
-    HandleError(Dart_IntegerToInt64(location_obj, &location));
-  }
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
 
-  Dart_Handle count_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t transpose;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &transpose));
 
-  int64_t count = 0;
-  if (Dart_IsInteger(count_obj)) {
-    HandleError(Dart_IntegerToInt64(count_obj, &count));
-  }
-
-  Dart_Handle transpose_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t transpose = 0;
-  if (Dart_IsInteger(transpose_obj)) {
-    HandleError(Dart_IntegerToInt64(transpose_obj, &transpose));
-  }
-
-  Dart_Handle value_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  void* value_data = NULL;
-  Dart_TypedData_Type value_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t value_typeddata_length = 0;
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
-                                          &value_data,
-                                          &value_typeddata_length));
+  Dart_Handle value_obj = HANDLE(Dart_GetNativeArgument(arguments, 3));
+  void* value_data = nullptr;
+  Dart_TypedData_Type value_typeddata_type;
+  intptr_t value_typeddata_length;
+  if (!Dart_IsNull(value_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(value_obj, &value_typeddata_type,
+                                     &value_data, &value_typeddata_length));
   }
   const GLfloat* value = static_cast<const GLfloat*>(value_data);
 
   glUniformMatrix4fv(location, count, transpose, value);
-  if (Dart_IsTypedData(value_obj) && !Dart_IsNull(value_obj)) {
-    HandleError(Dart_TypedDataReleaseData(value_obj));
+
+  if (!Dart_IsNull(value_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(value_obj));
   }
+
+  TRACE_END(glUniformMatrix4fv_);
 }
 
 void glUseProgram_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  TRACE_START(glUseProgram_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
   glUseProgram(program);
+
+  TRACE_END(glUseProgram_);
 }
 
 void glValidateProgram_native(Dart_NativeArguments arguments) {
-  Dart_Handle program_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
-
-  int64_t program = 0;
-  if (Dart_IsInteger(program_obj)) {
-    HandleError(Dart_IntegerToInt64(program_obj, &program));
-  }
+  TRACE_START(glValidateProgram_);
+  int64_t program;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &program));
 
   glValidateProgram(program);
+
+  TRACE_END(glValidateProgram_);
 }
 
 void glVertexAttrib1f_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib1f_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  glVertexAttrib1f(indx, x);
 
-  double x = 0.0;
-  if (Dart_IsDouble(x_obj)) {
-    HandleError(Dart_DoubleValue(x_obj, &x));
-  }
-
-  glVertexAttrib1f(index, x);
+  TRACE_END(glVertexAttrib1f_);
 }
 
 void glVertexAttrib1fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib1fv_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
+  Dart_Handle values_obj = HANDLE(Dart_GetNativeArgument(arguments, 1));
+  void* values_data = nullptr;
+  Dart_TypedData_Type values_typeddata_type;
+  intptr_t values_typeddata_length;
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(values_obj, &values_typeddata_type,
+                                     &values_data, &values_typeddata_length));
+  }
+  const GLfloat* values = static_cast<const GLfloat*>(values_data);
+
+  glVertexAttrib1fv(indx, values);
+
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(values_obj));
   }
 
-  Dart_Handle v_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  void* v_data = NULL;
-  Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t v_typeddata_length = 0;
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
-                                          &v_typeddata_length));
-  }
-  const GLfloat* v = static_cast<const GLfloat*>(v_data);
-
-  glVertexAttrib1fv(index, v);
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataReleaseData(v_obj));
-  }
+  TRACE_END(glVertexAttrib1fv_);
 }
 
 void glVertexAttrib2f_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib2f_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
 
-  double x = 0.0;
-  if (Dart_IsDouble(x_obj)) {
-    HandleError(Dart_DoubleValue(x_obj, &x));
-  }
+  glVertexAttrib2f(indx, x, y);
 
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  double y = 0.0;
-  if (Dart_IsDouble(y_obj)) {
-    HandleError(Dart_DoubleValue(y_obj, &y));
-  }
-
-  glVertexAttrib2f(index, x, y);
+  TRACE_END(glVertexAttrib2f_);
 }
 
 void glVertexAttrib2fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib2fv_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
+  Dart_Handle values_obj = HANDLE(Dart_GetNativeArgument(arguments, 1));
+  void* values_data = nullptr;
+  Dart_TypedData_Type values_typeddata_type;
+  intptr_t values_typeddata_length;
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(values_obj, &values_typeddata_type,
+                                     &values_data, &values_typeddata_length));
+  }
+  const GLfloat* values = static_cast<const GLfloat*>(values_data);
+
+  glVertexAttrib2fv(indx, values);
+
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(values_obj));
   }
 
-  Dart_Handle v_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  void* v_data = NULL;
-  Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t v_typeddata_length = 0;
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
-                                          &v_typeddata_length));
-  }
-  const GLfloat* v = static_cast<const GLfloat*>(v_data);
-
-  glVertexAttrib2fv(index, v);
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataReleaseData(v_obj));
-  }
+  TRACE_END(glVertexAttrib2fv_);
 }
 
 void glVertexAttrib3f_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib3f_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
 
-  double x = 0.0;
-  if (Dart_IsDouble(x_obj)) {
-    HandleError(Dart_DoubleValue(x_obj, &x));
-  }
+  double z;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &z));
 
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  glVertexAttrib3f(indx, x, y, z);
 
-  double y = 0.0;
-  if (Dart_IsDouble(y_obj)) {
-    HandleError(Dart_DoubleValue(y_obj, &y));
-  }
-
-  Dart_Handle z_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  double z = 0.0;
-  if (Dart_IsDouble(z_obj)) {
-    HandleError(Dart_DoubleValue(z_obj, &z));
-  }
-
-  glVertexAttrib3f(index, x, y, z);
+  TRACE_END(glVertexAttrib3f_);
 }
 
 void glVertexAttrib3fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib3fv_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
+  Dart_Handle values_obj = HANDLE(Dart_GetNativeArgument(arguments, 1));
+  void* values_data = nullptr;
+  Dart_TypedData_Type values_typeddata_type;
+  intptr_t values_typeddata_length;
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(values_obj, &values_typeddata_type,
+                                     &values_data, &values_typeddata_length));
+  }
+  const GLfloat* values = static_cast<const GLfloat*>(values_data);
+
+  glVertexAttrib3fv(indx, values);
+
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(values_obj));
   }
 
-  Dart_Handle v_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  void* v_data = NULL;
-  Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t v_typeddata_length = 0;
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
-                                          &v_typeddata_length));
-  }
-  const GLfloat* v = static_cast<const GLfloat*>(v_data);
-
-  glVertexAttrib3fv(index, v);
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataReleaseData(v_obj));
-  }
+  TRACE_END(glVertexAttrib3fv_);
 }
 
 void glVertexAttrib4f_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib4f_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
-  }
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
 
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
 
-  double x = 0.0;
-  if (Dart_IsDouble(x_obj)) {
-    HandleError(Dart_DoubleValue(x_obj, &x));
-  }
+  double z;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &z));
 
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
+  double w;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 4, &w));
 
-  double y = 0.0;
-  if (Dart_IsDouble(y_obj)) {
-    HandleError(Dart_DoubleValue(y_obj, &y));
-  }
+  glVertexAttrib4f(indx, x, y, z, w);
 
-  Dart_Handle z_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  double z = 0.0;
-  if (Dart_IsDouble(z_obj)) {
-    HandleError(Dart_DoubleValue(z_obj, &z));
-  }
-
-  Dart_Handle w_obj = HandleError(Dart_GetNativeArgument(arguments, 4));
-
-  double w = 0.0;
-  if (Dart_IsDouble(w_obj)) {
-    HandleError(Dart_DoubleValue(w_obj, &w));
-  }
-
-  glVertexAttrib4f(index, x, y, z, w);
+  TRACE_END(glVertexAttrib4f_);
 }
 
 void glVertexAttrib4fv_native(Dart_NativeArguments arguments) {
-  Dart_Handle index_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glVertexAttrib4fv_);
+  int64_t indx;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &indx));
 
-  int64_t index = 0;
-  if (Dart_IsInteger(index_obj)) {
-    HandleError(Dart_IntegerToInt64(index_obj, &index));
+  Dart_Handle values_obj = HANDLE(Dart_GetNativeArgument(arguments, 1));
+  void* values_data = nullptr;
+  Dart_TypedData_Type values_typeddata_type;
+  intptr_t values_typeddata_length;
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(values_obj, &values_typeddata_type,
+                                     &values_data, &values_typeddata_length));
+  }
+  const GLfloat* values = static_cast<const GLfloat*>(values_data);
+
+  glVertexAttrib4fv(indx, values);
+
+  if (!Dart_IsNull(values_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(values_obj));
   }
 
-  Dart_Handle v_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
-
-  void* v_data = NULL;
-  Dart_TypedData_Type v_typeddata_type = Dart_TypedData_kInvalid;
-  intptr_t v_typeddata_length = 0;
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
-                                          &v_typeddata_length));
-  }
-  const GLfloat* v = static_cast<const GLfloat*>(v_data);
-
-  glVertexAttrib4fv(index, v);
-  if (Dart_IsTypedData(v_obj) && !Dart_IsNull(v_obj)) {
-    HandleError(Dart_TypedDataReleaseData(v_obj));
-  }
+  TRACE_END(glVertexAttrib4fv_);
 }
 
 void glViewport_native(Dart_NativeArguments arguments) {
-  Dart_Handle x_obj = HandleError(Dart_GetNativeArgument(arguments, 0));
+  TRACE_START(glViewport_);
+  int64_t x;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &x));
 
-  int64_t x = 0;
-  if (Dart_IsInteger(x_obj)) {
-    HandleError(Dart_IntegerToInt64(x_obj, &x));
-  }
+  int64_t y;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &y));
 
-  Dart_Handle y_obj = HandleError(Dart_GetNativeArgument(arguments, 1));
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &width));
 
-  int64_t y = 0;
-  if (Dart_IsInteger(y_obj)) {
-    HandleError(Dart_IntegerToInt64(y_obj, &y));
-  }
-
-  Dart_Handle width_obj = HandleError(Dart_GetNativeArgument(arguments, 2));
-
-  int64_t width = 0;
-  if (Dart_IsInteger(width_obj)) {
-    HandleError(Dart_IntegerToInt64(width_obj, &width));
-  }
-
-  Dart_Handle height_obj = HandleError(Dart_GetNativeArgument(arguments, 3));
-
-  int64_t height = 0;
-  if (Dart_IsInteger(height_obj)) {
-    HandleError(Dart_IntegerToInt64(height_obj, &height));
-  }
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &height));
 
   glViewport(x, y, width, height);
+
+  TRACE_END(glViewport_);
 }

@@ -20,7 +20,7 @@ linker:
 platforms:
   linux:
     compiler:
-      arguments: ['-fPIC', '-Wall', '-Werror']
+      arguments: ['-fPIC', '-Wall', '-Werror', '-std=c++11']
       defines: {'DART_SHARED_LIB'}
     linker:
       arguments: ['-shared', '-lGL']
