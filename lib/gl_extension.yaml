@@ -1,6 +1,6 @@
 bits: 0  # 0 means the bits of Dart SDK
 compiler:
-  includes: ['{DART_SDK}/include', '{GL_INCLUDE}']
+  includes: ['{DART_SDK}/include', '{GL_INCLUDE}', 'src', 'src/generated']
   input_files:
   - 'src/gl_extension.cc'
   - 'src/instantiate_gl_classes.cc'
