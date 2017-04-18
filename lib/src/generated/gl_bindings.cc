@@ -8,7 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "/usr/include/GLES2/gl2.h"
+#include "GLES2/gl2.h"
 
 #include "util.h"
 #include "gl_bindings.h"

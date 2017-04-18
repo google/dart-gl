@@ -9,7 +9,7 @@
 #ifndef DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
-#include "/usr/lib/google-dartlang/include/dart_api.h"
+#include "dart_api.h"
 
 struct FunctionLookup {
   const char* name;

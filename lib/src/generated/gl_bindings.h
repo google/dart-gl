@@ -7,7 +7,7 @@
 #ifndef DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 #define DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 
-#include "/usr/lib/google-dartlang/include/dart_api.h"
+#include "dart_api.h"
 
 // Header file for generated GL function bindings.
 
