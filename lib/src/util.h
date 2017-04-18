@@ -3,8 +3,8 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-#ifndef THIRD_PARTY_DART_GL_LIB_SRC_UTIL_H_
-#define THIRD_PARTY_DART_GL_LIB_SRC_UTIL_H_
+#ifndef DART_GL_LIB_SRC_UTIL_H_
+#define DART_GL_LIB_SRC_UTIL_H_
 
 #include "GLES2/gl2.h"
 #include "dart_api.h"
@@ -40,4 +40,4 @@ GLint GetGlGetResultLength(GLenum param);
 #define HANDLE(handle) handle
 #endif
 
-#endif  // THIRD_PARTY_DART_GL_LIB_SRC_UTIL_H_
+#endif  // DART_GL_LIB_SRC_UTIL_H_
