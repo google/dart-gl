@@ -57,6 +57,11 @@ void main() {
     throw new ArgumentError("ERROR! Got data for an invalid GLenum!");
   }
 
+  var extensions = glGetString(GL_EXTENSIONS).split(' ');
+  print("Extensions:");
+  for (var extension in extensions) {
+    print("  $extension");
+  }
   glfwSetWindowShouldClose(window, GL_TRUE);
   glfwTerminate();
 }

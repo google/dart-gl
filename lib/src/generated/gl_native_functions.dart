@@ -10,34 +10,65 @@ part of gl;
 
 void glActiveTexture(int texture) native "glActiveTexture";
 void glAttachShader(int program, int shader) native "glAttachShader";
-void glBindAttribLocation(int program, int index, String name) native "glBindAttribLocation";
+void glBindAttribLocation(int program, int index, String name)
+    native "glBindAttribLocation";
 void glBindBuffer(int target, int buffer) native "glBindBuffer";
 void glBindFramebuffer(int target, int framebuffer) native "glBindFramebuffer";
-void glBindRenderbuffer(int target, int renderbuffer) native "glBindRenderbuffer";
+void glBindRenderbuffer(int target, int renderbuffer)
+    native "glBindRenderbuffer";
 void glBindTexture(int target, int texture) native "glBindTexture";
-void glBlendColor(double red, double green, double blue, double alpha) native "glBlendColor";
+void glBlendColor(double red, double green, double blue, double alpha)
+    native "glBlendColor";
 void glBlendEquation(int mode) native "glBlendEquation";
-void glBlendEquationSeparate(int modeRGB, int modeAlpha) native "glBlendEquationSeparate";
+void glBlendEquationSeparate(int modeRGB, int modeAlpha)
+    native "glBlendEquationSeparate";
 void glBlendFunc(int sfactor, int dfactor) native "glBlendFunc";
-void glBlendFuncSeparate(int sfactorRGB, int dfactorRGB, int sfactorAlpha, int dfactorAlpha) native "glBlendFuncSeparate";
-void glBufferData(int target, int size, TypedData data, int usage) native "glBufferData";
-void glBufferSubData(int target, int offset, int size, TypedData data) native "glBufferSubData";
+void glBlendFuncSeparate(int sfactorRGB, int dfactorRGB, int sfactorAlpha,
+    int dfactorAlpha) native "glBlendFuncSeparate";
+void glBufferData(int target, int size, TypedData data, int usage)
+    native "glBufferData";
+void glBufferSubData(int target, int offset, int size, TypedData data)
+    native "glBufferSubData";
 int glCheckFramebufferStatus(int target) native "glCheckFramebufferStatus";
 void glClear(int mask) native "glClear";
-void glClearColor(double red, double green, double blue, double alpha) native "glClearColor";
+void glClearColor(double red, double green, double blue, double alpha)
+    native "glClearColor";
 void glClearDepthf(double d) native "glClearDepthf";
 void glClearStencil(int s) native "glClearStencil";
 void glColorMask(int red, int green, int blue, int alpha) native "glColorMask";
 void glCompileShader(int shader) native "glCompileShader";
-void glCompressedTexImage2D(int target, int level, int internalformat, int width, int height, int border, int imageSize, TypedData data) native "glCompressedTexImage2D";
-void glCompressedTexSubImage2D(int target, int level, int xoffset, int yoffset, int width, int height, int format, int imageSize, TypedData data) native "glCompressedTexSubImage2D";
-void glCopyTexImage2D(int target, int level, int internalformat, int x, int y, int width, int height, int border) native "glCopyTexImage2D";
-void glCopyTexSubImage2D(int target, int level, int xoffset, int yoffset, int x, int y, int width, int height) native "glCopyTexSubImage2D";
+void glCompressedTexImage2D(
+    int target,
+    int level,
+    int internalformat,
+    int width,
+    int height,
+    int border,
+    int imageSize,
+    TypedData data) native "glCompressedTexImage2D";
+void glCompressedTexSubImage2D(
+    int target,
+    int level,
+    int xoffset,
+    int yoffset,
+    int width,
+    int height,
+    int format,
+    int imageSize,
+    TypedData data) native "glCompressedTexSubImage2D";
+void glCopyTexImage2D(int target, int level, int internalformat, int x, int y,
+    int width, int height, int border) native "glCopyTexImage2D";
+void glCopyTexSubImage2D(int target, int level, int xoffset, int yoffset, int x,
+    int y, int width, int height) native "glCopyTexSubImage2D";
 int glCreateProgram() native "glCreateProgram";
 int glCreateShader(int type) native "glCreateShader";
 void glCullFace(int mode) native "glCullFace";
+void glDeleteBuffers(List<int> values) native "glDeleteBuffers";
+void glDeleteFramebuffers(List<int> values) native "glDeleteFramebuffers";
 void glDeleteProgram(int program) native "glDeleteProgram";
+void glDeleteRenderbuffers(List<int> values) native "glDeleteRenderbuffers";
 void glDeleteShader(int shader) native "glDeleteShader";
+void glDeleteTextures(List<int> values) native "glDeleteTextures";
 void glDepthFunc(int func) native "glDepthFunc";
 void glDepthMask(int flag) native "glDepthMask";
 void glDepthRangef(double n, double f) native "glDepthRangef";
@@ -45,19 +76,30 @@ void glDetachShader(int program, int shader) native "glDetachShader";
 void glDisable(int cap) native "glDisable";
 void glDisableVertexAttribArray(int index) native "glDisableVertexAttribArray";
 void glDrawArrays(int mode, int first, int count) native "glDrawArrays";
-void glDrawElements(int mode, int count, int type, TypedData indices) native "glDrawElements";
+void glDrawElements(int mode, int count, int type, TypedData indices)
+    native "glDrawElements";
 void glEnable(int cap) native "glEnable";
 void glEnableVertexAttribArray(int index) native "glEnableVertexAttribArray";
 void glFinish() native "glFinish";
 void glFlush() native "glFlush";
-void glFramebufferRenderbuffer(int target, int attachment, int renderbuffertarget, int renderbuffer) native "glFramebufferRenderbuffer";
-void glFramebufferTexture2D(int target, int attachment, int textarget, int texture, int level) native "glFramebufferTexture2D";
+void glFramebufferRenderbuffer(
+    int target,
+    int attachment,
+    int renderbuffertarget,
+    int renderbuffer) native "glFramebufferRenderbuffer";
+void glFramebufferTexture2D(int target, int attachment, int textarget,
+    int texture, int level) native "glFramebufferTexture2D";
 void glFrontFace(int mode) native "glFrontFace";
+List<int> glGenBuffers(int n) native "glGenBuffers";
 void glGenerateMipmap(int target) native "glGenerateMipmap";
+List<int> glGenFramebuffers(int n) native "glGenFramebuffers";
+List<int> glGenRenderbuffers(int n) native "glGenRenderbuffers";
+List<int> glGenTextures(int n) native "glGenTextures";
 int glGetAttribLocation(int program, String name) native "glGetAttribLocation";
 int glGetError() native "glGetError";
 String glGetString(int name) native "glGetString";
-int glGetUniformLocation(int program, String name) native "glGetUniformLocation";
+int glGetUniformLocation(int program, String name)
+    native "glGetUniformLocation";
 void glHint(int target, int mode) native "glHint";
 bool glIsBuffer(int buffer) native "glIsBuffer";
 bool glIsEnabled(int cap) native "glIsEnabled";
@@ -71,46 +113,106 @@ void glLinkProgram(int program) native "glLinkProgram";
 void glPixelStorei(int pname, int param) native "glPixelStorei";
 void glPolygonOffset(double factor, double units) native "glPolygonOffset";
 void glReleaseShaderCompiler() native "glReleaseShaderCompiler";
-void glRenderbufferStorage(int target, int internalformat, int width, int height) native "glRenderbufferStorage";
+void glRenderbufferStorage(int target, int internalformat, int width,
+    int height) native "glRenderbufferStorage";
 void glSampleCoverage(double value, int invert) native "glSampleCoverage";
 void glScissor(int x, int y, int width, int height) native "glScissor";
 void glStencilFunc(int func, int ref, int mask) native "glStencilFunc";
-void glStencilFuncSeparate(int face, int func, int ref, int mask) native "glStencilFuncSeparate";
+void glStencilFuncSeparate(int face, int func, int ref, int mask)
+    native "glStencilFuncSeparate";
 void glStencilMask(int mask) native "glStencilMask";
 void glStencilMaskSeparate(int face, int mask) native "glStencilMaskSeparate";
 void glStencilOp(int fail, int zfail, int zpass) native "glStencilOp";
-void glStencilOpSeparate(int face, int sfail, int dpfail, int dppass) native "glStencilOpSeparate";
-void glTexImage2D(int target, int level, int internalformat, int width, int height, int border, int format, int type, TypedData pixels) native "glTexImage2D";
-void glTexParameterf(int target, int pname, double param) native "glTexParameterf";
+void glStencilOpSeparate(int face, int sfail, int dpfail, int dppass)
+    native "glStencilOpSeparate";
+void glTexImage2D(
+    int target,
+    int level,
+    int internalformat,
+    int width,
+    int height,
+    int border,
+    int format,
+    int type,
+    TypedData pixels) native "glTexImage2D";
+void glTexParameterf(int target, int pname, double param)
+    native "glTexParameterf";
 void glTexParameteri(int target, int pname, int param) native "glTexParameteri";
-void glTexSubImage2D(int target, int level, int xoffset, int yoffset, int width, int height, int format, int type, TypedData pixels) native "glTexSubImage2D";
+void glTexSubImage2D(
+    int target,
+    int level,
+    int xoffset,
+    int yoffset,
+    int width,
+    int height,
+    int format,
+    int type,
+    TypedData pixels) native "glTexSubImage2D";
 void glUniform1f(int location, double v0) native "glUniform1f";
-void glUniform1fv(int location, int count, TypedData value) native "glUniform1fv";
+void glUniform1fv(int location, int count, TypedData value)
+    native "glUniform1fv";
 void glUniform1i(int location, int v0) native "glUniform1i";
-void glUniform1iv(int location, int count, TypedData value) native "glUniform1iv";
+void glUniform1iv(int location, int count, TypedData value)
+    native "glUniform1iv";
 void glUniform2f(int location, double v0, double v1) native "glUniform2f";
-void glUniform2fv(int location, int count, TypedData value) native "glUniform2fv";
+void glUniform2fv(int location, int count, TypedData value)
+    native "glUniform2fv";
 void glUniform2i(int location, int v0, int v1) native "glUniform2i";
-void glUniform2iv(int location, int count, TypedData value) native "glUniform2iv";
-void glUniform3f(int location, double v0, double v1, double v2) native "glUniform3f";
-void glUniform3fv(int location, int count, TypedData value) native "glUniform3fv";
+void glUniform2iv(int location, int count, TypedData value)
+    native "glUniform2iv";
+void glUniform3f(int location, double v0, double v1, double v2)
+    native "glUniform3f";
+void glUniform3fv(int location, int count, TypedData value)
+    native "glUniform3fv";
 void glUniform3i(int location, int v0, int v1, int v2) native "glUniform3i";
-void glUniform3iv(int location, int count, TypedData value) native "glUniform3iv";
-void glUniform4f(int location, double v0, double v1, double v2, double v3) native "glUniform4f";
-void glUniform4fv(int location, int count, TypedData value) native "glUniform4fv";
-void glUniform4i(int location, int v0, int v1, int v2, int v3) native "glUniform4i";
-void glUniform4iv(int location, int count, TypedData value) native "glUniform4iv";
-void glUniformMatrix2fv(int location, int count, int transpose, TypedData value) native "glUniformMatrix2fv";
-void glUniformMatrix3fv(int location, int count, int transpose, TypedData value) native "glUniformMatrix3fv";
-void glUniformMatrix4fv(int location, int count, int transpose, TypedData value) native "glUniformMatrix4fv";
+void glUniform3iv(int location, int count, TypedData value)
+    native "glUniform3iv";
+void glUniform4f(int location, double v0, double v1, double v2, double v3)
+    native "glUniform4f";
+void glUniform4fv(int location, int count, TypedData value)
+    native "glUniform4fv";
+void glUniform4i(int location, int v0, int v1, int v2, int v3)
+    native "glUniform4i";
+void glUniform4iv(int location, int count, TypedData value)
+    native "glUniform4iv";
+void glUniformMatrix2fv(int location, int count, int transpose, TypedData value)
+    native "glUniformMatrix2fv";
+void glUniformMatrix3fv(int location, int count, int transpose, TypedData value)
+    native "glUniformMatrix3fv";
+void glUniformMatrix4fv(int location, int count, int transpose, TypedData value)
+    native "glUniformMatrix4fv";
 void glUseProgram(int program) native "glUseProgram";
 void glValidateProgram(int program) native "glValidateProgram";
 void glVertexAttrib1f(int index, double x) native "glVertexAttrib1f";
 void glVertexAttrib1fv(int index, TypedData v) native "glVertexAttrib1fv";
 void glVertexAttrib2f(int index, double x, double y) native "glVertexAttrib2f";
 void glVertexAttrib2fv(int index, TypedData v) native "glVertexAttrib2fv";
-void glVertexAttrib3f(int index, double x, double y, double z) native "glVertexAttrib3f";
+void glVertexAttrib3f(int index, double x, double y, double z)
+    native "glVertexAttrib3f";
 void glVertexAttrib3fv(int index, TypedData v) native "glVertexAttrib3fv";
-void glVertexAttrib4f(int index, double x, double y, double z, double w) native "glVertexAttrib4f";
+void glVertexAttrib4f(int index, double x, double y, double z, double w)
+    native "glVertexAttrib4f";
 void glVertexAttrib4fv(int index, TypedData v) native "glVertexAttrib4fv";
 void glViewport(int x, int y, int width, int height) native "glViewport";
+void glProgramBinaryOES(int program, int binaryFormat, TypedData binary,
+    int length) native "glProgramBinaryOES";
+bool glUnmapBufferOES(int target) native "glUnmapBufferOES";
+void glBindVertexArrayOES(int array) native "glBindVertexArrayOES";
+void glDeleteVertexArraysOES(List<int> values) native "glDeleteVertexArraysOES";
+List<int> glGenVertexArraysOES(int n) native "glGenVertexArraysOES";
+bool glIsVertexArrayOES(int array) native "glIsVertexArrayOES";
+void glRenderbufferStorageMultisampleEXT(
+    int target,
+    int samples,
+    int internalformat,
+    int width,
+    int height) native "glRenderbufferStorageMultisampleEXT";
+void glFramebufferTexture2DMultisampleEXT(
+    int target,
+    int attachment,
+    int textarget,
+    int texture,
+    int level,
+    int samples) native "glFramebufferTexture2DMultisampleEXT";
+int glGetGraphicsResetStatusEXT() native "glGetGraphicsResetStatusEXT";
+void glTexDirectInvalidateVIV(int Target) native "glTexDirectInvalidateVIV";

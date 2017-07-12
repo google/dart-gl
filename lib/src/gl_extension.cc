@@ -7,14 +7,12 @@
 
 #include "dart_api.h"
 
-#include "gl_extension.h"
-
-#include "manual_bindings.h"
-#include "util.h"
 #include "generated/function_list.h"
 #include "generated/gl_bindings.h"
-
-Dart_Handle GLLibrary;
+#include "gl_extension.h"
+#include "gl_extension_info.h"
+#include "manual_bindings.h"
+#include "util.h"
 
 DART_EXPORT Dart_Handle gl_extension_Init(Dart_Handle parent_library) {
   if (Dart_IsError(parent_library)) {
@@ -27,8 +25,11 @@ DART_EXPORT Dart_Handle gl_extension_Init(Dart_Handle parent_library) {
     return result_code;
   }
 
-  GLLibrary = HandleError(Dart_NewPersistentHandle(HandleError(
+  // Look up the GL library and stash it in the info for this isolate.
+  auto gl = HandleError(Dart_NewPersistentHandle(HandleError(
       Dart_LookupLibrary(Dart_NewStringFromCString("package:gl/gl.dart")))));
+
+  GlExtensionInfo::create(gl);
 
   return Dart_Null();
 }

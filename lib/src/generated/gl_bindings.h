@@ -39,8 +39,12 @@ void glCopyTexSubImage2D_native(Dart_NativeArguments arguments);
 void glCreateProgram_native(Dart_NativeArguments arguments);
 void glCreateShader_native(Dart_NativeArguments arguments);
 void glCullFace_native(Dart_NativeArguments arguments);
+void glDeleteBuffers_native(Dart_NativeArguments arguments);
+void glDeleteFramebuffers_native(Dart_NativeArguments arguments);
 void glDeleteProgram_native(Dart_NativeArguments arguments);
+void glDeleteRenderbuffers_native(Dart_NativeArguments arguments);
 void glDeleteShader_native(Dart_NativeArguments arguments);
+void glDeleteTextures_native(Dart_NativeArguments arguments);
 void glDepthFunc_native(Dart_NativeArguments arguments);
 void glDepthMask_native(Dart_NativeArguments arguments);
 void glDepthRangef_native(Dart_NativeArguments arguments);
@@ -56,7 +60,11 @@ void glFlush_native(Dart_NativeArguments arguments);
 void glFramebufferRenderbuffer_native(Dart_NativeArguments arguments);
 void glFramebufferTexture2D_native(Dart_NativeArguments arguments);
 void glFrontFace_native(Dart_NativeArguments arguments);
+void glGenBuffers_native(Dart_NativeArguments arguments);
 void glGenerateMipmap_native(Dart_NativeArguments arguments);
+void glGenFramebuffers_native(Dart_NativeArguments arguments);
+void glGenRenderbuffers_native(Dart_NativeArguments arguments);
+void glGenTextures_native(Dart_NativeArguments arguments);
 void glGetAttribLocation_native(Dart_NativeArguments arguments);
 void glGetError_native(Dart_NativeArguments arguments);
 void glGetString_native(Dart_NativeArguments arguments);
@@ -117,5 +125,16 @@ void glVertexAttrib3fv_native(Dart_NativeArguments arguments);
 void glVertexAttrib4f_native(Dart_NativeArguments arguments);
 void glVertexAttrib4fv_native(Dart_NativeArguments arguments);
 void glViewport_native(Dart_NativeArguments arguments);
+void glProgramBinaryOES_native(Dart_NativeArguments arguments);
+void glUnmapBufferOES_native(Dart_NativeArguments arguments);
+void glBindVertexArrayOES_native(Dart_NativeArguments arguments);
+void glDeleteVertexArraysOES_native(Dart_NativeArguments arguments);
+void glGenVertexArraysOES_native(Dart_NativeArguments arguments);
+void glIsVertexArrayOES_native(Dart_NativeArguments arguments);
+void glRenderbufferStorageMultisampleEXT_native(Dart_NativeArguments arguments);
+void glFramebufferTexture2DMultisampleEXT_native(
+    Dart_NativeArguments arguments);
+void glGetGraphicsResetStatusEXT_native(Dart_NativeArguments arguments);
+void glTexDirectInvalidateVIV_native(Dart_NativeArguments arguments);
 
-#endif // DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
+#endif  // DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_

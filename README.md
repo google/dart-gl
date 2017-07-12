@@ -23,12 +23,15 @@ Note that if you set the `GL_LIB` variable when compiling, you must also set
 `LD_LIBRARY_PATH` to include the same directory when running your program or
 the Dart VM will not be able to find `libGL.so`/`lib$(GL_LIB_NAME).so`.
 
-TODO(hstern): It is convenient for development to use the .so file,
-but for distribution purposes it is less useful. It would be nice to have an
-option to use the .a library as well.
+## Whitelisting
+Some GL libraries come with headers that list functions not implemented. This
+will fail at link time. To avoid this, you can dump the symbols in
+libGLESv2.so to be whitelisted and use the `--whitelist flag in
+`tools/gl_generator.dart`
 
-## Windows
-Tested to work with NVIDIA, just requires building glfw with EGL support.
+```shell
+nm -D /lib/libGLESv2.so | grep " T " | awk '{print $3}' > whitelist.txt
+```
 
 ## Other Platforms
 TODO

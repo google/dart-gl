@@ -5,32 +5,6 @@
 
 part of gl;
 
-/// Delete a [List] of buffer objects
-void glDeleteBuffers(int n, List<int> buffers) native "glDeleteBuffers";
-
-/// Delete a [List] of framebuffer objects
-void glDeleteFramebuffers(int n, List<int> framebuffers)
-    native "glDeleteFramebuffers";
-
-/// Delete a [List] of renderbuffer objects
-void glDeleteRenderbuffers(int n, List<int> renderbuffers)
-    native "glDeleteRenderbuffers";
-
-/// Delete a [List] of texture objects
-void glDeleteTextures(int n, List<int> textures) native "glDeleteTextures";
-
-/// Generate a [List] of buffer objects
-List<int> glGenBuffers(int n) native "glGenBuffers";
-
-/// Generate a [List] of framebuffer objects
-List<int> glGenFramebuffers(int n) native "glGenFramebuffers";
-
-/// Generate a [List] of renderbuffer objects
-List<int> glGenRenderbuffers(int n) native "glGenRenderbuffers";
-
-/// Generate a [List] of texture objects
-List<int> glGenTextures(int n) native "glGenTextures";
-
 /// Create an [ActiveInfo] object for the given [program] and [index]
 ActiveInfo glGetActiveAttrib(int program, int index) native "glGetActiveAttrib";
 

@@ -1,5 +1,5 @@
 name: gl
-version: "1.0.1"
+version: "1.0.2"
 description: Dart GLES2 bindings
 authors:
   - John McDole <codefu@google.com>
@@ -10,8 +10,9 @@ homepage:
 environment:
   sdk: ">=1.0.0 <=2.0.0"
 dev_dependencies:
+  args: ^0.13.7
+  ccompile: "^0.2.10"
   #glfw: any  # for examples in example/dart_example/ - needs to symlink locally
   glfw:
     path: ../dart-glfw
-  ccompile: "^0.2.10"
-  path: "^1.3.9"
+  path: ^1.4.1
