@@ -5,30 +5,20 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as path;
 
-String dartPath;
-String glPath;
-String thisPath;
+String outPath;
 
 main(List<String> args) async {
   var parser = new ArgParser()
-    ..addOption('dart_path',
-        help: 'path to directory containing dart_api.h',
-        abbr: 'd',
-        valueHelp: 'path')
     ..addOption('gl_path',
         help: 'path to directory containing gl2.h',
         abbr: 'g',
         valueHelp: 'path')
-    ..addOption('dart_gl_lib_path',
-        help: 'path to directory containing gl_extension.h',
-        abbr: 'l',
-        valueHelp: 'path',
-        hide: true,
-        defaultsTo: "")
-    ..addOption('strip_path',
-        help: 'number of path elements to strip from the head of dart_path, '
-            'gl_path',
-        defaultsTo: "0")
+    ..addOption('out',
+        help: 'path to output directory', abbr: 'o', valueHelp: 'path')
+    ..addOption('whitelist',
+        help: 'list of functions that are bound',
+        abbr: 'w',
+        valueHelp: 'whitelist.txt')
     ..addFlag('help', abbr: 'h', negatable: false);
   var results = parser.parse(args);
 
@@ -42,68 +32,61 @@ main(List<String> args) async {
     exit(exitVal);
   }
 
-  int pathStrip;
-  try {
-    pathStrip = int.parse(results['strip_path']);
-  } catch (_) {
-    toErr('error parsing strip_path: ${results['strip_path']}');
-  }
-  if (!results.wasParsed('dart_path')) {
-    toErr('error: --dart_path must be provided');
-  }
-  dartPath = results['dart_path'];
-  if (dartPath.isNotEmpty) {
-    dartPath = path.joinAll(path.split(dartPath).skip(pathStrip));
-    dartPath = '$dartPath${path.separator}';
-  }
-
   if (!results.wasParsed('gl_path')) {
     toErr('error: --gl_path must be provided');
   }
-  var trueGlPath = results['gl_path'];
-  glPath = path.joinAll(path.split(trueGlPath).skip(pathStrip));
-  glPath = '$glPath${path.separator}';
+  var glPath = results['gl_path'];
 
-  thisPath = "";
-  if (results.wasParsed('dart_gl_lib_path')) {
-    thisPath =
-        path.joinAll(path.split(results['dart_gl_lib_path']).skip(pathStrip));
-    thisPath = '$thisPath${path.separator}';
+  outPath = '.';
+  if (results.wasParsed('out')) {
+    outPath = results['out'];
+  }
+  var generated = await new Directory('$outPath/generated').create();
+  outPath = generated.path;
+
+  var calls = [];
+  var consts = <String, CConst>{};
+  var whitelist;
+  if (results.wasParsed('whitelist')) {
+    var lines = await new File(results['whitelist']).readAsLines();
+    whitelist = lines.map((l) => l.trim()).toList();
   }
 
-  await new Directory('generated').create();
-
-  var defines = [];
-  var calls = [];
-
-  var readStream = new File(path.join(trueGlPath, 'gl2.h')).openRead();
-  await for (var line
-      in readStream.transform(UTF8.decoder).transform(new LineSplitter())) {
-    if (line.startsWith('#define GL_')) {
-      defines.add(line.substring('#define '.length).trim());
-    } else if (line.startsWith('GL_APICALL ')) {
-      calls.add(line
-          .replaceAll('GL_APICALL ', '')
-          .replaceAll('GL_APIENTRY ', '')
-          .trim());
+  for (var file in ['gl2.h', 'gl2ext.h']) {
+    var readStream = new File(path.join(glPath, file)).openRead();
+    await for (var line
+        in readStream.transform(UTF8.decoder).transform(new LineSplitter())) {
+      if (line.startsWith('#define GL_')) {
+        var match = CConst.defineReg.firstMatch(line);
+        if (match == null) {
+          print("bad define: $line");
+          continue;
+        }
+        consts.putIfAbsent(match[1], () => new CConst(match[1], match[2]));
+      } else if (line.startsWith('GL_APICALL ')) {
+        calls.add(line
+            .replaceAll('GL_APICALL ', '')
+            .replaceAll('GL_APIENTRY ', '')
+            .trim());
+      }
     }
   }
 
   var decls = <CDecl>[];
   for (var call in calls) {
-    decls.add(new CDecl(call));
-  }
-
-  var consts = <CConst>[];
-  for (var def in defines) {
-    consts.add(new CConst(def));
+    var decl = new CDecl(call);
+    if (whitelist != null && !whitelist.contains(decl.name)) {
+      print("non-whitelisted decl skipped: $decl");
+      continue;
+    }
+    decls.add(decl);
   }
 
   writeFunctionListH(decls);
   writeFunctionListC(decls);
   writeGlBindingsH(decls);
   writeGlBindingsC(decls);
-  writeGlConstantsDart(consts);
+  writeGlConstantsDart(consts.values);
   writeGlNativeFunctions(decls);
 }
 
@@ -153,6 +136,7 @@ const argumentTypeHint = const <String, String>{
   // for glUniform*iv
   "const GLint* value": "TypedData",
   "const GLint* v": "TypedData",
+  "const GLuint* arrays": "TypedData",
   // for glUniform*fv
   "const GLfloat* value": "TypedData",
   // for glVertexAttrib*fv
@@ -161,13 +145,12 @@ const argumentTypeHint = const <String, String>{
 };
 
 writeFunctionListH(List<CDecl> decls) {
-  new File('generated/function_list.h').writeAsString('''
+  new File('$outPath/function_list.h').writeAsString('''
 $copyright
-
 #ifndef DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
-#include "${dartPath}dart_api.h"
+#include "dart_api.h"
 
 struct FunctionLookup {
   const char* name;
@@ -177,12 +160,11 @@ struct FunctionLookup {
 extern const struct FunctionLookup *function_list;
 
 #endif // DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
-
 ''');
 }
 
-writeGlConstantsDart(List<CConst> consts) {
-  new File('generated/gl_constants.dart').openWrite()
+writeGlConstantsDart(Iterable<CConst> consts) {
+  new File('$outPath/gl_constants.dart').openWrite()
     ..write(copyright)
     ..writeln('\n// Generated GL constants.')
     ..writeAll(consts, '\n')
@@ -190,7 +172,7 @@ writeGlConstantsDart(List<CConst> consts) {
 }
 
 writeGlNativeFunctions(List<CDecl> decls) {
-  var sink = new File('generated/gl_native_functions.dart').openWrite()
+  var sink = new File('$outPath/gl_native_functions.dart').openWrite()
     ..write(copyright)
     ..writeln()
     ..writeln('/// Dart definitions for GL native extension.')
@@ -214,12 +196,12 @@ writeFunctionListC(List<CDecl> decls) {
       '${c.needsManualBinding && !c.hasManualBinding ? "// " : ""}'
       '{"${c.name}", ${c.nativeName}},';
 
-  new File('generated/function_list.cc').openWrite()
+  new File('$outPath/function_list.cc').openWrite()
     ..write(copyright)
     ..write('''
 #include <stdlib.h>
 
-#include "${thisPath}manual_bindings.h"
+#include "../manual_bindings.h"
 #include "function_list.h"
 #include "gl_bindings.h"
 
@@ -237,13 +219,13 @@ const struct FunctionLookup *function_list = _function_list;
 }
 
 writeGlBindingsH(List<CDecl> decls) {
-  var sink = new File('generated/gl_bindings.h').openWrite()
+  var sink = new File('$outPath/gl_bindings.h').openWrite()
     ..write(copyright)
     ..write('''
 #ifndef DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 #define DART_GL_LIB_SRC_GENERATED_GENERATED_BINDINGS_H_
 
-#include "${dartPath}dart_api.h"
+#include "dart_api.h"
 ''');
   sink
     ..writeln()
@@ -260,15 +242,16 @@ writeGlBindingsH(List<CDecl> decls) {
 }
 
 writeGlBindingsC(List<CDecl> decls) {
-  var sink = new File('generated/gl_bindings.cc').openWrite();
+  var sink = new File('$outPath/gl_bindings.cc').openWrite();
   sink..write(copyright)..write('''
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#include "${glPath}gl2.h"
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 
-#include "${thisPath}util.h"
+#include "../util.h"
 #include "gl_bindings.h"
 
 // Generated GL function bindings for Dart.
@@ -291,18 +274,33 @@ writeGlBindingsC(List<CDecl> decls) {
     int i = 0;
     var typed = [];
     var arguments = [];
-    for (var arg in decl.arguments) {
-      if (arg.right == "void") continue;
-      var dartArg = decl.dartArguments[i];
-
+    if (decl.isGenerator) {
+      var arg = decl.arguments[0];
+      var dartArg = decl.dartArguments[0];
       sink.writeln(dartTypeToArg[dartArg.left](arg, i));
       arguments.add(arg.right);
       if (dartArg.left == 'TypedData') {
         typed.add(arg);
       }
-      i++;
-    }
+    } else if (decl.isDeleter) {
+      sink.writeln('Dart_Handle values_obj = '
+          'HANDLE(Dart_GetNativeArgument(arguments, 0));');
+    } else {
+      for (var arg in decl.arguments) {
+        if (arg.right == "void") continue;
+        var dartArg = decl.dartArguments[i];
 
+        if (dartTypeToArg[dartArg.left] == null) {
+          throw "dartTypeToArg($dartArg) is null; $decl";
+        }
+        sink.writeln(dartTypeToArg[dartArg.left](arg, i));
+        arguments.add(arg.right);
+        if (dartArg.left == 'TypedData') {
+          typed.add(arg);
+        }
+        i++;
+      }
+    }
     // Be sure to capture the return value from the GL function call, if
     // necessary.
     var ret = "";
@@ -312,10 +310,38 @@ writeGlBindingsC(List<CDecl> decls) {
       retHandle = dartTypeToRet[decl.dartReturnType]();
     }
 
-    // Generate the actual GL function call, using the native arguments
-    // extracted above.
-    ret = '$ret ${decl.name}(${arguments.join(", ")});';
-    sink..writeln(ret)..writeln(retHandle);
+    if (decl.isGenerator) {
+      String count = decl.arguments[0].right;
+      sink..writeln('''
+  GLuint *values = static_cast<GLuint *>(malloc(sizeof(GLuint) * $count));
+  ${decl.name}($count, values);
+  Dart_Handle values_obj = Dart_NewList($count);
+  for (int i = 0; i < $count; i++) {
+    Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
+    HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
+  }
+  Dart_SetReturnValue(arguments, values_obj);
+  free(values);
+''');
+    } else if (decl.isDeleter) {
+      sink.writeln('''
+  GLuint *values = NULL;
+  intptr_t n = 0;
+  HANDLE(Dart_ListLength(values_obj, &n));
+  values = static_cast<GLuint *>(malloc(sizeof(GLuint) * n));
+  for (int i = 0; i < n; i++) {
+    Dart_Handle i_obj = HANDLE(Dart_ListGetAt(values_obj, i));
+    HANDLE(Dart_IntegerToUInt(i_obj, &values[i]));
+  }
+  ${decl.name}(n, values);
+  free(values);
+''');
+    } else {
+      // Generate the actual GL function call, using the native arguments
+      // extracted above.
+      ret = '$ret ${decl.name}(${arguments.join(", ")});';
+      sink..writeln(ret)..writeln(retHandle);
+    }
 
     // If we acquired any TypedData while processing arguments above, release
     // it now.
@@ -483,6 +509,9 @@ class CDecl {
     return [type, name];
   }
 
+  static RegExp generatorFunction = new RegExp(r'glGen[A-Z]');
+  static RegExp deleterFunction = new RegExp(r'glDelete[A-Z]');
+
   CDecl(String string) {
     var left = (string.split('(')[0].trim().split(ws)..removeLast()).join(" ");
     var right = string.split('(')[0].trim().split(ws).last;
@@ -490,10 +519,16 @@ class CDecl {
     name = norms[1];
     returnType = norms[0];
 
+    int noName = 0;
     for (var arg
         in removeTrailing(string.split('(')[1], 2).trim().split(comma)) {
       right = arg.split(ws).last;
       left = (arg.split(ws)..removeLast()).join(" ");
+      if (left == '' && right != "void") {
+        // API without explicitly named variable
+        left = right;
+        right = 'noName${noName++}';
+      }
       arguments.add(new Pair.fromList(normalizePointer(left, right)));
     }
 
@@ -504,6 +539,7 @@ class CDecl {
       needsManualBinding = true;
       print("$name RETURN TYPE NEEDS MANUAL BINDING: $returnType");
     }
+    var reason = '';
     dartArguments = arguments.map((pair) {
       if (pair.right == "void") return new Pair("", "void");
       var type = argumentTypeHint['$pair'];
@@ -512,15 +548,37 @@ class CDecl {
       }
       type = typeMap[pair.left];
       if (type == null) {
+        reason = '${reason} Unknown type: ${pair.left}';
         needsManualBinding = true;
-        return new Pair(null, null);
+        return new Pair(null, pair.right);
       }
       return new Pair(type, pair.right);
     }).toList();
+
+    if (isGenerator) {
+      dartReturnType = 'List<int>';
+      dartArguments = [new Pair('int', arguments[0].right)];
+      needsManualBinding = false;
+    } else if (isDeleter) {
+      dartReturnType = 'void';
+      dartArguments = [new Pair('List<int>', 'values')];
+      needsManualBinding = false;
+    }
     if (needsManualBinding) {
-      print("$name NEEDS MANUAL BINDINGS: $string");
+      print("$name NEEDS MANUAL BINDINGS: $string$reason, "
+          "Discovered: $arguments $dartArguments");
     }
   }
+
+  bool get isGenerator =>
+      name.startsWith(generatorFunction) &&
+      arguments.length == 2 &&
+      typeMap[arguments.first.left] == 'int';
+
+  bool get isDeleter =>
+      name.startsWith(deleterFunction) &&
+      arguments.length == 2 &&
+      typeMap[arguments.first.left] == 'int';
 
   String get nativeName => '${name}_native';
 
@@ -529,14 +587,6 @@ class CDecl {
 
   /// These functions have manual bindings defined in lib/src/manual_bindings.cc
   static final Set<String> manualBindings = new Set.from([
-    "glDeleteBuffers",
-    "glDeleteFramebuffers",
-    "glDeleteRenderbuffers",
-    "glDeleteTextures",
-    "glGenBuffers",
-    "glGenFramebuffers",
-    "glGenRenderbuffers",
-    "glGenTextures",
     "glGetActiveAttrib",
     "glGetActiveUniform",
     "glGetAttachedShaders",
@@ -572,14 +622,13 @@ class CDecl {
 class CConst {
   static final ws = new RegExp(r'\s+');
 
+  static final defineReg =
+      new RegExp(r'#define (GL_[_A-Za-z0-9]+)\s*(0x[0-9a-fA-F]+|[0-9]+)');
+
   String name;
   String value;
 
-  CConst(String string) {
-    var norms = string.trim().split(ws);
-    name = norms[0];
-    value = norms[1];
-  }
+  CConst(this.name, this.value);
 
   String toString() => 'const int $name = $value;';
 }

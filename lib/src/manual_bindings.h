@@ -3,19 +3,11 @@
 // by a BSD-style license that can be found in the LICENSE file or at
 // https://developers.google.com/open-source/licenses/bsd
 
-#ifndef SRC_MANUAL_BINDINGS_H_
-#define SRC_MANUAL_BINDINGS_H_
+#ifndef DART_GL_LIB_SRC_MANUAL_BINDINGS_H_
+#define DART_GL_LIB_SRC_MANUAL_BINDINGS_H_
 
 #include "dart_api.h"
 
-void glDeleteBuffers_native(Dart_NativeArguments arguments);
-void glDeleteFramebuffers_native(Dart_NativeArguments arguments);
-void glDeleteRenderbuffers_native(Dart_NativeArguments arguments);
-void glDeleteTextures_native(Dart_NativeArguments arguments);
-void glGenBuffers_native(Dart_NativeArguments arguments);
-void glGenFramebuffers_native(Dart_NativeArguments arguments);
-void glGenRenderbuffers_native(Dart_NativeArguments arguments);
-void glGenTextures_native(Dart_NativeArguments arguments);
 void glGetActiveAttrib_native(Dart_NativeArguments arguments);
 void glGetActiveUniform_native(Dart_NativeArguments arguments);
 void glGetAttachedShaders_native(Dart_NativeArguments arguments);
@@ -45,4 +37,4 @@ void glTexParameterfv_native(Dart_NativeArguments arguments);
 void glTexParameteriv_native(Dart_NativeArguments arguments);
 void glVertexAttribPointer_native(Dart_NativeArguments arguments);
 
-#endif  // SRC_MANUAL_BINDINGS_H_
+#endif  // DART_GL_LIB_SRC_MANUAL_BINDINGS_H_

@@ -6,7 +6,7 @@
 #ifndef DART_GL_LIB_SRC_UTIL_H_
 #define DART_GL_LIB_SRC_UTIL_H_
 
-#include "GLES2/gl2.h"
+#include <GLES2/gl2.h>
 #include "dart_api.h"
 
 Dart_Handle HandleError(Dart_Handle handle);

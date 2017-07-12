@@ -8,17 +8,18 @@
 
 #include <stdlib.h>
 
-#include "GLES2/gl2.h"
+#include <GLES2/gl2.h>
 #include "dart_api.h"
 
 #include "gl_extension.h"
+#include "gl_extension_info.h"
+#include "instantiate_gl_classes.h"
 #include "util.h"
 
-#include "instantiate_gl_classes.h"
-
 Dart_Handle NewActiveInfo(GLint size, GLenum type, GLchar* name) {
+  auto info = GlExtensionInfo::current();
   Dart_Handle ActiveInfo_type = HandleError(Dart_GetType(
-      GLLibrary, Dart_NewStringFromCString("ActiveInfo"), 0, NULL));
+      info.gl_library(), Dart_NewStringFromCString("ActiveInfo"), 0, NULL));
 
   const int num_arguments = 3;
   Dart_Handle arguments[num_arguments];
@@ -30,8 +31,10 @@ Dart_Handle NewActiveInfo(GLint size, GLenum type, GLchar* name) {
 }
 
 Dart_Handle NewShaderPrecisionFormat(GLint* range, GLint precision) {
+  auto info = GlExtensionInfo::current();
   Dart_Handle ShaderPrecisionFormat_type = HandleError(Dart_GetType(
-      GLLibrary, Dart_NewStringFromCString("ShaderPrecisionFormat"), 0, NULL));
+      info.gl_library(), Dart_NewStringFromCString("ShaderPrecisionFormat"), 0,
+      NULL));
 
   const int num_arguments = 3;
   Dart_Handle arguments[num_arguments];
