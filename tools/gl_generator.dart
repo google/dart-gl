@@ -7,6 +7,12 @@ import 'package:path/path.dart' as path;
 
 String outPath;
 
+/// Specific APIs that need manual bindings, but we're too lazy to write them.
+var blacklist = new Set.from([
+  // Commands is not a string - it is typed data of length numCommands
+  'glPathCommandsNV',
+]);
+
 main(List<String> args) async {
   var parser = new ArgParser()
     ..addOption('gl_path',
@@ -46,12 +52,7 @@ main(List<String> args) async {
 
   var calls = [];
   var consts = <String, CConst>{};
-  var whitelist;
-  if (results.wasParsed('whitelist')) {
-    var lines = await new File(results['whitelist']).readAsLines();
-    whitelist = lines.map((l) => l.trim()).toList();
-  }
-
+  var extCalls = [];
   for (var file in ['gl2.h', 'gl2ext.h']) {
     var readStream = new File(path.join(glPath, file)).openRead();
     await for (var line
@@ -64,7 +65,7 @@ main(List<String> args) async {
         }
         consts.putIfAbsent(match[1], () => new CConst(match[1], match[2]));
       } else if (line.startsWith('GL_APICALL ')) {
-        calls.add(line
+        ((file == 'gl2.h') ? calls : extCalls).add(line
             .replaceAll('GL_APICALL ', '')
             .replaceAll('GL_APIENTRY ', '')
             .trim());
@@ -72,22 +73,17 @@ main(List<String> args) async {
     }
   }
 
-  var decls = <CDecl>[];
-  for (var call in calls) {
-    var decl = new CDecl(call);
-    if (whitelist != null && !whitelist.contains(decl.name)) {
-      print("non-whitelisted decl skipped: $decl");
-      continue;
-    }
-    decls.add(decl);
-  }
+  var decls = <CDecl>[]..addAll(calls.map((c) => new CDecl(c)));
+  var loadDecls = <CDecl>[]
+    ..addAll(extCalls.map((c) => new CDecl(c, dlsym: true)));
+  var all = <CDecl>[]..addAll(decls)..addAll(loadDecls);
 
-  writeFunctionListH(decls);
-  writeFunctionListC(decls);
-  writeGlBindingsH(decls);
-  writeGlBindingsC(decls);
+  writeFunctionListH(all);
+  writeFunctionListC(all);
+  writeGlBindingsH(all);
+  writeGlBindingsC(all);
   writeGlConstantsDart(consts.values);
-  writeGlNativeFunctions(decls);
+  writeGlNativeFunctions(all);
 }
 
 const String copyright = '''
@@ -145,12 +141,42 @@ const argumentTypeHint = const <String, String>{
 };
 
 writeFunctionListH(List<CDecl> decls) {
+  var typedefs = new StringBuffer();
+  var dls = new StringBuffer();
+  for (var decl in decls
+      .where((d) => d.dlsym && !d.hasManualBinding && !d.needsManualBinding)) {
+    var upper = 'PF${decl.name.toUpperCase()}';
+    typedefs
+      ..write('typedef ')
+      ..write(decl.returnType)
+      ..write(' (APIENTRY* ')
+      ..write(upper)
+      ..write(')(')
+      ..write(decl.arguments.map((a) => a.left).join(','))
+      ..writeln(');');
+    dls.writeln('  $upper ${decl.name};');
+  }
+
   new File('$outPath/function_list.h').writeAsString('''
 $copyright
 #ifndef DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
 #include "dart_api.h"
+#include <GLES2/gl2.h>
+
+#if defined(WIN32)
+  #define APIENTRY __stdcall
+  #define _dlopen(name) LoadLibraryA(name)
+  #define _dlclose(handle) FreeLibrary((HMODULE) handle)
+  #define _dlsym(handle, name) GetProcAddress((HMODULE) handle, name)
+#else
+  #include <dlfcn.h>
+  #define APIENTRY
+  #define _dlopen(name) dlopen(name, RTLD_LAZY | RTLD_LOCAL)
+  #define _dlclose(handle) dlclose(handle)
+  #define _dlsym(handle, name) dlsym(handle, name)
+#endif
 
 struct FunctionLookup {
   const char* name;
@@ -158,6 +184,19 @@ struct FunctionLookup {
 };
 
 extern const struct FunctionLookup *function_list;
+
+// Attempt to load functions from gl2ext
+void loadFunctions();
+
+// Dynamically loaded functions.
+$typedefs
+
+struct DynamicFunctions {
+  void* handle;
+$dls
+};
+
+extern struct DynamicFunctions dll;
 
 #endif // DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 ''');
@@ -196,10 +235,11 @@ writeFunctionListC(List<CDecl> decls) {
       '${c.needsManualBinding && !c.hasManualBinding ? "// " : ""}'
       '{"${c.name}", ${c.nativeName}},';
 
-  new File('$outPath/function_list.cc').openWrite()
+  var write = new File('$outPath/function_list.cc').openWrite()
     ..write(copyright)
     ..write('''
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "../manual_bindings.h"
 #include "function_list.h"
@@ -210,12 +250,47 @@ const struct FunctionLookup _function_list[] = {
 ''')
     ..write(decls.map(functionListLine).join('\n'))
     ..writeln()
-    ..write('''
+    ..writeln('''
     {NULL, NULL}};
 // This prevents the compiler from complaining about initializing improperly.
 const struct FunctionLookup *function_list = _function_list;
-''')
-    ..close();
+''');
+
+  write..write('''
+struct DynamicFunctions dll;
+void loadFunctions() {
+  int i;
+  const char* sonames[] {
+#if defined(WIN32)
+    "libGLESv2.dll",
+    "GLESv2.dll",
+#else
+    "libGLESv2.so",
+    "GLESv2.so",
+#endif
+    NULL
+  };
+
+  if (dll.handle) return;
+  for (i = 0; sonames[i]; i++) {
+    dll.handle = _dlopen(sonames[i]);
+    if (dll.handle) break;
+  }
+
+  if (!dll.handle) {
+    fprintf(stderr, "FATAL: unable to load gles2 library\\n");
+    return;
+  }
+''');
+
+  for (var decl in decls
+      .where((d) => d.dlsym && !d.hasManualBinding && !d.needsManualBinding)) {
+    var upper = 'PF${decl.name.toUpperCase()}';
+    write.writeln('  dll.${decl.name} = ($upper) '
+        '_dlsym(dll.handle, "${decl.name}");');
+  }
+  write.writeln('}');
+  write.close();
 }
 
 writeGlBindingsH(List<CDecl> decls) {
@@ -253,6 +328,7 @@ writeGlBindingsC(List<CDecl> decls) {
 
 #include "../util.h"
 #include "gl_bindings.h"
+#include "function_list.h"
 
 // Generated GL function bindings for Dart.
 
@@ -265,9 +341,15 @@ writeGlBindingsC(List<CDecl> decls) {
     if (decl.needsManualBinding || decl.hasManualBinding) continue;
 
     // Write the first line (return type, name, and arguments).
-    sink
-      ..writeln('void ${decl.nativeName}(Dart_NativeArguments arguments) {')
-      ..writeln('TRACE_START(${decl.name}_);');
+    sink..writeln('void ${decl.nativeName}(Dart_NativeArguments arguments) {');
+    if (decl.dlsym) {
+      sink..writeln('''
+  if (!dll.${decl.name}) {
+    return;
+  }''');
+    }
+
+    sink..writeln('TRACE_START(${decl.name}_);');
 
     // For each argument, generate the code needed to extract it from the
     // Dart_NativeArguments structure.
@@ -314,7 +396,7 @@ writeGlBindingsC(List<CDecl> decls) {
       String count = decl.arguments[0].right;
       sink..writeln('''
   GLuint *values = static_cast<GLuint *>(malloc(sizeof(GLuint) * $count));
-  ${decl.name}($count, values);
+  ${decl.dlsym ? 'dll.' : ''}${decl.name}($count, values);
   Dart_Handle values_obj = Dart_NewList($count);
   for (int i = 0; i < $count; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
@@ -333,13 +415,15 @@ writeGlBindingsC(List<CDecl> decls) {
     Dart_Handle i_obj = HANDLE(Dart_ListGetAt(values_obj, i));
     HANDLE(Dart_IntegerToUInt(i_obj, &values[i]));
   }
-  ${decl.name}(n, values);
+  ${decl.dlsym ? 'dll.' : ''}${decl.name}(n, values);
   free(values);
 ''');
     } else {
       // Generate the actual GL function call, using the native arguments
       // extracted above.
-      ret = '$ret ${decl.name}(${arguments.join(", ")});';
+
+      ret =
+          '$ret ${decl.dlsym ? 'dll.' : ''}${decl.name}(${arguments.join(", ")});';
       sink..writeln(ret)..writeln(retHandle);
     }
 
@@ -404,11 +488,13 @@ boolToC(Pair arg, int index) {
 /// Unpacks Dart String arguments to C.
 stringToC(Pair arg, int index) {
   String name = arg.right;
+  bool unsigned = arg.left.contains("GLubyte");
   return '''
   void* ${name}_peer = NULL;
   Dart_Handle ${name}_arg = HANDLE(Dart_GetNativeStringArgument(arguments, $index, (void**)&${name}_peer));
-  const char *${name};
-  HANDLE(Dart_StringToCString(${name}_arg, &${name}));
+  const ${unsigned ? 'unsigned ' : ''}char *${name};
+  HANDLE(Dart_StringToCString(${name}_arg, ${unsigned ? '(const char**)' :
+    ''}&${name}));
 ''';
 }
 
@@ -504,20 +590,30 @@ class CDecl {
     } else if (name.startsWith('&')) {
       return normalizePointer('${type}&', name.substring(1));
     } else if (name.startsWith('const*')) {
-      return normalizePointer('${type}const*', name.substring(6));
+      return normalizePointer('${type} const*', name.substring(6));
+    } else if (name.contains(array)) {
+      print("name($name) contains []");
+      return normalizePointer('${type} const*', name.replaceAll(array, ''));
     }
     return [type, name];
   }
 
-  static RegExp generatorFunction = new RegExp(r'glGen[A-Z]');
-  static RegExp deleterFunction = new RegExp(r'glDelete[A-Z]');
+  static final RegExp generatorFunction = new RegExp(r'glGen[A-Z]');
+  static final RegExp deleterFunction = new RegExp(r'glDelete[A-Z]');
+  static final RegExp array = new RegExp(r'\[[0-9\s]+\]$');
 
-  CDecl(String string) {
+  final bool dlsym;
+  CDecl(String string, {this.dlsym: false}) {
     var left = (string.split('(')[0].trim().split(ws)..removeLast()).join(" ");
     var right = string.split('(')[0].trim().split(ws).last;
     var norms = normalizePointer(left, right);
     name = norms[1];
     returnType = norms[0];
+
+    if (blacklist.contains(name)) {
+      needsManualBinding = true;
+      print("$name NEEDS MANUAL BINDING: check the blacklist");
+    }
 
     int noName = 0;
     for (var arg
@@ -531,7 +627,6 @@ class CDecl {
       }
       arguments.add(new Pair.fromList(normalizePointer(left, right)));
     }
-
     if (hasManualBinding) return;
     dartReturnType = returnTypeOverride[returnType];
     dartReturnType ??= typeMap[returnType];
@@ -578,12 +673,13 @@ class CDecl {
   bool get isDeleter =>
       name.startsWith(deleterFunction) &&
       arguments.length == 2 &&
-      typeMap[arguments.first.left] == 'int';
+      typeMap[arguments.first.left] == 'int' &&
+      arguments[1].left.contains('*');
 
   String get nativeName => '${name}_native';
 
   String toString() => '$returnType $name(${arguments.join(', ')}); '
-      '// $dartArguments -> $dartReturnType';
+      '// $dartArguments -> $dartReturnType${dlsym ? ' dll' : ''}';
 
   /// These functions have manual bindings defined in lib/src/manual_bindings.cc
   static final Set<String> manualBindings = new Set.from([

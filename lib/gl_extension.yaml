@@ -8,6 +8,7 @@ compiler:
   - 'src/util.cc'
   - 'src/generated/function_list.cc'
   - 'src/generated/gl_bindings.cc'
+  - 'src/gl_extension_info.cc'
 clean: [ '*.exp', '*.lib', '*.o', '*.obj']
 linker:
   input_files:
@@ -17,25 +18,26 @@ linker:
   - 'util'
   - 'function_list'
   - 'gl_bindings'
+  - 'gl_extension_info'
 platforms:
   linux:
     compiler:
       arguments: ['-fPIC', '-Wall', '-Werror', '-std=c++11']
-      defines: {'DART_SHARED_LIB'}
+      defines: {'DART_SHARED_LIB', 'LINUX'}
     linker:
-      arguments: ['-shared', '-lGL']
+      arguments: ['-shared', '-lGL', '-lstdc++']
       output_file: 'libgl_extension.so'
   macos:
     compiler:
       arguments: ['-fPIC', '-Wall']
-      defines: {'DART_SHARED_LIB'}
+      defines: {'DART_SHARED_LIB', 'MACOS'}
     linker:
       arguments: ['-dynamiclib', '-undefined', 'dynamic_lookup']
       output_file: 'libgl_extension.dylib'
   windows:
     compiler:
       arguments: ['/EHsc']
-      defines: {'DART_SHARED_LIB'}
+      defines: {'DART_SHARED_LIB', 'WIN32'}
     linker:
       arguments: ['/DLL']
       input_files:
