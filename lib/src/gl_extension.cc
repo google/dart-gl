@@ -31,6 +31,8 @@ DART_EXPORT Dart_Handle gl_extension_Init(Dart_Handle parent_library) {
 
   GlExtensionInfo::create(gl);
 
+  loadFunctions();
+
   return Dart_Null();
 }
 

@@ -8,7 +8,21 @@
 #ifndef DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 #define DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_
 
+#include <GLES2/gl2.h>
 #include "dart_api.h"
+
+#if defined(WIN32)
+#define APIENTRY __stdcall
+#define _dlopen(name) LoadLibraryA(name)
+#define _dlclose(handle) FreeLibrary((HMODULE)handle)
+#define _dlsym(handle, name) GetProcAddress((HMODULE)handle, name)
+#else
+#include <dlfcn.h>
+#define APIENTRY
+#define _dlopen(name) dlopen(name, RTLD_LAZY | RTLD_LOCAL)
+#define _dlclose(handle) dlclose(handle)
+#define _dlsym(handle, name) dlsym(handle, name)
+#endif
 
 struct FunctionLookup {
   const char* name;
@@ -16,5 +30,649 @@ struct FunctionLookup {
 };
 
 extern const struct FunctionLookup* function_list;
+
+// Attempt to load functions from gl2ext
+void loadFunctions();
+
+// Dynamically loaded functions.
+typedef void(APIENTRY* PFGLBLENDBARRIERKHR)();
+typedef void(APIENTRY* PFGLDEBUGMESSAGEINSERTKHR)(GLenum, GLenum, GLuint,
+                                                  GLenum, GLsizei,
+                                                  const GLchar*);
+typedef void(APIENTRY* PFGLPUSHDEBUGGROUPKHR)(GLenum, GLuint, GLsizei,
+                                              const GLchar*);
+typedef void(APIENTRY* PFGLPOPDEBUGGROUPKHR)();
+typedef void(APIENTRY* PFGLOBJECTLABELKHR)(GLenum, GLuint, GLsizei,
+                                           const GLchar*);
+typedef void(APIENTRY* PFGLOBJECTPTRLABELKHR)(const void*, GLsizei,
+                                              const GLchar*);
+typedef GLenum(APIENTRY* PFGLGETGRAPHICSRESETSTATUSKHR)();
+typedef void(APIENTRY* PFGLCOPYIMAGESUBDATAOES)(GLuint, GLenum, GLint, GLint,
+                                                GLint, GLint, GLuint, GLenum,
+                                                GLint, GLint, GLint, GLint,
+                                                GLsizei, GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLENABLEIOES)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLDISABLEIOES)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLBLENDEQUATIONIOES)(GLuint, GLenum);
+typedef void(APIENTRY* PFGLBLENDEQUATIONSEPARATEIOES)(GLuint, GLenum, GLenum);
+typedef void(APIENTRY* PFGLBLENDFUNCIOES)(GLuint, GLenum, GLenum);
+typedef void(APIENTRY* PFGLBLENDFUNCSEPARATEIOES)(GLuint, GLenum, GLenum,
+                                                  GLenum, GLenum);
+typedef void(APIENTRY* PFGLCOLORMASKIOES)(GLuint, GLboolean, GLboolean,
+                                          GLboolean, GLboolean);
+typedef GLboolean(APIENTRY* PFGLISENABLEDIOES)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLDRAWELEMENTSBASEVERTEXOES)(GLenum, GLsizei, GLenum,
+                                                      const void*, GLint);
+typedef void(APIENTRY* PFGLDRAWRANGEELEMENTSBASEVERTEXOES)(GLenum, GLuint,
+                                                           GLuint, GLsizei,
+                                                           GLenum, const void*,
+                                                           GLint);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDBASEVERTEXOES)(GLenum, GLsizei,
+                                                               GLenum,
+                                                               const void*,
+                                                               GLsizei, GLint);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTUREOES)(GLenum, GLenum, GLuint,
+                                                  GLint);
+typedef void(APIENTRY* PFGLPROGRAMBINARYOES)(GLuint, GLenum, const void*,
+                                             GLint);
+typedef GLboolean(APIENTRY* PFGLUNMAPBUFFEROES)(GLenum);
+typedef void(APIENTRY* PFGLPRIMITIVEBOUNDINGBOXOES)(GLfloat, GLfloat, GLfloat,
+                                                    GLfloat, GLfloat, GLfloat,
+                                                    GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLMINSAMPLESHADINGOES)(GLfloat);
+typedef void(APIENTRY* PFGLPATCHPARAMETERIOES)(GLenum, GLint);
+typedef void(APIENTRY* PFGLTEXIMAGE3DOES)(GLenum, GLint, GLenum, GLsizei,
+                                          GLsizei, GLsizei, GLint, GLenum,
+                                          GLenum, const void*);
+typedef void(APIENTRY* PFGLTEXSUBIMAGE3DOES)(GLenum, GLint, GLint, GLint, GLint,
+                                             GLsizei, GLsizei, GLsizei, GLenum,
+                                             GLenum, const void*);
+typedef void(APIENTRY* PFGLCOPYTEXSUBIMAGE3DOES)(GLenum, GLint, GLint, GLint,
+                                                 GLint, GLint, GLint, GLsizei,
+                                                 GLsizei);
+typedef void(APIENTRY* PFGLCOMPRESSEDTEXIMAGE3DOES)(GLenum, GLint, GLenum,
+                                                    GLsizei, GLsizei, GLsizei,
+                                                    GLint, GLsizei,
+                                                    const void*);
+typedef void(APIENTRY* PFGLCOMPRESSEDTEXSUBIMAGE3DOES)(GLenum, GLint, GLint,
+                                                       GLint, GLint, GLsizei,
+                                                       GLsizei, GLsizei, GLenum,
+                                                       GLsizei, const void*);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTURE3DOES)(GLenum, GLenum, GLenum,
+                                                    GLuint, GLint, GLint);
+typedef void(APIENTRY* PFGLTEXBUFFEROES)(GLenum, GLenum, GLuint);
+typedef void(APIENTRY* PFGLTEXBUFFERRANGEOES)(GLenum, GLenum, GLuint, GLintptr,
+                                              GLsizeiptr);
+typedef void(APIENTRY* PFGLTEXSTORAGE3DMULTISAMPLEOES)(GLenum, GLsizei, GLenum,
+                                                       GLsizei, GLsizei,
+                                                       GLsizei, GLboolean);
+typedef void(APIENTRY* PFGLTEXTUREVIEWOES)(GLuint, GLenum, GLuint, GLenum,
+                                           GLuint, GLuint, GLuint, GLuint);
+typedef void(APIENTRY* PFGLBINDVERTEXARRAYOES)(GLuint);
+typedef void(APIENTRY* PFGLDELETEVERTEXARRAYSOES)(GLsizei, const GLuint*);
+typedef void(APIENTRY* PFGLGENVERTEXARRAYSOES)(GLsizei, GLuint*);
+typedef GLboolean(APIENTRY* PFGLISVERTEXARRAYOES)(GLuint);
+typedef void(APIENTRY* PFGLGENPERFMONITORSAMD)(GLsizei, GLuint*);
+typedef void(APIENTRY* PFGLDELETEPERFMONITORSAMD)(GLsizei, GLuint*);
+typedef void(APIENTRY* PFGLBEGINPERFMONITORAMD)(GLuint);
+typedef void(APIENTRY* PFGLENDPERFMONITORAMD)(GLuint);
+typedef void(APIENTRY* PFGLBLITFRAMEBUFFERANGLE)(GLint, GLint, GLint, GLint,
+                                                 GLint, GLint, GLint, GLint,
+                                                 GLbitfield, GLenum);
+typedef void(APIENTRY* PFGLRENDERBUFFERSTORAGEMULTISAMPLEANGLE)(GLenum, GLsizei,
+                                                                GLenum, GLsizei,
+                                                                GLsizei);
+typedef void(APIENTRY* PFGLDRAWARRAYSINSTANCEDANGLE)(GLenum, GLint, GLsizei,
+                                                     GLsizei);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDANGLE)(GLenum, GLsizei, GLenum,
+                                                       const void*, GLsizei);
+typedef void(APIENTRY* PFGLVERTEXATTRIBDIVISORANGLE)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLCOPYTEXTURELEVELSAPPLE)(GLuint, GLuint, GLint,
+                                                   GLsizei);
+typedef void(APIENTRY* PFGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLE)(GLenum, GLsizei,
+                                                                GLenum, GLsizei,
+                                                                GLsizei);
+typedef void(APIENTRY* PFGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLE)();
+typedef void(APIENTRY* PFGLDRAWARRAYSINSTANCEDBASEINSTANCEEXT)(GLenum, GLint,
+                                                               GLsizei, GLsizei,
+                                                               GLuint);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXT)(
+    GLenum, GLsizei, GLenum, const void*, GLsizei, GLuint);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXT)(
+    GLenum, GLsizei, GLenum, const void*, GLsizei, GLint, GLuint);
+typedef void(APIENTRY* PFGLBINDFRAGDATALOCATIONINDEXEDEXT)(GLuint, GLuint,
+                                                           GLuint,
+                                                           const GLchar*);
+typedef void(APIENTRY* PFGLBINDFRAGDATALOCATIONEXT)(GLuint, GLuint,
+                                                    const GLchar*);
+typedef GLint(APIENTRY* PFGLGETPROGRAMRESOURCELOCATIONINDEXEXT)(GLuint, GLenum,
+                                                                const GLchar*);
+typedef GLint(APIENTRY* PFGLGETFRAGDATAINDEXEXT)(GLuint, const GLchar*);
+typedef void(APIENTRY* PFGLBUFFERSTORAGEEXT)(GLenum, GLsizeiptr, const void*,
+                                             GLbitfield);
+typedef void(APIENTRY* PFGLCOPYIMAGESUBDATAEXT)(GLuint, GLenum, GLint, GLint,
+                                                GLint, GLint, GLuint, GLenum,
+                                                GLint, GLint, GLint, GLint,
+                                                GLsizei, GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLLABELOBJECTEXT)(GLenum, GLuint, GLsizei,
+                                           const GLchar*);
+typedef void(APIENTRY* PFGLINSERTEVENTMARKEREXT)(GLsizei, const GLchar*);
+typedef void(APIENTRY* PFGLPUSHGROUPMARKEREXT)(GLsizei, const GLchar*);
+typedef void(APIENTRY* PFGLPOPGROUPMARKEREXT)();
+typedef void(APIENTRY* PFGLGENQUERIESEXT)(GLsizei, GLuint*);
+typedef void(APIENTRY* PFGLDELETEQUERIESEXT)(GLsizei, const GLuint*);
+typedef GLboolean(APIENTRY* PFGLISQUERYEXT)(GLuint);
+typedef void(APIENTRY* PFGLBEGINQUERYEXT)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLENDQUERYEXT)(GLenum);
+typedef void(APIENTRY* PFGLQUERYCOUNTEREXT)(GLuint, GLenum);
+typedef void(APIENTRY* PFGLENABLEIEXT)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLDISABLEIEXT)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLBLENDEQUATIONIEXT)(GLuint, GLenum);
+typedef void(APIENTRY* PFGLBLENDEQUATIONSEPARATEIEXT)(GLuint, GLenum, GLenum);
+typedef void(APIENTRY* PFGLBLENDFUNCIEXT)(GLuint, GLenum, GLenum);
+typedef void(APIENTRY* PFGLBLENDFUNCSEPARATEIEXT)(GLuint, GLenum, GLenum,
+                                                  GLenum, GLenum);
+typedef void(APIENTRY* PFGLCOLORMASKIEXT)(GLuint, GLboolean, GLboolean,
+                                          GLboolean, GLboolean);
+typedef GLboolean(APIENTRY* PFGLISENABLEDIEXT)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLDRAWELEMENTSBASEVERTEXEXT)(GLenum, GLsizei, GLenum,
+                                                      const void*, GLint);
+typedef void(APIENTRY* PFGLDRAWRANGEELEMENTSBASEVERTEXEXT)(GLenum, GLuint,
+                                                           GLuint, GLsizei,
+                                                           GLenum, const void*,
+                                                           GLint);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDBASEVERTEXEXT)(GLenum, GLsizei,
+                                                               GLenum,
+                                                               const void*,
+                                                               GLsizei, GLint);
+typedef void(APIENTRY* PFGLDRAWARRAYSINSTANCEDEXT)(GLenum, GLint, GLsizei,
+                                                   GLsizei);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDEXT)(GLenum, GLsizei, GLenum,
+                                                     const void*, GLsizei);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTUREEXT)(GLenum, GLenum, GLuint,
+                                                  GLint);
+typedef void(APIENTRY* PFGLVERTEXATTRIBDIVISOREXT)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLFLUSHMAPPEDBUFFERRANGEEXT)(GLenum, GLintptr,
+                                                      GLsizeiptr);
+typedef void(APIENTRY* PFGLMULTIDRAWARRAYSINDIRECTEXT)(GLenum, const void*,
+                                                       GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLMULTIDRAWELEMENTSINDIRECTEXT)(GLenum, GLenum,
+                                                         const void*, GLsizei,
+                                                         GLsizei);
+typedef void(APIENTRY* PFGLRENDERBUFFERSTORAGEMULTISAMPLEEXT)(GLenum, GLsizei,
+                                                              GLenum, GLsizei,
+                                                              GLsizei);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXT)(GLenum, GLenum,
+                                                               GLenum, GLuint,
+                                                               GLint, GLsizei);
+typedef void(APIENTRY* PFGLREADBUFFERINDEXEDEXT)(GLenum, GLint);
+typedef void(APIENTRY* PFGLPRIMITIVEBOUNDINGBOXEXT)(GLfloat, GLfloat, GLfloat,
+                                                    GLfloat, GLfloat, GLfloat,
+                                                    GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLRASTERSAMPLESEXT)(GLuint, GLboolean);
+typedef GLenum(APIENTRY* PFGLGETGRAPHICSRESETSTATUSEXT)();
+typedef void(APIENTRY* PFGLACTIVESHADERPROGRAMEXT)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLBINDPROGRAMPIPELINEEXT)(GLuint);
+typedef void(APIENTRY* PFGLDELETEPROGRAMPIPELINESEXT)(GLsizei, const GLuint*);
+typedef void(APIENTRY* PFGLGENPROGRAMPIPELINESEXT)(GLsizei, GLuint*);
+typedef GLboolean(APIENTRY* PFGLISPROGRAMPIPELINEEXT)(GLuint);
+typedef void(APIENTRY* PFGLPROGRAMPARAMETERIEXT)(GLuint, GLenum, GLint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM1FEXT)(GLuint, GLint, GLfloat);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM1FVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM1IEXT)(GLuint, GLint, GLint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM1IVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLint*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM2FEXT)(GLuint, GLint, GLfloat,
+                                                GLfloat);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM2FVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM2IEXT)(GLuint, GLint, GLint, GLint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM2IVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLint*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM3FEXT)(GLuint, GLint, GLfloat, GLfloat,
+                                                GLfloat);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM3FVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM3IEXT)(GLuint, GLint, GLint, GLint,
+                                                GLint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM3IVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLint*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM4FEXT)(GLuint, GLint, GLfloat, GLfloat,
+                                                GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM4FVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM4IEXT)(GLuint, GLint, GLint, GLint,
+                                                GLint, GLint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM4IVEXT)(GLuint, GLint, GLsizei,
+                                                 const GLint*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX2FVEXT)(GLuint, GLint, GLsizei,
+                                                       GLboolean,
+                                                       const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX3FVEXT)(GLuint, GLint, GLsizei,
+                                                       GLboolean,
+                                                       const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX4FVEXT)(GLuint, GLint, GLsizei,
+                                                       GLboolean,
+                                                       const GLfloat*);
+typedef void(APIENTRY* PFGLUSEPROGRAMSTAGESEXT)(GLuint, GLbitfield, GLuint);
+typedef void(APIENTRY* PFGLVALIDATEPROGRAMPIPELINEEXT)(GLuint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM1UIEXT)(GLuint, GLint, GLuint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM2UIEXT)(GLuint, GLint, GLuint, GLuint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM3UIEXT)(GLuint, GLint, GLuint, GLuint,
+                                                 GLuint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORM4UIEXT)(GLuint, GLint, GLuint, GLuint,
+                                                 GLuint, GLuint);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX2X3FVEXT)(GLuint, GLint, GLsizei,
+                                                         GLboolean,
+                                                         const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX3X2FVEXT)(GLuint, GLint, GLsizei,
+                                                         GLboolean,
+                                                         const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX2X4FVEXT)(GLuint, GLint, GLsizei,
+                                                         GLboolean,
+                                                         const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX4X2FVEXT)(GLuint, GLint, GLsizei,
+                                                         GLboolean,
+                                                         const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX3X4FVEXT)(GLuint, GLint, GLsizei,
+                                                         GLboolean,
+                                                         const GLfloat*);
+typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX4X3FVEXT)(GLuint, GLint, GLsizei,
+                                                         GLboolean,
+                                                         const GLfloat*);
+typedef void(APIENTRY* PFGLTEXPAGECOMMITMENTEXT)(GLenum, GLint, GLint, GLint,
+                                                 GLint, GLsizei, GLsizei,
+                                                 GLsizei, GLboolean);
+typedef void(APIENTRY* PFGLPATCHPARAMETERIEXT)(GLenum, GLint);
+typedef void(APIENTRY* PFGLTEXBUFFEREXT)(GLenum, GLenum, GLuint);
+typedef void(APIENTRY* PFGLTEXBUFFERRANGEEXT)(GLenum, GLenum, GLuint, GLintptr,
+                                              GLsizeiptr);
+typedef void(APIENTRY* PFGLTEXSTORAGE1DEXT)(GLenum, GLsizei, GLenum, GLsizei);
+typedef void(APIENTRY* PFGLTEXSTORAGE2DEXT)(GLenum, GLsizei, GLenum, GLsizei,
+                                            GLsizei);
+typedef void(APIENTRY* PFGLTEXSTORAGE3DEXT)(GLenum, GLsizei, GLenum, GLsizei,
+                                            GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLTEXTURESTORAGE1DEXT)(GLuint, GLenum, GLsizei, GLenum,
+                                                GLsizei);
+typedef void(APIENTRY* PFGLTEXTURESTORAGE2DEXT)(GLuint, GLenum, GLsizei, GLenum,
+                                                GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLTEXTURESTORAGE3DEXT)(GLuint, GLenum, GLsizei, GLenum,
+                                                GLsizei, GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLTEXTUREVIEWEXT)(GLuint, GLenum, GLuint, GLenum,
+                                           GLuint, GLuint, GLuint, GLuint);
+typedef void(APIENTRY* PFGLRENDERBUFFERSTORAGEMULTISAMPLEIMG)(GLenum, GLsizei,
+                                                              GLenum, GLsizei,
+                                                              GLsizei);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMG)(GLenum, GLenum,
+                                                               GLenum, GLuint,
+                                                               GLint, GLsizei);
+typedef void(APIENTRY* PFGLAPPLYFRAMEBUFFERATTACHMENTCMAAINTEL)();
+typedef void(APIENTRY* PFGLBEGINPERFQUERYINTEL)(GLuint);
+typedef void(APIENTRY* PFGLDELETEPERFQUERYINTEL)(GLuint);
+typedef void(APIENTRY* PFGLENDPERFQUERYINTEL)(GLuint);
+typedef void(APIENTRY* PFGLBLENDPARAMETERINV)(GLenum, GLint);
+typedef void(APIENTRY* PFGLBLENDBARRIERNV)();
+typedef void(APIENTRY* PFGLBEGINCONDITIONALRENDERNV)(GLuint, GLenum);
+typedef void(APIENTRY* PFGLENDCONDITIONALRENDERNV)();
+typedef void(APIENTRY* PFGLSUBPIXELPRECISIONBIASNV)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLCOPYBUFFERSUBDATANV)(GLenum, GLenum, GLintptr,
+                                                GLintptr, GLsizeiptr);
+typedef void(APIENTRY* PFGLCOVERAGEMASKNV)(GLboolean);
+typedef void(APIENTRY* PFGLCOVERAGEOPERATIONNV)(GLenum);
+typedef void(APIENTRY* PFGLDRAWARRAYSINSTANCEDNV)(GLenum, GLint, GLsizei,
+                                                  GLsizei);
+typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDNV)(GLenum, GLsizei, GLenum,
+                                                    const void*, GLsizei);
+typedef void(APIENTRY* PFGLDELETEFENCESNV)(GLsizei, const GLuint*);
+typedef void(APIENTRY* PFGLGENFENCESNV)(GLsizei, GLuint*);
+typedef GLboolean(APIENTRY* PFGLISFENCENV)(GLuint);
+typedef GLboolean(APIENTRY* PFGLTESTFENCENV)(GLuint);
+typedef void(APIENTRY* PFGLFINISHFENCENV)(GLuint);
+typedef void(APIENTRY* PFGLSETFENCENV)(GLuint, GLenum);
+typedef void(APIENTRY* PFGLFRAGMENTCOVERAGECOLORNV)(GLuint);
+typedef void(APIENTRY* PFGLBLITFRAMEBUFFERNV)(GLint, GLint, GLint, GLint, GLint,
+                                              GLint, GLint, GLint, GLbitfield,
+                                              GLenum);
+typedef void(APIENTRY* PFGLCOVERAGEMODULATIONTABLENV)(GLsizei, const GLfloat*);
+typedef void(APIENTRY* PFGLCOVERAGEMODULATIONNV)(GLenum);
+typedef void(APIENTRY* PFGLRENDERBUFFERSTORAGEMULTISAMPLENV)(GLenum, GLsizei,
+                                                             GLenum, GLsizei,
+                                                             GLsizei);
+typedef void(APIENTRY* PFGLVERTEXATTRIBDIVISORNV)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLUNIFORMMATRIX2X3FVNV)(GLint, GLsizei, GLboolean,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLUNIFORMMATRIX3X2FVNV)(GLint, GLsizei, GLboolean,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLUNIFORMMATRIX2X4FVNV)(GLint, GLsizei, GLboolean,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLUNIFORMMATRIX4X2FVNV)(GLint, GLsizei, GLboolean,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLUNIFORMMATRIX3X4FVNV)(GLint, GLsizei, GLboolean,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLUNIFORMMATRIX4X3FVNV)(GLint, GLsizei, GLboolean,
+                                                 const GLfloat*);
+typedef GLuint(APIENTRY* PFGLGENPATHSNV)(GLsizei);
+typedef void(APIENTRY* PFGLDELETEPATHSNV)(GLuint, GLsizei);
+typedef GLboolean(APIENTRY* PFGLISPATHNV)(GLuint);
+typedef void(APIENTRY* PFGLPATHCOORDSNV)(GLuint, GLsizei, GLenum, const void*);
+typedef void(APIENTRY* PFGLPATHSUBCOMMANDSNV)(GLuint, GLsizei, GLsizei, GLsizei,
+                                              const GLubyte*, GLsizei, GLenum,
+                                              const void*);
+typedef void(APIENTRY* PFGLPATHSUBCOORDSNV)(GLuint, GLsizei, GLsizei, GLenum,
+                                            const void*);
+typedef void(APIENTRY* PFGLPATHSTRINGNV)(GLuint, GLenum, GLsizei, const void*);
+typedef void(APIENTRY* PFGLPATHGLYPHSNV)(GLuint, GLenum, const void*,
+                                         GLbitfield, GLsizei, GLenum,
+                                         const void*, GLenum, GLuint, GLfloat);
+typedef void(APIENTRY* PFGLPATHGLYPHRANGENV)(GLuint, GLenum, const void*,
+                                             GLbitfield, GLuint, GLsizei,
+                                             GLenum, GLuint, GLfloat);
+typedef void(APIENTRY* PFGLCOPYPATHNV)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLINTERPOLATEPATHSNV)(GLuint, GLuint, GLuint, GLfloat);
+typedef void(APIENTRY* PFGLPATHPARAMETERIVNV)(GLuint, GLenum, const GLint*);
+typedef void(APIENTRY* PFGLPATHPARAMETERINV)(GLuint, GLenum, GLint);
+typedef void(APIENTRY* PFGLPATHPARAMETERFVNV)(GLuint, GLenum, const GLfloat*);
+typedef void(APIENTRY* PFGLPATHPARAMETERFNV)(GLuint, GLenum, GLfloat);
+typedef void(APIENTRY* PFGLPATHSTENCILFUNCNV)(GLenum, GLint, GLuint);
+typedef void(APIENTRY* PFGLPATHSTENCILDEPTHOFFSETNV)(GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLSTENCILFILLPATHNV)(GLuint, GLenum, GLuint);
+typedef void(APIENTRY* PFGLSTENCILSTROKEPATHNV)(GLuint, GLint, GLuint);
+typedef void(APIENTRY* PFGLPATHCOVERDEPTHFUNCNV)(GLenum);
+typedef void(APIENTRY* PFGLCOVERFILLPATHNV)(GLuint, GLenum);
+typedef void(APIENTRY* PFGLCOVERSTROKEPATHNV)(GLuint, GLenum);
+typedef GLboolean(APIENTRY* PFGLISPOINTINFILLPATHNV)(GLuint, GLuint, GLfloat,
+                                                     GLfloat);
+typedef GLboolean(APIENTRY* PFGLISPOINTINSTROKEPATHNV)(GLuint, GLfloat,
+                                                       GLfloat);
+typedef GLfloat(APIENTRY* PFGLGETPATHLENGTHNV)(GLuint, GLsizei, GLsizei);
+typedef void(APIENTRY* PFGLSTENCILTHENCOVERFILLPATHNV)(GLuint, GLenum, GLuint,
+                                                       GLenum);
+typedef void(APIENTRY* PFGLSTENCILTHENCOVERSTROKEPATHNV)(GLuint, GLint, GLuint,
+                                                         GLenum);
+typedef GLenum(APIENTRY* PFGLPATHGLYPHINDEXARRAYNV)(GLuint, GLenum, const void*,
+                                                    GLbitfield, GLuint, GLsizei,
+                                                    GLuint, GLfloat);
+typedef GLenum(APIENTRY* PFGLPATHMEMORYGLYPHINDEXARRAYNV)(GLuint, GLenum,
+                                                          GLsizeiptr,
+                                                          const void*, GLsizei,
+                                                          GLuint, GLsizei,
+                                                          GLuint, GLfloat);
+typedef void(APIENTRY* PFGLPOLYGONMODENV)(GLenum, GLenum);
+typedef void(APIENTRY* PFGLREADBUFFERNV)(GLenum);
+typedef void(APIENTRY* PFGLFRAMEBUFFERSAMPLELOCATIONSFVNV)(GLenum, GLuint,
+                                                           GLsizei,
+                                                           const GLfloat*);
+typedef void(APIENTRY* PFGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNV)(GLuint, GLuint,
+                                                                GLsizei,
+                                                                const GLfloat*);
+typedef void(APIENTRY* PFGLRESOLVEDEPTHVALUESNV)();
+typedef void(APIENTRY* PFGLVIEWPORTARRAYVNV)(GLuint, GLsizei, const GLfloat*);
+typedef void(APIENTRY* PFGLVIEWPORTINDEXEDFNV)(GLuint, GLfloat, GLfloat,
+                                               GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLVIEWPORTINDEXEDFVNV)(GLuint, const GLfloat*);
+typedef void(APIENTRY* PFGLSCISSORARRAYVNV)(GLuint, GLsizei, const GLint*);
+typedef void(APIENTRY* PFGLSCISSORINDEXEDNV)(GLuint, GLint, GLint, GLsizei,
+                                             GLsizei);
+typedef void(APIENTRY* PFGLSCISSORINDEXEDVNV)(GLuint, const GLint*);
+typedef void(APIENTRY* PFGLDEPTHRANGEARRAYFVNV)(GLuint, GLsizei,
+                                                const GLfloat*);
+typedef void(APIENTRY* PFGLDEPTHRANGEINDEXEDFNV)(GLuint, GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLENABLEINV)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLDISABLEINV)(GLenum, GLuint);
+typedef GLboolean(APIENTRY* PFGLISENABLEDINV)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTUREMULTIVIEWOVR)(GLenum, GLenum,
+                                                           GLuint, GLint, GLint,
+                                                           GLsizei);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVR)(
+    GLenum, GLenum, GLuint, GLint, GLsizei, GLint, GLsizei);
+typedef void(APIENTRY* PFGLALPHAFUNCQCOM)(GLenum, GLclampf);
+typedef void(APIENTRY* PFGLENABLEDRIVERCONTROLQCOM)(GLuint);
+typedef void(APIENTRY* PFGLDISABLEDRIVERCONTROLQCOM)(GLuint);
+typedef void(APIENTRY* PFGLEXTTEXOBJECTSTATEOVERRIDEIQCOM)(GLenum, GLenum,
+                                                           GLint);
+typedef GLboolean(APIENTRY* PFGLEXTISPROGRAMBINARYQCOM)(GLuint);
+typedef void(APIENTRY* PFGLSTARTTILINGQCOM)(GLuint, GLuint, GLuint, GLuint,
+                                            GLbitfield);
+typedef void(APIENTRY* PFGLENDTILINGQCOM)(GLbitfield);
+
+struct DynamicFunctions {
+  void* handle;
+  PFGLBLENDBARRIERKHR glBlendBarrierKHR;
+  PFGLDEBUGMESSAGEINSERTKHR glDebugMessageInsertKHR;
+  PFGLPUSHDEBUGGROUPKHR glPushDebugGroupKHR;
+  PFGLPOPDEBUGGROUPKHR glPopDebugGroupKHR;
+  PFGLOBJECTLABELKHR glObjectLabelKHR;
+  PFGLOBJECTPTRLABELKHR glObjectPtrLabelKHR;
+  PFGLGETGRAPHICSRESETSTATUSKHR glGetGraphicsResetStatusKHR;
+  PFGLCOPYIMAGESUBDATAOES glCopyImageSubDataOES;
+  PFGLENABLEIOES glEnableiOES;
+  PFGLDISABLEIOES glDisableiOES;
+  PFGLBLENDEQUATIONIOES glBlendEquationiOES;
+  PFGLBLENDEQUATIONSEPARATEIOES glBlendEquationSeparateiOES;
+  PFGLBLENDFUNCIOES glBlendFunciOES;
+  PFGLBLENDFUNCSEPARATEIOES glBlendFuncSeparateiOES;
+  PFGLCOLORMASKIOES glColorMaskiOES;
+  PFGLISENABLEDIOES glIsEnablediOES;
+  PFGLDRAWELEMENTSBASEVERTEXOES glDrawElementsBaseVertexOES;
+  PFGLDRAWRANGEELEMENTSBASEVERTEXOES glDrawRangeElementsBaseVertexOES;
+  PFGLDRAWELEMENTSINSTANCEDBASEVERTEXOES glDrawElementsInstancedBaseVertexOES;
+  PFGLFRAMEBUFFERTEXTUREOES glFramebufferTextureOES;
+  PFGLPROGRAMBINARYOES glProgramBinaryOES;
+  PFGLUNMAPBUFFEROES glUnmapBufferOES;
+  PFGLPRIMITIVEBOUNDINGBOXOES glPrimitiveBoundingBoxOES;
+  PFGLMINSAMPLESHADINGOES glMinSampleShadingOES;
+  PFGLPATCHPARAMETERIOES glPatchParameteriOES;
+  PFGLTEXIMAGE3DOES glTexImage3DOES;
+  PFGLTEXSUBIMAGE3DOES glTexSubImage3DOES;
+  PFGLCOPYTEXSUBIMAGE3DOES glCopyTexSubImage3DOES;
+  PFGLCOMPRESSEDTEXIMAGE3DOES glCompressedTexImage3DOES;
+  PFGLCOMPRESSEDTEXSUBIMAGE3DOES glCompressedTexSubImage3DOES;
+  PFGLFRAMEBUFFERTEXTURE3DOES glFramebufferTexture3DOES;
+  PFGLTEXBUFFEROES glTexBufferOES;
+  PFGLTEXBUFFERRANGEOES glTexBufferRangeOES;
+  PFGLTEXSTORAGE3DMULTISAMPLEOES glTexStorage3DMultisampleOES;
+  PFGLTEXTUREVIEWOES glTextureViewOES;
+  PFGLBINDVERTEXARRAYOES glBindVertexArrayOES;
+  PFGLDELETEVERTEXARRAYSOES glDeleteVertexArraysOES;
+  PFGLGENVERTEXARRAYSOES glGenVertexArraysOES;
+  PFGLISVERTEXARRAYOES glIsVertexArrayOES;
+  PFGLGENPERFMONITORSAMD glGenPerfMonitorsAMD;
+  PFGLDELETEPERFMONITORSAMD glDeletePerfMonitorsAMD;
+  PFGLBEGINPERFMONITORAMD glBeginPerfMonitorAMD;
+  PFGLENDPERFMONITORAMD glEndPerfMonitorAMD;
+  PFGLBLITFRAMEBUFFERANGLE glBlitFramebufferANGLE;
+  PFGLRENDERBUFFERSTORAGEMULTISAMPLEANGLE glRenderbufferStorageMultisampleANGLE;
+  PFGLDRAWARRAYSINSTANCEDANGLE glDrawArraysInstancedANGLE;
+  PFGLDRAWELEMENTSINSTANCEDANGLE glDrawElementsInstancedANGLE;
+  PFGLVERTEXATTRIBDIVISORANGLE glVertexAttribDivisorANGLE;
+  PFGLCOPYTEXTURELEVELSAPPLE glCopyTextureLevelsAPPLE;
+  PFGLRENDERBUFFERSTORAGEMULTISAMPLEAPPLE glRenderbufferStorageMultisampleAPPLE;
+  PFGLRESOLVEMULTISAMPLEFRAMEBUFFERAPPLE glResolveMultisampleFramebufferAPPLE;
+  PFGLDRAWARRAYSINSTANCEDBASEINSTANCEEXT glDrawArraysInstancedBaseInstanceEXT;
+  PFGLDRAWELEMENTSINSTANCEDBASEINSTANCEEXT
+      glDrawElementsInstancedBaseInstanceEXT;
+  PFGLDRAWELEMENTSINSTANCEDBASEVERTEXBASEINSTANCEEXT
+      glDrawElementsInstancedBaseVertexBaseInstanceEXT;
+  PFGLBINDFRAGDATALOCATIONINDEXEDEXT glBindFragDataLocationIndexedEXT;
+  PFGLBINDFRAGDATALOCATIONEXT glBindFragDataLocationEXT;
+  PFGLGETPROGRAMRESOURCELOCATIONINDEXEXT glGetProgramResourceLocationIndexEXT;
+  PFGLGETFRAGDATAINDEXEXT glGetFragDataIndexEXT;
+  PFGLBUFFERSTORAGEEXT glBufferStorageEXT;
+  PFGLCOPYIMAGESUBDATAEXT glCopyImageSubDataEXT;
+  PFGLLABELOBJECTEXT glLabelObjectEXT;
+  PFGLINSERTEVENTMARKEREXT glInsertEventMarkerEXT;
+  PFGLPUSHGROUPMARKEREXT glPushGroupMarkerEXT;
+  PFGLPOPGROUPMARKEREXT glPopGroupMarkerEXT;
+  PFGLGENQUERIESEXT glGenQueriesEXT;
+  PFGLDELETEQUERIESEXT glDeleteQueriesEXT;
+  PFGLISQUERYEXT glIsQueryEXT;
+  PFGLBEGINQUERYEXT glBeginQueryEXT;
+  PFGLENDQUERYEXT glEndQueryEXT;
+  PFGLQUERYCOUNTEREXT glQueryCounterEXT;
+  PFGLENABLEIEXT glEnableiEXT;
+  PFGLDISABLEIEXT glDisableiEXT;
+  PFGLBLENDEQUATIONIEXT glBlendEquationiEXT;
+  PFGLBLENDEQUATIONSEPARATEIEXT glBlendEquationSeparateiEXT;
+  PFGLBLENDFUNCIEXT glBlendFunciEXT;
+  PFGLBLENDFUNCSEPARATEIEXT glBlendFuncSeparateiEXT;
+  PFGLCOLORMASKIEXT glColorMaskiEXT;
+  PFGLISENABLEDIEXT glIsEnablediEXT;
+  PFGLDRAWELEMENTSBASEVERTEXEXT glDrawElementsBaseVertexEXT;
+  PFGLDRAWRANGEELEMENTSBASEVERTEXEXT glDrawRangeElementsBaseVertexEXT;
+  PFGLDRAWELEMENTSINSTANCEDBASEVERTEXEXT glDrawElementsInstancedBaseVertexEXT;
+  PFGLDRAWARRAYSINSTANCEDEXT glDrawArraysInstancedEXT;
+  PFGLDRAWELEMENTSINSTANCEDEXT glDrawElementsInstancedEXT;
+  PFGLFRAMEBUFFERTEXTUREEXT glFramebufferTextureEXT;
+  PFGLVERTEXATTRIBDIVISOREXT glVertexAttribDivisorEXT;
+  PFGLFLUSHMAPPEDBUFFERRANGEEXT glFlushMappedBufferRangeEXT;
+  PFGLMULTIDRAWARRAYSINDIRECTEXT glMultiDrawArraysIndirectEXT;
+  PFGLMULTIDRAWELEMENTSINDIRECTEXT glMultiDrawElementsIndirectEXT;
+  PFGLRENDERBUFFERSTORAGEMULTISAMPLEEXT glRenderbufferStorageMultisampleEXT;
+  PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXT glFramebufferTexture2DMultisampleEXT;
+  PFGLREADBUFFERINDEXEDEXT glReadBufferIndexedEXT;
+  PFGLPRIMITIVEBOUNDINGBOXEXT glPrimitiveBoundingBoxEXT;
+  PFGLRASTERSAMPLESEXT glRasterSamplesEXT;
+  PFGLGETGRAPHICSRESETSTATUSEXT glGetGraphicsResetStatusEXT;
+  PFGLACTIVESHADERPROGRAMEXT glActiveShaderProgramEXT;
+  PFGLBINDPROGRAMPIPELINEEXT glBindProgramPipelineEXT;
+  PFGLDELETEPROGRAMPIPELINESEXT glDeleteProgramPipelinesEXT;
+  PFGLGENPROGRAMPIPELINESEXT glGenProgramPipelinesEXT;
+  PFGLISPROGRAMPIPELINEEXT glIsProgramPipelineEXT;
+  PFGLPROGRAMPARAMETERIEXT glProgramParameteriEXT;
+  PFGLPROGRAMUNIFORM1FEXT glProgramUniform1fEXT;
+  PFGLPROGRAMUNIFORM1FVEXT glProgramUniform1fvEXT;
+  PFGLPROGRAMUNIFORM1IEXT glProgramUniform1iEXT;
+  PFGLPROGRAMUNIFORM1IVEXT glProgramUniform1ivEXT;
+  PFGLPROGRAMUNIFORM2FEXT glProgramUniform2fEXT;
+  PFGLPROGRAMUNIFORM2FVEXT glProgramUniform2fvEXT;
+  PFGLPROGRAMUNIFORM2IEXT glProgramUniform2iEXT;
+  PFGLPROGRAMUNIFORM2IVEXT glProgramUniform2ivEXT;
+  PFGLPROGRAMUNIFORM3FEXT glProgramUniform3fEXT;
+  PFGLPROGRAMUNIFORM3FVEXT glProgramUniform3fvEXT;
+  PFGLPROGRAMUNIFORM3IEXT glProgramUniform3iEXT;
+  PFGLPROGRAMUNIFORM3IVEXT glProgramUniform3ivEXT;
+  PFGLPROGRAMUNIFORM4FEXT glProgramUniform4fEXT;
+  PFGLPROGRAMUNIFORM4FVEXT glProgramUniform4fvEXT;
+  PFGLPROGRAMUNIFORM4IEXT glProgramUniform4iEXT;
+  PFGLPROGRAMUNIFORM4IVEXT glProgramUniform4ivEXT;
+  PFGLPROGRAMUNIFORMMATRIX2FVEXT glProgramUniformMatrix2fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX3FVEXT glProgramUniformMatrix3fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX4FVEXT glProgramUniformMatrix4fvEXT;
+  PFGLUSEPROGRAMSTAGESEXT glUseProgramStagesEXT;
+  PFGLVALIDATEPROGRAMPIPELINEEXT glValidateProgramPipelineEXT;
+  PFGLPROGRAMUNIFORM1UIEXT glProgramUniform1uiEXT;
+  PFGLPROGRAMUNIFORM2UIEXT glProgramUniform2uiEXT;
+  PFGLPROGRAMUNIFORM3UIEXT glProgramUniform3uiEXT;
+  PFGLPROGRAMUNIFORM4UIEXT glProgramUniform4uiEXT;
+  PFGLPROGRAMUNIFORMMATRIX2X3FVEXT glProgramUniformMatrix2x3fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX3X2FVEXT glProgramUniformMatrix3x2fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX2X4FVEXT glProgramUniformMatrix2x4fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX4X2FVEXT glProgramUniformMatrix4x2fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX3X4FVEXT glProgramUniformMatrix3x4fvEXT;
+  PFGLPROGRAMUNIFORMMATRIX4X3FVEXT glProgramUniformMatrix4x3fvEXT;
+  PFGLTEXPAGECOMMITMENTEXT glTexPageCommitmentEXT;
+  PFGLPATCHPARAMETERIEXT glPatchParameteriEXT;
+  PFGLTEXBUFFEREXT glTexBufferEXT;
+  PFGLTEXBUFFERRANGEEXT glTexBufferRangeEXT;
+  PFGLTEXSTORAGE1DEXT glTexStorage1DEXT;
+  PFGLTEXSTORAGE2DEXT glTexStorage2DEXT;
+  PFGLTEXSTORAGE3DEXT glTexStorage3DEXT;
+  PFGLTEXTURESTORAGE1DEXT glTextureStorage1DEXT;
+  PFGLTEXTURESTORAGE2DEXT glTextureStorage2DEXT;
+  PFGLTEXTURESTORAGE3DEXT glTextureStorage3DEXT;
+  PFGLTEXTUREVIEWEXT glTextureViewEXT;
+  PFGLRENDERBUFFERSTORAGEMULTISAMPLEIMG glRenderbufferStorageMultisampleIMG;
+  PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMG glFramebufferTexture2DMultisampleIMG;
+  PFGLAPPLYFRAMEBUFFERATTACHMENTCMAAINTEL glApplyFramebufferAttachmentCMAAINTEL;
+  PFGLBEGINPERFQUERYINTEL glBeginPerfQueryINTEL;
+  PFGLDELETEPERFQUERYINTEL glDeletePerfQueryINTEL;
+  PFGLENDPERFQUERYINTEL glEndPerfQueryINTEL;
+  PFGLBLENDPARAMETERINV glBlendParameteriNV;
+  PFGLBLENDBARRIERNV glBlendBarrierNV;
+  PFGLBEGINCONDITIONALRENDERNV glBeginConditionalRenderNV;
+  PFGLENDCONDITIONALRENDERNV glEndConditionalRenderNV;
+  PFGLSUBPIXELPRECISIONBIASNV glSubpixelPrecisionBiasNV;
+  PFGLCOPYBUFFERSUBDATANV glCopyBufferSubDataNV;
+  PFGLCOVERAGEMASKNV glCoverageMaskNV;
+  PFGLCOVERAGEOPERATIONNV glCoverageOperationNV;
+  PFGLDRAWARRAYSINSTANCEDNV glDrawArraysInstancedNV;
+  PFGLDRAWELEMENTSINSTANCEDNV glDrawElementsInstancedNV;
+  PFGLDELETEFENCESNV glDeleteFencesNV;
+  PFGLGENFENCESNV glGenFencesNV;
+  PFGLISFENCENV glIsFenceNV;
+  PFGLTESTFENCENV glTestFenceNV;
+  PFGLFINISHFENCENV glFinishFenceNV;
+  PFGLSETFENCENV glSetFenceNV;
+  PFGLFRAGMENTCOVERAGECOLORNV glFragmentCoverageColorNV;
+  PFGLBLITFRAMEBUFFERNV glBlitFramebufferNV;
+  PFGLCOVERAGEMODULATIONTABLENV glCoverageModulationTableNV;
+  PFGLCOVERAGEMODULATIONNV glCoverageModulationNV;
+  PFGLRENDERBUFFERSTORAGEMULTISAMPLENV glRenderbufferStorageMultisampleNV;
+  PFGLVERTEXATTRIBDIVISORNV glVertexAttribDivisorNV;
+  PFGLUNIFORMMATRIX2X3FVNV glUniformMatrix2x3fvNV;
+  PFGLUNIFORMMATRIX3X2FVNV glUniformMatrix3x2fvNV;
+  PFGLUNIFORMMATRIX2X4FVNV glUniformMatrix2x4fvNV;
+  PFGLUNIFORMMATRIX4X2FVNV glUniformMatrix4x2fvNV;
+  PFGLUNIFORMMATRIX3X4FVNV glUniformMatrix3x4fvNV;
+  PFGLUNIFORMMATRIX4X3FVNV glUniformMatrix4x3fvNV;
+  PFGLGENPATHSNV glGenPathsNV;
+  PFGLDELETEPATHSNV glDeletePathsNV;
+  PFGLISPATHNV glIsPathNV;
+  PFGLPATHCOORDSNV glPathCoordsNV;
+  PFGLPATHSUBCOMMANDSNV glPathSubCommandsNV;
+  PFGLPATHSUBCOORDSNV glPathSubCoordsNV;
+  PFGLPATHSTRINGNV glPathStringNV;
+  PFGLPATHGLYPHSNV glPathGlyphsNV;
+  PFGLPATHGLYPHRANGENV glPathGlyphRangeNV;
+  PFGLCOPYPATHNV glCopyPathNV;
+  PFGLINTERPOLATEPATHSNV glInterpolatePathsNV;
+  PFGLPATHPARAMETERIVNV glPathParameterivNV;
+  PFGLPATHPARAMETERINV glPathParameteriNV;
+  PFGLPATHPARAMETERFVNV glPathParameterfvNV;
+  PFGLPATHPARAMETERFNV glPathParameterfNV;
+  PFGLPATHSTENCILFUNCNV glPathStencilFuncNV;
+  PFGLPATHSTENCILDEPTHOFFSETNV glPathStencilDepthOffsetNV;
+  PFGLSTENCILFILLPATHNV glStencilFillPathNV;
+  PFGLSTENCILSTROKEPATHNV glStencilStrokePathNV;
+  PFGLPATHCOVERDEPTHFUNCNV glPathCoverDepthFuncNV;
+  PFGLCOVERFILLPATHNV glCoverFillPathNV;
+  PFGLCOVERSTROKEPATHNV glCoverStrokePathNV;
+  PFGLISPOINTINFILLPATHNV glIsPointInFillPathNV;
+  PFGLISPOINTINSTROKEPATHNV glIsPointInStrokePathNV;
+  PFGLGETPATHLENGTHNV glGetPathLengthNV;
+  PFGLSTENCILTHENCOVERFILLPATHNV glStencilThenCoverFillPathNV;
+  PFGLSTENCILTHENCOVERSTROKEPATHNV glStencilThenCoverStrokePathNV;
+  PFGLPATHGLYPHINDEXARRAYNV glPathGlyphIndexArrayNV;
+  PFGLPATHMEMORYGLYPHINDEXARRAYNV glPathMemoryGlyphIndexArrayNV;
+  PFGLPOLYGONMODENV glPolygonModeNV;
+  PFGLREADBUFFERNV glReadBufferNV;
+  PFGLFRAMEBUFFERSAMPLELOCATIONSFVNV glFramebufferSampleLocationsfvNV;
+  PFGLNAMEDFRAMEBUFFERSAMPLELOCATIONSFVNV glNamedFramebufferSampleLocationsfvNV;
+  PFGLRESOLVEDEPTHVALUESNV glResolveDepthValuesNV;
+  PFGLVIEWPORTARRAYVNV glViewportArrayvNV;
+  PFGLVIEWPORTINDEXEDFNV glViewportIndexedfNV;
+  PFGLVIEWPORTINDEXEDFVNV glViewportIndexedfvNV;
+  PFGLSCISSORARRAYVNV glScissorArrayvNV;
+  PFGLSCISSORINDEXEDNV glScissorIndexedNV;
+  PFGLSCISSORINDEXEDVNV glScissorIndexedvNV;
+  PFGLDEPTHRANGEARRAYFVNV glDepthRangeArrayfvNV;
+  PFGLDEPTHRANGEINDEXEDFNV glDepthRangeIndexedfNV;
+  PFGLENABLEINV glEnableiNV;
+  PFGLDISABLEINV glDisableiNV;
+  PFGLISENABLEDINV glIsEnablediNV;
+  PFGLFRAMEBUFFERTEXTUREMULTIVIEWOVR glFramebufferTextureMultiviewOVR;
+  PFGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVR
+      glFramebufferTextureMultisampleMultiviewOVR;
+  PFGLALPHAFUNCQCOM glAlphaFuncQCOM;
+  PFGLENABLEDRIVERCONTROLQCOM glEnableDriverControlQCOM;
+  PFGLDISABLEDRIVERCONTROLQCOM glDisableDriverControlQCOM;
+  PFGLEXTTEXOBJECTSTATEOVERRIDEIQCOM glExtTexObjectStateOverrideiQCOM;
+  PFGLEXTISPROGRAMBINARYQCOM glExtIsProgramBinaryQCOM;
+  PFGLSTARTTILINGQCOM glStartTilingQCOM;
+  PFGLENDTILINGQCOM glEndTilingQCOM;
+};
+
+extern struct DynamicFunctions dll;
 
 #endif  // DART_GL_LIB_SRC_GENERATED_FUNCTION_LIST_H_

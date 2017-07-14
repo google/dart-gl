@@ -6,7 +6,9 @@ due to platform requirements that the main thread be the one handling events.
 # Steps to generate the bindings
 ```shell
 pub run tools/gl_generate.dart
-mv tools/generated lib/src/
+clang-format -i --style=Google generated/*.{cc,h}
+dartfmt -w generated/*.dart
+mv generated/* lib/src/generated/*
 ```
 # Steps to compile the bindings
 
