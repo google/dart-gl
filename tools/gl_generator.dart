@@ -166,10 +166,13 @@ $copyright
 #include <GLES2/gl2.h>
 
 #if defined(WIN32)
-  #define APIENTRY __stdcall
+  #include <windows.h>
+  #if !defined(APIENTRY)
+    #define APIENTRY __stdcall
+  #endif
   #define _dlopen(name) LoadLibraryA(name)
-  #define _dlclose(handle) FreeLibrary((HMODULE) handle)
-  #define _dlsym(handle, name) GetProcAddress((HMODULE) handle, name)
+  #define _dlclose(handle) FreeLibrary((HMODULE)handle)
+  #define _dlsym(handle, name) GetProcAddress((HMODULE)handle, name)
 #else
   #include <dlfcn.h>
   #define APIENTRY

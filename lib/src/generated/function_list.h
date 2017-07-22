@@ -12,16 +12,19 @@
 #include "dart_api.h"
 
 #if defined(WIN32)
-#define APIENTRY __stdcall
-#define _dlopen(name) LoadLibraryA(name)
-#define _dlclose(handle) FreeLibrary((HMODULE)handle)
-#define _dlsym(handle, name) GetProcAddress((HMODULE)handle, name)
+  #include <windows.h>
+  #if !defined(APIENTRY)
+    #define APIENTRY __stdcall
+  #endif
+  #define _dlopen(name) LoadLibraryA(name)
+  #define _dlclose(handle) FreeLibrary((HMODULE)handle)
+  #define _dlsym(handle, name) GetProcAddress((HMODULE)handle, name)
 #else
-#include <dlfcn.h>
-#define APIENTRY
-#define _dlopen(name) dlopen(name, RTLD_LAZY | RTLD_LOCAL)
-#define _dlclose(handle) dlclose(handle)
-#define _dlsym(handle, name) dlsym(handle, name)
+  #include <dlfcn.h>
+  #define APIENTRY
+  #define _dlopen(name) dlopen(name, RTLD_LAZY | RTLD_LOCAL)
+  #define _dlclose(handle) dlclose(handle)
+  #define _dlsym(handle, name) dlsym(handle, name)
 #endif
 
 struct FunctionLookup {
