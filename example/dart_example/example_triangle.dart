@@ -4,7 +4,6 @@
 // https://developers.google.com/open-source/licenses/bsd
 
 import 'dart:io';
-
 import 'dart:typed_data';
 
 import 'package:gl/gl.dart';
