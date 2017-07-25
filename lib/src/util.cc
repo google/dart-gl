@@ -7,10 +7,10 @@
 
 #include <map>
 
+#include <inttypes.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <inttypes.h>
 
 #include <GLES2/gl2.h>
 #include "dart_api.h"
