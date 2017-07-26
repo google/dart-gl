@@ -13,6 +13,8 @@ var blacklist = new Set.from([
   'glPathCommandsNV',
 ]);
 
+bool debugDll;
+
 main(List<String> args) async {
   var parser = new ArgParser()
     ..addOption('gl_path',
@@ -25,6 +27,11 @@ main(List<String> args) async {
         help: 'list of functions that are bound',
         abbr: 'w',
         valueHelp: 'whitelist.txt')
+    ..addFlag('debug-dll',
+        negatable: true,
+        defaultsTo: false,
+        hide: true,
+        help: 'print the results of looking up symbols')
     ..addFlag('help', abbr: 'h', negatable: false);
   var results = parser.parse(args);
 
@@ -32,6 +39,8 @@ main(List<String> args) async {
     stdout.writeln(parser.usage);
     exit(0);
   }
+
+  debugDll = results['debug-dll'];
 
   toErr(String msg, [int exitVal = 1]) {
     stderr..writeln(msg)..writeln(parser.usage);
@@ -291,6 +300,20 @@ void loadFunctions() {
     var upper = 'PF${decl.name.toUpperCase()}';
     write.writeln('  dll.${decl.name} = ($upper) '
         '_dlsym(dll.handle, "${decl.name}");');
+    if (decl.name.endsWith("OES")) {
+      // Some drivers have already promoted these to GLESv3
+      write.writeln('''
+  if (!dll.${decl.name}) {
+    dll.${decl.name} = ($upper) _dlsym(dll.handle, "${decl.name.substring(0, decl.name.length - 3)}");
+  }''');
+    }
+    if (debugDll) {
+      write.writeln('''
+  if (dll.${decl.name}) {
+    printf("  dlsym(%p, \\"${decl.name}\\") => %p\\n",
+        dll.handle, (void*)dll.${decl.name});
+  }''');
+    }
   }
   write.writeln('}');
   write.close();

@@ -223,6 +223,15 @@ const struct FunctionLookup _function_list[] = {
     {"glDeleteVertexArraysOES", glDeleteVertexArraysOES_native},
     {"glGenVertexArraysOES", glGenVertexArraysOES_native},
     {"glIsVertexArrayOES", glIsVertexArrayOES_native},
+    {"glViewportArrayvOES", glViewportArrayvOES_native},
+    {"glViewportIndexedfOES", glViewportIndexedfOES_native},
+    {"glViewportIndexedfvOES", glViewportIndexedfvOES_native},
+    {"glScissorArrayvOES", glScissorArrayvOES_native},
+    {"glScissorIndexedOES", glScissorIndexedOES_native},
+    {"glScissorIndexedvOES", glScissorIndexedvOES_native},
+    {"glDepthRangeArrayfvOES", glDepthRangeArrayfvOES_native},
+    {"glDepthRangeIndexedfOES", glDepthRangeIndexedfOES_native},
+    // {"glGetFloati_vOES", glGetFloati_vOES_native},
     // {"glGetPerfMonitorGroupsAMD", glGetPerfMonitorGroupsAMD_native},
     // {"glGetPerfMonitorCountersAMD", glGetPerfMonitorCountersAMD_native},
     // {"glGetPerfMonitorGroupStringAMD",
@@ -323,6 +332,7 @@ const struct FunctionLookup _function_list[] = {
     {"glReadBufferIndexedEXT", glReadBufferIndexedEXT_native},
     // {"glDrawBuffersIndexedEXT", glDrawBuffersIndexedEXT_native},
     // {"glGetIntegeri_vEXT", glGetIntegeri_vEXT_native},
+    {"glPolygonOffsetClampEXT", glPolygonOffsetClampEXT_native},
     {"glPrimitiveBoundingBoxEXT", glPrimitiveBoundingBoxEXT_native},
     {"glRasterSamplesEXT", glRasterSamplesEXT_native},
     {"glGetGraphicsResetStatusEXT", glGetGraphicsResetStatusEXT_native},
@@ -374,6 +384,11 @@ const struct FunctionLookup _function_list[] = {
     {"glProgramUniformMatrix4x2fvEXT", glProgramUniformMatrix4x2fvEXT_native},
     {"glProgramUniformMatrix3x4fvEXT", glProgramUniformMatrix3x4fvEXT_native},
     {"glProgramUniformMatrix4x3fvEXT", glProgramUniformMatrix4x3fvEXT_native},
+    {"glFramebufferPixelLocalStorageSizeEXT",
+     glFramebufferPixelLocalStorageSizeEXT_native},
+    {"glGetFramebufferPixelLocalStorageSizeEXT",
+     glGetFramebufferPixelLocalStorageSizeEXT_native},
+    // {"glClearPixelLocalStorageuiEXT", glClearPixelLocalStorageuiEXT_native},
     {"glTexPageCommitmentEXT", glTexPageCommitmentEXT_native},
     {"glPatchParameteriEXT", glPatchParameteriEXT_native},
     // {"glTexParameterIivEXT", glTexParameterIivEXT_native},
@@ -393,6 +408,11 @@ const struct FunctionLookup _function_list[] = {
     {"glTextureStorage2DEXT", glTextureStorage2DEXT_native},
     {"glTextureStorage3DEXT", glTextureStorage3DEXT_native},
     {"glTextureViewEXT", glTextureViewEXT_native},
+    // {"glWindowRectanglesEXT", glWindowRectanglesEXT_native},
+    {"glFramebufferTexture2DDownsampleIMG",
+     glFramebufferTexture2DDownsampleIMG_native},
+    {"glFramebufferTextureLayerDownsampleIMG",
+     glFramebufferTextureLayerDownsampleIMG_native},
     {"glRenderbufferStorageMultisampleIMG",
      glRenderbufferStorageMultisampleIMG_native},
     {"glFramebufferTexture2DMultisampleIMG",
@@ -429,6 +449,8 @@ const struct FunctionLookup _function_list[] = {
     {"glBeginConditionalRenderNV", glBeginConditionalRenderNV_native},
     {"glEndConditionalRenderNV", glEndConditionalRenderNV_native},
     {"glSubpixelPrecisionBiasNV", glSubpixelPrecisionBiasNV_native},
+    {"glConservativeRasterParameteriNV",
+     glConservativeRasterParameteriNV_native},
     {"glCopyBufferSubDataNV", glCopyBufferSubDataNV_native},
     {"glCoverageMaskNV", glCoverageMaskNV_native},
     {"glCoverageOperationNV", glCoverageOperationNV_native},
@@ -450,6 +472,39 @@ const struct FunctionLookup _function_list[] = {
     {"glCoverageModulationNV", glCoverageModulationNV_native},
     {"glRenderbufferStorageMultisampleNV",
      glRenderbufferStorageMultisampleNV_native},
+    // {"glUniform1i64NV", glUniform1i64NV_native},
+    // {"glUniform2i64NV", glUniform2i64NV_native},
+    // {"glUniform3i64NV", glUniform3i64NV_native},
+    // {"glUniform4i64NV", glUniform4i64NV_native},
+    // {"glUniform1i64vNV", glUniform1i64vNV_native},
+    // {"glUniform2i64vNV", glUniform2i64vNV_native},
+    // {"glUniform3i64vNV", glUniform3i64vNV_native},
+    // {"glUniform4i64vNV", glUniform4i64vNV_native},
+    // {"glUniform1ui64NV", glUniform1ui64NV_native},
+    // {"glUniform2ui64NV", glUniform2ui64NV_native},
+    // {"glUniform3ui64NV", glUniform3ui64NV_native},
+    // {"glUniform4ui64NV", glUniform4ui64NV_native},
+    // {"glUniform1ui64vNV", glUniform1ui64vNV_native},
+    // {"glUniform2ui64vNV", glUniform2ui64vNV_native},
+    // {"glUniform3ui64vNV", glUniform3ui64vNV_native},
+    // {"glUniform4ui64vNV", glUniform4ui64vNV_native},
+    // {"glGetUniformi64vNV", glGetUniformi64vNV_native},
+    // {"glProgramUniform1i64NV", glProgramUniform1i64NV_native},
+    // {"glProgramUniform2i64NV", glProgramUniform2i64NV_native},
+    // {"glProgramUniform3i64NV", glProgramUniform3i64NV_native},
+    // {"glProgramUniform4i64NV", glProgramUniform4i64NV_native},
+    // {"glProgramUniform1i64vNV", glProgramUniform1i64vNV_native},
+    // {"glProgramUniform2i64vNV", glProgramUniform2i64vNV_native},
+    // {"glProgramUniform3i64vNV", glProgramUniform3i64vNV_native},
+    // {"glProgramUniform4i64vNV", glProgramUniform4i64vNV_native},
+    // {"glProgramUniform1ui64NV", glProgramUniform1ui64NV_native},
+    // {"glProgramUniform2ui64NV", glProgramUniform2ui64NV_native},
+    // {"glProgramUniform3ui64NV", glProgramUniform3ui64NV_native},
+    // {"glProgramUniform4ui64NV", glProgramUniform4ui64NV_native},
+    // {"glProgramUniform1ui64vNV", glProgramUniform1ui64vNV_native},
+    // {"glProgramUniform2ui64vNV", glProgramUniform2ui64vNV_native},
+    // {"glProgramUniform3ui64vNV", glProgramUniform3ui64vNV_native},
+    // {"glProgramUniform4ui64vNV", glProgramUniform4ui64vNV_native},
     {"glVertexAttribDivisorNV", glVertexAttribDivisorNV_native},
     // {"glGetInternalformatSampleivNV", glGetInternalformatSampleivNV_native},
     {"glUniformMatrix2x3fvNV", glUniformMatrix2x3fvNV_native},
@@ -538,6 +593,7 @@ const struct FunctionLookup _function_list[] = {
     {"glEnableiNV", glEnableiNV_native},
     {"glDisableiNV", glDisableiNV_native},
     {"glIsEnablediNV", glIsEnablediNV_native},
+    {"glViewportSwizzleNV", glViewportSwizzleNV_native},
     {"glFramebufferTextureMultiviewOVR",
      glFramebufferTextureMultiviewOVR_native},
     {"glFramebufferTextureMultisampleMultiviewOVR",
@@ -606,67 +662,238 @@ void loadFunctions() {
       dll.handle, "glGetGraphicsResetStatusKHR");
   dll.glCopyImageSubDataOES =
       (PFGLCOPYIMAGESUBDATAOES)_dlsym(dll.handle, "glCopyImageSubDataOES");
+  if (!dll.glCopyImageSubDataOES) {
+    dll.glCopyImageSubDataOES =
+        (PFGLCOPYIMAGESUBDATAOES)_dlsym(dll.handle, "glCopyImageSubData");
+  }
   dll.glEnableiOES = (PFGLENABLEIOES)_dlsym(dll.handle, "glEnableiOES");
+  if (!dll.glEnableiOES) {
+    dll.glEnableiOES = (PFGLENABLEIOES)_dlsym(dll.handle, "glEnablei");
+  }
   dll.glDisableiOES = (PFGLDISABLEIOES)_dlsym(dll.handle, "glDisableiOES");
+  if (!dll.glDisableiOES) {
+    dll.glDisableiOES = (PFGLDISABLEIOES)_dlsym(dll.handle, "glDisablei");
+  }
   dll.glBlendEquationiOES =
       (PFGLBLENDEQUATIONIOES)_dlsym(dll.handle, "glBlendEquationiOES");
+  if (!dll.glBlendEquationiOES) {
+    dll.glBlendEquationiOES =
+        (PFGLBLENDEQUATIONIOES)_dlsym(dll.handle, "glBlendEquationi");
+  }
   dll.glBlendEquationSeparateiOES = (PFGLBLENDEQUATIONSEPARATEIOES)_dlsym(
       dll.handle, "glBlendEquationSeparateiOES");
+  if (!dll.glBlendEquationSeparateiOES) {
+    dll.glBlendEquationSeparateiOES = (PFGLBLENDEQUATIONSEPARATEIOES)_dlsym(
+        dll.handle, "glBlendEquationSeparatei");
+  }
   dll.glBlendFunciOES =
       (PFGLBLENDFUNCIOES)_dlsym(dll.handle, "glBlendFunciOES");
+  if (!dll.glBlendFunciOES) {
+    dll.glBlendFunciOES = (PFGLBLENDFUNCIOES)_dlsym(dll.handle, "glBlendFunci");
+  }
   dll.glBlendFuncSeparateiOES =
       (PFGLBLENDFUNCSEPARATEIOES)_dlsym(dll.handle, "glBlendFuncSeparateiOES");
+  if (!dll.glBlendFuncSeparateiOES) {
+    dll.glBlendFuncSeparateiOES =
+        (PFGLBLENDFUNCSEPARATEIOES)_dlsym(dll.handle, "glBlendFuncSeparatei");
+  }
   dll.glColorMaskiOES =
       (PFGLCOLORMASKIOES)_dlsym(dll.handle, "glColorMaskiOES");
+  if (!dll.glColorMaskiOES) {
+    dll.glColorMaskiOES = (PFGLCOLORMASKIOES)_dlsym(dll.handle, "glColorMaski");
+  }
   dll.glIsEnablediOES =
       (PFGLISENABLEDIOES)_dlsym(dll.handle, "glIsEnablediOES");
+  if (!dll.glIsEnablediOES) {
+    dll.glIsEnablediOES = (PFGLISENABLEDIOES)_dlsym(dll.handle, "glIsEnabledi");
+  }
   dll.glDrawElementsBaseVertexOES = (PFGLDRAWELEMENTSBASEVERTEXOES)_dlsym(
       dll.handle, "glDrawElementsBaseVertexOES");
+  if (!dll.glDrawElementsBaseVertexOES) {
+    dll.glDrawElementsBaseVertexOES = (PFGLDRAWELEMENTSBASEVERTEXOES)_dlsym(
+        dll.handle, "glDrawElementsBaseVertex");
+  }
   dll.glDrawRangeElementsBaseVertexOES =
       (PFGLDRAWRANGEELEMENTSBASEVERTEXOES)_dlsym(
           dll.handle, "glDrawRangeElementsBaseVertexOES");
+  if (!dll.glDrawRangeElementsBaseVertexOES) {
+    dll.glDrawRangeElementsBaseVertexOES =
+        (PFGLDRAWRANGEELEMENTSBASEVERTEXOES)_dlsym(
+            dll.handle, "glDrawRangeElementsBaseVertex");
+  }
   dll.glDrawElementsInstancedBaseVertexOES =
       (PFGLDRAWELEMENTSINSTANCEDBASEVERTEXOES)_dlsym(
           dll.handle, "glDrawElementsInstancedBaseVertexOES");
+  if (!dll.glDrawElementsInstancedBaseVertexOES) {
+    dll.glDrawElementsInstancedBaseVertexOES =
+        (PFGLDRAWELEMENTSINSTANCEDBASEVERTEXOES)_dlsym(
+            dll.handle, "glDrawElementsInstancedBaseVertex");
+  }
   dll.glFramebufferTextureOES =
       (PFGLFRAMEBUFFERTEXTUREOES)_dlsym(dll.handle, "glFramebufferTextureOES");
+  if (!dll.glFramebufferTextureOES) {
+    dll.glFramebufferTextureOES =
+        (PFGLFRAMEBUFFERTEXTUREOES)_dlsym(dll.handle, "glFramebufferTexture");
+  }
   dll.glProgramBinaryOES =
       (PFGLPROGRAMBINARYOES)_dlsym(dll.handle, "glProgramBinaryOES");
+  if (!dll.glProgramBinaryOES) {
+    dll.glProgramBinaryOES =
+        (PFGLPROGRAMBINARYOES)_dlsym(dll.handle, "glProgramBinary");
+  }
   dll.glUnmapBufferOES =
       (PFGLUNMAPBUFFEROES)_dlsym(dll.handle, "glUnmapBufferOES");
+  if (!dll.glUnmapBufferOES) {
+    dll.glUnmapBufferOES =
+        (PFGLUNMAPBUFFEROES)_dlsym(dll.handle, "glUnmapBuffer");
+  }
   dll.glPrimitiveBoundingBoxOES = (PFGLPRIMITIVEBOUNDINGBOXOES)_dlsym(
       dll.handle, "glPrimitiveBoundingBoxOES");
+  if (!dll.glPrimitiveBoundingBoxOES) {
+    dll.glPrimitiveBoundingBoxOES = (PFGLPRIMITIVEBOUNDINGBOXOES)_dlsym(
+        dll.handle, "glPrimitiveBoundingBox");
+  }
   dll.glMinSampleShadingOES =
       (PFGLMINSAMPLESHADINGOES)_dlsym(dll.handle, "glMinSampleShadingOES");
+  if (!dll.glMinSampleShadingOES) {
+    dll.glMinSampleShadingOES =
+        (PFGLMINSAMPLESHADINGOES)_dlsym(dll.handle, "glMinSampleShading");
+  }
   dll.glPatchParameteriOES =
       (PFGLPATCHPARAMETERIOES)_dlsym(dll.handle, "glPatchParameteriOES");
+  if (!dll.glPatchParameteriOES) {
+    dll.glPatchParameteriOES =
+        (PFGLPATCHPARAMETERIOES)_dlsym(dll.handle, "glPatchParameteri");
+  }
   dll.glTexImage3DOES =
       (PFGLTEXIMAGE3DOES)_dlsym(dll.handle, "glTexImage3DOES");
+  if (!dll.glTexImage3DOES) {
+    dll.glTexImage3DOES = (PFGLTEXIMAGE3DOES)_dlsym(dll.handle, "glTexImage3D");
+  }
   dll.glTexSubImage3DOES =
       (PFGLTEXSUBIMAGE3DOES)_dlsym(dll.handle, "glTexSubImage3DOES");
+  if (!dll.glTexSubImage3DOES) {
+    dll.glTexSubImage3DOES =
+        (PFGLTEXSUBIMAGE3DOES)_dlsym(dll.handle, "glTexSubImage3D");
+  }
   dll.glCopyTexSubImage3DOES =
       (PFGLCOPYTEXSUBIMAGE3DOES)_dlsym(dll.handle, "glCopyTexSubImage3DOES");
+  if (!dll.glCopyTexSubImage3DOES) {
+    dll.glCopyTexSubImage3DOES =
+        (PFGLCOPYTEXSUBIMAGE3DOES)_dlsym(dll.handle, "glCopyTexSubImage3D");
+  }
   dll.glCompressedTexImage3DOES = (PFGLCOMPRESSEDTEXIMAGE3DOES)_dlsym(
       dll.handle, "glCompressedTexImage3DOES");
+  if (!dll.glCompressedTexImage3DOES) {
+    dll.glCompressedTexImage3DOES = (PFGLCOMPRESSEDTEXIMAGE3DOES)_dlsym(
+        dll.handle, "glCompressedTexImage3D");
+  }
   dll.glCompressedTexSubImage3DOES = (PFGLCOMPRESSEDTEXSUBIMAGE3DOES)_dlsym(
       dll.handle, "glCompressedTexSubImage3DOES");
+  if (!dll.glCompressedTexSubImage3DOES) {
+    dll.glCompressedTexSubImage3DOES = (PFGLCOMPRESSEDTEXSUBIMAGE3DOES)_dlsym(
+        dll.handle, "glCompressedTexSubImage3D");
+  }
   dll.glFramebufferTexture3DOES = (PFGLFRAMEBUFFERTEXTURE3DOES)_dlsym(
       dll.handle, "glFramebufferTexture3DOES");
+  if (!dll.glFramebufferTexture3DOES) {
+    dll.glFramebufferTexture3DOES = (PFGLFRAMEBUFFERTEXTURE3DOES)_dlsym(
+        dll.handle, "glFramebufferTexture3D");
+  }
   dll.glTexBufferOES = (PFGLTEXBUFFEROES)_dlsym(dll.handle, "glTexBufferOES");
+  if (!dll.glTexBufferOES) {
+    dll.glTexBufferOES = (PFGLTEXBUFFEROES)_dlsym(dll.handle, "glTexBuffer");
+  }
   dll.glTexBufferRangeOES =
       (PFGLTEXBUFFERRANGEOES)_dlsym(dll.handle, "glTexBufferRangeOES");
+  if (!dll.glTexBufferRangeOES) {
+    dll.glTexBufferRangeOES =
+        (PFGLTEXBUFFERRANGEOES)_dlsym(dll.handle, "glTexBufferRange");
+  }
   dll.glTexStorage3DMultisampleOES = (PFGLTEXSTORAGE3DMULTISAMPLEOES)_dlsym(
       dll.handle, "glTexStorage3DMultisampleOES");
+  if (!dll.glTexStorage3DMultisampleOES) {
+    dll.glTexStorage3DMultisampleOES = (PFGLTEXSTORAGE3DMULTISAMPLEOES)_dlsym(
+        dll.handle, "glTexStorage3DMultisample");
+  }
   dll.glTextureViewOES =
       (PFGLTEXTUREVIEWOES)_dlsym(dll.handle, "glTextureViewOES");
+  if (!dll.glTextureViewOES) {
+    dll.glTextureViewOES =
+        (PFGLTEXTUREVIEWOES)_dlsym(dll.handle, "glTextureView");
+  }
   dll.glBindVertexArrayOES =
       (PFGLBINDVERTEXARRAYOES)_dlsym(dll.handle, "glBindVertexArrayOES");
+  if (!dll.glBindVertexArrayOES) {
+    dll.glBindVertexArrayOES =
+        (PFGLBINDVERTEXARRAYOES)_dlsym(dll.handle, "glBindVertexArray");
+  }
   dll.glDeleteVertexArraysOES =
       (PFGLDELETEVERTEXARRAYSOES)_dlsym(dll.handle, "glDeleteVertexArraysOES");
+  if (!dll.glDeleteVertexArraysOES) {
+    dll.glDeleteVertexArraysOES =
+        (PFGLDELETEVERTEXARRAYSOES)_dlsym(dll.handle, "glDeleteVertexArrays");
+  }
   dll.glGenVertexArraysOES =
       (PFGLGENVERTEXARRAYSOES)_dlsym(dll.handle, "glGenVertexArraysOES");
+  if (!dll.glGenVertexArraysOES) {
+    dll.glGenVertexArraysOES =
+        (PFGLGENVERTEXARRAYSOES)_dlsym(dll.handle, "glGenVertexArrays");
+  }
   dll.glIsVertexArrayOES =
       (PFGLISVERTEXARRAYOES)_dlsym(dll.handle, "glIsVertexArrayOES");
+  if (!dll.glIsVertexArrayOES) {
+    dll.glIsVertexArrayOES =
+        (PFGLISVERTEXARRAYOES)_dlsym(dll.handle, "glIsVertexArray");
+  }
+  dll.glViewportArrayvOES =
+      (PFGLVIEWPORTARRAYVOES)_dlsym(dll.handle, "glViewportArrayvOES");
+  if (!dll.glViewportArrayvOES) {
+    dll.glViewportArrayvOES =
+        (PFGLVIEWPORTARRAYVOES)_dlsym(dll.handle, "glViewportArrayv");
+  }
+  dll.glViewportIndexedfOES =
+      (PFGLVIEWPORTINDEXEDFOES)_dlsym(dll.handle, "glViewportIndexedfOES");
+  if (!dll.glViewportIndexedfOES) {
+    dll.glViewportIndexedfOES =
+        (PFGLVIEWPORTINDEXEDFOES)_dlsym(dll.handle, "glViewportIndexedf");
+  }
+  dll.glViewportIndexedfvOES =
+      (PFGLVIEWPORTINDEXEDFVOES)_dlsym(dll.handle, "glViewportIndexedfvOES");
+  if (!dll.glViewportIndexedfvOES) {
+    dll.glViewportIndexedfvOES =
+        (PFGLVIEWPORTINDEXEDFVOES)_dlsym(dll.handle, "glViewportIndexedfv");
+  }
+  dll.glScissorArrayvOES =
+      (PFGLSCISSORARRAYVOES)_dlsym(dll.handle, "glScissorArrayvOES");
+  if (!dll.glScissorArrayvOES) {
+    dll.glScissorArrayvOES =
+        (PFGLSCISSORARRAYVOES)_dlsym(dll.handle, "glScissorArrayv");
+  }
+  dll.glScissorIndexedOES =
+      (PFGLSCISSORINDEXEDOES)_dlsym(dll.handle, "glScissorIndexedOES");
+  if (!dll.glScissorIndexedOES) {
+    dll.glScissorIndexedOES =
+        (PFGLSCISSORINDEXEDOES)_dlsym(dll.handle, "glScissorIndexed");
+  }
+  dll.glScissorIndexedvOES =
+      (PFGLSCISSORINDEXEDVOES)_dlsym(dll.handle, "glScissorIndexedvOES");
+  if (!dll.glScissorIndexedvOES) {
+    dll.glScissorIndexedvOES =
+        (PFGLSCISSORINDEXEDVOES)_dlsym(dll.handle, "glScissorIndexedv");
+  }
+  dll.glDepthRangeArrayfvOES =
+      (PFGLDEPTHRANGEARRAYFVOES)_dlsym(dll.handle, "glDepthRangeArrayfvOES");
+  if (!dll.glDepthRangeArrayfvOES) {
+    dll.glDepthRangeArrayfvOES =
+        (PFGLDEPTHRANGEARRAYFVOES)_dlsym(dll.handle, "glDepthRangeArrayfv");
+  }
+  dll.glDepthRangeIndexedfOES =
+      (PFGLDEPTHRANGEINDEXEDFOES)_dlsym(dll.handle, "glDepthRangeIndexedfOES");
+  if (!dll.glDepthRangeIndexedfOES) {
+    dll.glDepthRangeIndexedfOES =
+        (PFGLDEPTHRANGEINDEXEDFOES)_dlsym(dll.handle, "glDepthRangeIndexedf");
+  }
   dll.glGenPerfMonitorsAMD =
       (PFGLGENPERFMONITORSAMD)_dlsym(dll.handle, "glGenPerfMonitorsAMD");
   dll.glDeletePerfMonitorsAMD =
@@ -779,6 +1006,8 @@ void loadFunctions() {
           dll.handle, "glFramebufferTexture2DMultisampleEXT");
   dll.glReadBufferIndexedEXT =
       (PFGLREADBUFFERINDEXEDEXT)_dlsym(dll.handle, "glReadBufferIndexedEXT");
+  dll.glPolygonOffsetClampEXT =
+      (PFGLPOLYGONOFFSETCLAMPEXT)_dlsym(dll.handle, "glPolygonOffsetClampEXT");
   dll.glPrimitiveBoundingBoxEXT = (PFGLPRIMITIVEBOUNDINGBOXEXT)_dlsym(
       dll.handle, "glPrimitiveBoundingBoxEXT");
   dll.glRasterSamplesEXT =
@@ -859,6 +1088,12 @@ void loadFunctions() {
       dll.handle, "glProgramUniformMatrix3x4fvEXT");
   dll.glProgramUniformMatrix4x3fvEXT = (PFGLPROGRAMUNIFORMMATRIX4X3FVEXT)_dlsym(
       dll.handle, "glProgramUniformMatrix4x3fvEXT");
+  dll.glFramebufferPixelLocalStorageSizeEXT =
+      (PFGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXT)_dlsym(
+          dll.handle, "glFramebufferPixelLocalStorageSizeEXT");
+  dll.glGetFramebufferPixelLocalStorageSizeEXT =
+      (PFGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXT)_dlsym(
+          dll.handle, "glGetFramebufferPixelLocalStorageSizeEXT");
   dll.glTexPageCommitmentEXT =
       (PFGLTEXPAGECOMMITMENTEXT)_dlsym(dll.handle, "glTexPageCommitmentEXT");
   dll.glPatchParameteriEXT =
@@ -880,6 +1115,12 @@ void loadFunctions() {
       (PFGLTEXTURESTORAGE3DEXT)_dlsym(dll.handle, "glTextureStorage3DEXT");
   dll.glTextureViewEXT =
       (PFGLTEXTUREVIEWEXT)_dlsym(dll.handle, "glTextureViewEXT");
+  dll.glFramebufferTexture2DDownsampleIMG =
+      (PFGLFRAMEBUFFERTEXTURE2DDOWNSAMPLEIMG)_dlsym(
+          dll.handle, "glFramebufferTexture2DDownsampleIMG");
+  dll.glFramebufferTextureLayerDownsampleIMG =
+      (PFGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMG)_dlsym(
+          dll.handle, "glFramebufferTextureLayerDownsampleIMG");
   dll.glRenderbufferStorageMultisampleIMG =
       (PFGLRENDERBUFFERSTORAGEMULTISAMPLEIMG)_dlsym(
           dll.handle, "glRenderbufferStorageMultisampleIMG");
@@ -905,6 +1146,9 @@ void loadFunctions() {
       dll.handle, "glEndConditionalRenderNV");
   dll.glSubpixelPrecisionBiasNV = (PFGLSUBPIXELPRECISIONBIASNV)_dlsym(
       dll.handle, "glSubpixelPrecisionBiasNV");
+  dll.glConservativeRasterParameteriNV =
+      (PFGLCONSERVATIVERASTERPARAMETERINV)_dlsym(
+          dll.handle, "glConservativeRasterParameteriNV");
   dll.glCopyBufferSubDataNV =
       (PFGLCOPYBUFFERSUBDATANV)_dlsym(dll.handle, "glCopyBufferSubDataNV");
   dll.glCoverageMaskNV =
@@ -1030,6 +1274,8 @@ void loadFunctions() {
   dll.glEnableiNV = (PFGLENABLEINV)_dlsym(dll.handle, "glEnableiNV");
   dll.glDisableiNV = (PFGLDISABLEINV)_dlsym(dll.handle, "glDisableiNV");
   dll.glIsEnablediNV = (PFGLISENABLEDINV)_dlsym(dll.handle, "glIsEnablediNV");
+  dll.glViewportSwizzleNV =
+      (PFGLVIEWPORTSWIZZLENV)_dlsym(dll.handle, "glViewportSwizzleNV");
   dll.glFramebufferTextureMultiviewOVR =
       (PFGLFRAMEBUFFERTEXTUREMULTIVIEWOVR)_dlsym(
           dll.handle, "glFramebufferTextureMultiviewOVR");

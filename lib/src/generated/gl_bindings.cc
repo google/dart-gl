@@ -3046,6 +3046,219 @@ void glIsVertexArrayOES_native(Dart_NativeArguments arguments) {
   TRACE_END(glIsVertexArrayOES_);
 }
 
+void glViewportArrayvOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glViewportArrayvOES) {
+    return;
+  }
+  TRACE_START(glViewportArrayvOES_);
+  int64_t first;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &first));
+
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  dll.glViewportArrayvOES(first, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
+  }
+
+  TRACE_END(glViewportArrayvOES_);
+}
+
+void glViewportIndexedfOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glViewportIndexedfOES) {
+    return;
+  }
+  TRACE_START(glViewportIndexedfOES_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
+
+  double x;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &x));
+
+  double y;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &y));
+
+  double w;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &w));
+
+  double h;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 4, &h));
+
+  dll.glViewportIndexedfOES(index, x, y, w, h);
+
+  TRACE_END(glViewportIndexedfOES_);
+}
+
+void glViewportIndexedfvOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glViewportIndexedfvOES) {
+    return;
+  }
+  TRACE_START(glViewportIndexedfvOES_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 1));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  dll.glViewportIndexedfvOES(index, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
+  }
+
+  TRACE_END(glViewportIndexedfvOES_);
+}
+
+void glScissorArrayvOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glScissorArrayvOES) {
+    return;
+  }
+  TRACE_START(glScissorArrayvOES_);
+  int64_t first;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &first));
+
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLint* v = static_cast<const GLint*>(v_data);
+
+  dll.glScissorArrayvOES(first, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
+  }
+
+  TRACE_END(glScissorArrayvOES_);
+}
+
+void glScissorIndexedOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glScissorIndexedOES) {
+    return;
+  }
+  TRACE_START(glScissorIndexedOES_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
+
+  int64_t left;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &left));
+
+  int64_t bottom;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &bottom));
+
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &width));
+
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &height));
+
+  dll.glScissorIndexedOES(index, left, bottom, width, height);
+
+  TRACE_END(glScissorIndexedOES_);
+}
+
+void glScissorIndexedvOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glScissorIndexedvOES) {
+    return;
+  }
+  TRACE_START(glScissorIndexedvOES_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 1));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLint* v = static_cast<const GLint*>(v_data);
+
+  dll.glScissorIndexedvOES(index, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
+  }
+
+  TRACE_END(glScissorIndexedvOES_);
+}
+
+void glDepthRangeArrayfvOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glDepthRangeArrayfvOES) {
+    return;
+  }
+  TRACE_START(glDepthRangeArrayfvOES_);
+  int64_t first;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &first));
+
+  int64_t count;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &count));
+
+  Dart_Handle v_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* v_data = nullptr;
+  Dart_TypedData_Type v_typeddata_type;
+  intptr_t v_typeddata_length;
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(v_obj, &v_typeddata_type, &v_data,
+                                     &v_typeddata_length));
+  }
+  const GLfloat* v = static_cast<const GLfloat*>(v_data);
+
+  dll.glDepthRangeArrayfvOES(first, count, v);
+
+  if (!Dart_IsNull(v_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(v_obj));
+  }
+
+  TRACE_END(glDepthRangeArrayfvOES_);
+}
+
+void glDepthRangeIndexedfOES_native(Dart_NativeArguments arguments) {
+  if (!dll.glDepthRangeIndexedfOES) {
+    return;
+  }
+  TRACE_START(glDepthRangeIndexedfOES_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
+
+  double n;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &n));
+
+  double f;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &f));
+
+  dll.glDepthRangeIndexedfOES(index, n, f);
+
+  TRACE_END(glDepthRangeIndexedfOES_);
+}
+
 void glGenPerfMonitorsAMD_native(Dart_NativeArguments arguments) {
   if (!dll.glGenPerfMonitorsAMD) {
     return;
@@ -4311,6 +4524,25 @@ void glReadBufferIndexedEXT_native(Dart_NativeArguments arguments) {
   TRACE_END(glReadBufferIndexedEXT_);
 }
 
+void glPolygonOffsetClampEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glPolygonOffsetClampEXT) {
+    return;
+  }
+  TRACE_START(glPolygonOffsetClampEXT_);
+  double factor;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 0, &factor));
+
+  double units;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 1, &units));
+
+  double clamp;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 2, &clamp));
+
+  dll.glPolygonOffsetClampEXT(factor, units, clamp);
+
+  TRACE_END(glPolygonOffsetClampEXT_);
+}
+
 void glPrimitiveBoundingBoxEXT_native(Dart_NativeArguments arguments) {
   if (!dll.glPrimitiveBoundingBoxEXT) {
     return;
@@ -5381,6 +5613,37 @@ void glProgramUniformMatrix4x3fvEXT_native(Dart_NativeArguments arguments) {
   TRACE_END(glProgramUniformMatrix4x3fvEXT_);
 }
 
+void glFramebufferPixelLocalStorageSizeEXT_native(
+    Dart_NativeArguments arguments) {
+  if (!dll.glFramebufferPixelLocalStorageSizeEXT) {
+    return;
+  }
+  TRACE_START(glFramebufferPixelLocalStorageSizeEXT_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
+
+  int64_t size;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &size));
+
+  dll.glFramebufferPixelLocalStorageSizeEXT(target, size);
+
+  TRACE_END(glFramebufferPixelLocalStorageSizeEXT_);
+}
+
+void glGetFramebufferPixelLocalStorageSizeEXT_native(
+    Dart_NativeArguments arguments) {
+  if (!dll.glGetFramebufferPixelLocalStorageSizeEXT) {
+    return;
+  }
+  TRACE_START(glGetFramebufferPixelLocalStorageSizeEXT_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
+
+  GLsizei ret = dll.glGetFramebufferPixelLocalStorageSizeEXT(target);
+  Dart_SetIntegerReturnValue(arguments, ret);
+  TRACE_END(glGetFramebufferPixelLocalStorageSizeEXT_);
+}
+
 void glTexPageCommitmentEXT_native(Dart_NativeArguments arguments) {
   if (!dll.glTexPageCommitmentEXT) {
     return;
@@ -5675,6 +5938,72 @@ void glTextureViewEXT_native(Dart_NativeArguments arguments) {
   TRACE_END(glTextureViewEXT_);
 }
 
+void glFramebufferTexture2DDownsampleIMG_native(
+    Dart_NativeArguments arguments) {
+  if (!dll.glFramebufferTexture2DDownsampleIMG) {
+    return;
+  }
+  TRACE_START(glFramebufferTexture2DDownsampleIMG_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
+
+  int64_t attachment;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &attachment));
+
+  int64_t textarget;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &textarget));
+
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &texture));
+
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &level));
+
+  int64_t xscale;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &xscale));
+
+  int64_t yscale;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &yscale));
+
+  dll.glFramebufferTexture2DDownsampleIMG(target, attachment, textarget,
+                                          texture, level, xscale, yscale);
+
+  TRACE_END(glFramebufferTexture2DDownsampleIMG_);
+}
+
+void glFramebufferTextureLayerDownsampleIMG_native(
+    Dart_NativeArguments arguments) {
+  if (!dll.glFramebufferTextureLayerDownsampleIMG) {
+    return;
+  }
+  TRACE_START(glFramebufferTextureLayerDownsampleIMG_);
+  int64_t target;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &target));
+
+  int64_t attachment;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &attachment));
+
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &texture));
+
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &level));
+
+  int64_t layer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &layer));
+
+  int64_t xscale;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &xscale));
+
+  int64_t yscale;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &yscale));
+
+  dll.glFramebufferTextureLayerDownsampleIMG(target, attachment, texture, level,
+                                             layer, xscale, yscale);
+
+  TRACE_END(glFramebufferTextureLayerDownsampleIMG_);
+}
+
 void glRenderbufferStorageMultisampleIMG_native(
     Dart_NativeArguments arguments) {
   if (!dll.glRenderbufferStorageMultisampleIMG) {
@@ -5848,6 +6177,22 @@ void glSubpixelPrecisionBiasNV_native(Dart_NativeArguments arguments) {
   dll.glSubpixelPrecisionBiasNV(xbits, ybits);
 
   TRACE_END(glSubpixelPrecisionBiasNV_);
+}
+
+void glConservativeRasterParameteriNV_native(Dart_NativeArguments arguments) {
+  if (!dll.glConservativeRasterParameteriNV) {
+    return;
+  }
+  TRACE_START(glConservativeRasterParameteriNV_);
+  int64_t pname;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &pname));
+
+  int64_t param;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &param));
+
+  dll.glConservativeRasterParameteriNV(pname, param);
+
+  TRACE_END(glConservativeRasterParameteriNV_);
 }
 
 void glCopyBufferSubDataNV_native(Dart_NativeArguments arguments) {
@@ -7523,6 +7868,31 @@ void glIsEnablediNV_native(Dart_NativeArguments arguments) {
   GLboolean ret = dll.glIsEnablediNV(target, index);
   Dart_SetBooleanReturnValue(arguments, ret);
   TRACE_END(glIsEnablediNV_);
+}
+
+void glViewportSwizzleNV_native(Dart_NativeArguments arguments) {
+  if (!dll.glViewportSwizzleNV) {
+    return;
+  }
+  TRACE_START(glViewportSwizzleNV_);
+  int64_t index;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &index));
+
+  int64_t swizzlex;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &swizzlex));
+
+  int64_t swizzley;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &swizzley));
+
+  int64_t swizzlez;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &swizzlez));
+
+  int64_t swizzlew;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &swizzlew));
+
+  dll.glViewportSwizzleNV(index, swizzlex, swizzley, swizzlez, swizzlew);
+
+  TRACE_END(glViewportSwizzleNV_);
 }
 
 void glFramebufferTextureMultiviewOVR_native(Dart_NativeArguments arguments) {

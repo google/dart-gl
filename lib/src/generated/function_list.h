@@ -12,19 +12,19 @@
 #include "dart_api.h"
 
 #if defined(WIN32)
-  #include <windows.h>
-  #if !defined(APIENTRY)
-    #define APIENTRY __stdcall
-  #endif
-  #define _dlopen(name) LoadLibraryA(name)
-  #define _dlclose(handle) FreeLibrary((HMODULE)handle)
-  #define _dlsym(handle, name) GetProcAddress((HMODULE)handle, name)
+#include <windows.h>
+#if !defined(APIENTRY)
+#define APIENTRY __stdcall
+#endif
+#define _dlopen(name) LoadLibraryA(name)
+#define _dlclose(handle) FreeLibrary((HMODULE)handle)
+#define _dlsym(handle, name) GetProcAddress((HMODULE)handle, name)
 #else
-  #include <dlfcn.h>
-  #define APIENTRY
-  #define _dlopen(name) dlopen(name, RTLD_LAZY | RTLD_LOCAL)
-  #define _dlclose(handle) dlclose(handle)
-  #define _dlsym(handle, name) dlsym(handle, name)
+#include <dlfcn.h>
+#define APIENTRY
+#define _dlopen(name) dlopen(name, RTLD_LAZY | RTLD_LOCAL)
+#define _dlclose(handle) dlclose(handle)
+#define _dlsym(handle, name) dlsym(handle, name)
 #endif
 
 struct FunctionLookup {
@@ -115,6 +115,17 @@ typedef void(APIENTRY* PFGLBINDVERTEXARRAYOES)(GLuint);
 typedef void(APIENTRY* PFGLDELETEVERTEXARRAYSOES)(GLsizei, const GLuint*);
 typedef void(APIENTRY* PFGLGENVERTEXARRAYSOES)(GLsizei, GLuint*);
 typedef GLboolean(APIENTRY* PFGLISVERTEXARRAYOES)(GLuint);
+typedef void(APIENTRY* PFGLVIEWPORTARRAYVOES)(GLuint, GLsizei, const GLfloat*);
+typedef void(APIENTRY* PFGLVIEWPORTINDEXEDFOES)(GLuint, GLfloat, GLfloat,
+                                                GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLVIEWPORTINDEXEDFVOES)(GLuint, const GLfloat*);
+typedef void(APIENTRY* PFGLSCISSORARRAYVOES)(GLuint, GLsizei, const GLint*);
+typedef void(APIENTRY* PFGLSCISSORINDEXEDOES)(GLuint, GLint, GLint, GLsizei,
+                                              GLsizei);
+typedef void(APIENTRY* PFGLSCISSORINDEXEDVOES)(GLuint, const GLint*);
+typedef void(APIENTRY* PFGLDEPTHRANGEARRAYFVOES)(GLuint, GLsizei,
+                                                 const GLfloat*);
+typedef void(APIENTRY* PFGLDEPTHRANGEINDEXEDFOES)(GLuint, GLfloat, GLfloat);
 typedef void(APIENTRY* PFGLGENPERFMONITORSAMD)(GLsizei, GLuint*);
 typedef void(APIENTRY* PFGLDELETEPERFMONITORSAMD)(GLsizei, GLuint*);
 typedef void(APIENTRY* PFGLBEGINPERFMONITORAMD)(GLuint);
@@ -209,6 +220,7 @@ typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXT)(GLenum, GLenum,
                                                                GLenum, GLuint,
                                                                GLint, GLsizei);
 typedef void(APIENTRY* PFGLREADBUFFERINDEXEDEXT)(GLenum, GLint);
+typedef void(APIENTRY* PFGLPOLYGONOFFSETCLAMPEXT)(GLfloat, GLfloat, GLfloat);
 typedef void(APIENTRY* PFGLPRIMITIVEBOUNDINGBOXEXT)(GLfloat, GLfloat, GLfloat,
                                                     GLfloat, GLfloat, GLfloat,
                                                     GLfloat, GLfloat);
@@ -284,6 +296,9 @@ typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX3X4FVEXT)(GLuint, GLint, GLsizei,
 typedef void(APIENTRY* PFGLPROGRAMUNIFORMMATRIX4X3FVEXT)(GLuint, GLint, GLsizei,
                                                          GLboolean,
                                                          const GLfloat*);
+typedef void(APIENTRY* PFGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXT)(GLuint,
+                                                                GLsizei);
+typedef GLsizei(APIENTRY* PFGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXT)(GLuint);
 typedef void(APIENTRY* PFGLTEXPAGECOMMITMENTEXT)(GLenum, GLint, GLint, GLint,
                                                  GLint, GLsizei, GLsizei,
                                                  GLsizei, GLboolean);
@@ -304,6 +319,14 @@ typedef void(APIENTRY* PFGLTEXTURESTORAGE3DEXT)(GLuint, GLenum, GLsizei, GLenum,
                                                 GLsizei, GLsizei, GLsizei);
 typedef void(APIENTRY* PFGLTEXTUREVIEWEXT)(GLuint, GLenum, GLuint, GLenum,
                                            GLuint, GLuint, GLuint, GLuint);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTURE2DDOWNSAMPLEIMG)(GLenum, GLenum,
+                                                              GLenum, GLuint,
+                                                              GLint, GLint,
+                                                              GLint);
+typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMG)(GLenum, GLenum,
+                                                                 GLuint, GLint,
+                                                                 GLint, GLint,
+                                                                 GLint);
 typedef void(APIENTRY* PFGLRENDERBUFFERSTORAGEMULTISAMPLEIMG)(GLenum, GLsizei,
                                                               GLenum, GLsizei,
                                                               GLsizei);
@@ -319,6 +342,7 @@ typedef void(APIENTRY* PFGLBLENDBARRIERNV)();
 typedef void(APIENTRY* PFGLBEGINCONDITIONALRENDERNV)(GLuint, GLenum);
 typedef void(APIENTRY* PFGLENDCONDITIONALRENDERNV)();
 typedef void(APIENTRY* PFGLSUBPIXELPRECISIONBIASNV)(GLuint, GLuint);
+typedef void(APIENTRY* PFGLCONSERVATIVERASTERPARAMETERINV)(GLenum, GLint);
 typedef void(APIENTRY* PFGLCOPYBUFFERSUBDATANV)(GLenum, GLenum, GLintptr,
                                                 GLintptr, GLsizeiptr);
 typedef void(APIENTRY* PFGLCOVERAGEMASKNV)(GLboolean);
@@ -424,6 +448,8 @@ typedef void(APIENTRY* PFGLDEPTHRANGEINDEXEDFNV)(GLuint, GLfloat, GLfloat);
 typedef void(APIENTRY* PFGLENABLEINV)(GLenum, GLuint);
 typedef void(APIENTRY* PFGLDISABLEINV)(GLenum, GLuint);
 typedef GLboolean(APIENTRY* PFGLISENABLEDINV)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLVIEWPORTSWIZZLENV)(GLuint, GLenum, GLenum, GLenum,
+                                              GLenum);
 typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTUREMULTIVIEWOVR)(GLenum, GLenum,
                                                            GLuint, GLint, GLint,
                                                            GLsizei);
@@ -480,6 +506,14 @@ struct DynamicFunctions {
   PFGLDELETEVERTEXARRAYSOES glDeleteVertexArraysOES;
   PFGLGENVERTEXARRAYSOES glGenVertexArraysOES;
   PFGLISVERTEXARRAYOES glIsVertexArrayOES;
+  PFGLVIEWPORTARRAYVOES glViewportArrayvOES;
+  PFGLVIEWPORTINDEXEDFOES glViewportIndexedfOES;
+  PFGLVIEWPORTINDEXEDFVOES glViewportIndexedfvOES;
+  PFGLSCISSORARRAYVOES glScissorArrayvOES;
+  PFGLSCISSORINDEXEDOES glScissorIndexedOES;
+  PFGLSCISSORINDEXEDVOES glScissorIndexedvOES;
+  PFGLDEPTHRANGEARRAYFVOES glDepthRangeArrayfvOES;
+  PFGLDEPTHRANGEINDEXEDFOES glDepthRangeIndexedfOES;
   PFGLGENPERFMONITORSAMD glGenPerfMonitorsAMD;
   PFGLDELETEPERFMONITORSAMD glDeletePerfMonitorsAMD;
   PFGLBEGINPERFMONITORAMD glBeginPerfMonitorAMD;
@@ -534,6 +568,7 @@ struct DynamicFunctions {
   PFGLRENDERBUFFERSTORAGEMULTISAMPLEEXT glRenderbufferStorageMultisampleEXT;
   PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEEXT glFramebufferTexture2DMultisampleEXT;
   PFGLREADBUFFERINDEXEDEXT glReadBufferIndexedEXT;
+  PFGLPOLYGONOFFSETCLAMPEXT glPolygonOffsetClampEXT;
   PFGLPRIMITIVEBOUNDINGBOXEXT glPrimitiveBoundingBoxEXT;
   PFGLRASTERSAMPLESEXT glRasterSamplesEXT;
   PFGLGETGRAPHICSRESETSTATUSEXT glGetGraphicsResetStatusEXT;
@@ -574,6 +609,9 @@ struct DynamicFunctions {
   PFGLPROGRAMUNIFORMMATRIX4X2FVEXT glProgramUniformMatrix4x2fvEXT;
   PFGLPROGRAMUNIFORMMATRIX3X4FVEXT glProgramUniformMatrix3x4fvEXT;
   PFGLPROGRAMUNIFORMMATRIX4X3FVEXT glProgramUniformMatrix4x3fvEXT;
+  PFGLFRAMEBUFFERPIXELLOCALSTORAGESIZEEXT glFramebufferPixelLocalStorageSizeEXT;
+  PFGLGETFRAMEBUFFERPIXELLOCALSTORAGESIZEEXT
+      glGetFramebufferPixelLocalStorageSizeEXT;
   PFGLTEXPAGECOMMITMENTEXT glTexPageCommitmentEXT;
   PFGLPATCHPARAMETERIEXT glPatchParameteriEXT;
   PFGLTEXBUFFEREXT glTexBufferEXT;
@@ -585,6 +623,9 @@ struct DynamicFunctions {
   PFGLTEXTURESTORAGE2DEXT glTextureStorage2DEXT;
   PFGLTEXTURESTORAGE3DEXT glTextureStorage3DEXT;
   PFGLTEXTUREVIEWEXT glTextureViewEXT;
+  PFGLFRAMEBUFFERTEXTURE2DDOWNSAMPLEIMG glFramebufferTexture2DDownsampleIMG;
+  PFGLFRAMEBUFFERTEXTURELAYERDOWNSAMPLEIMG
+      glFramebufferTextureLayerDownsampleIMG;
   PFGLRENDERBUFFERSTORAGEMULTISAMPLEIMG glRenderbufferStorageMultisampleIMG;
   PFGLFRAMEBUFFERTEXTURE2DMULTISAMPLEIMG glFramebufferTexture2DMultisampleIMG;
   PFGLAPPLYFRAMEBUFFERATTACHMENTCMAAINTEL glApplyFramebufferAttachmentCMAAINTEL;
@@ -596,6 +637,7 @@ struct DynamicFunctions {
   PFGLBEGINCONDITIONALRENDERNV glBeginConditionalRenderNV;
   PFGLENDCONDITIONALRENDERNV glEndConditionalRenderNV;
   PFGLSUBPIXELPRECISIONBIASNV glSubpixelPrecisionBiasNV;
+  PFGLCONSERVATIVERASTERPARAMETERINV glConservativeRasterParameteriNV;
   PFGLCOPYBUFFERSUBDATANV glCopyBufferSubDataNV;
   PFGLCOVERAGEMASKNV glCoverageMaskNV;
   PFGLCOVERAGEOPERATIONNV glCoverageOperationNV;
@@ -664,6 +706,7 @@ struct DynamicFunctions {
   PFGLENABLEINV glEnableiNV;
   PFGLDISABLEINV glDisableiNV;
   PFGLISENABLEDINV glIsEnablediNV;
+  PFGLVIEWPORTSWIZZLENV glViewportSwizzleNV;
   PFGLFRAMEBUFFERTEXTUREMULTIVIEWOVR glFramebufferTextureMultiviewOVR;
   PFGLFRAMEBUFFERTEXTUREMULTISAMPLEMULTIVIEWOVR
       glFramebufferTextureMultisampleMultiviewOVR;

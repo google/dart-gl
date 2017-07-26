@@ -165,6 +165,14 @@ void glBindVertexArrayOES_native(Dart_NativeArguments arguments);
 void glDeleteVertexArraysOES_native(Dart_NativeArguments arguments);
 void glGenVertexArraysOES_native(Dart_NativeArguments arguments);
 void glIsVertexArrayOES_native(Dart_NativeArguments arguments);
+void glViewportArrayvOES_native(Dart_NativeArguments arguments);
+void glViewportIndexedfOES_native(Dart_NativeArguments arguments);
+void glViewportIndexedfvOES_native(Dart_NativeArguments arguments);
+void glScissorArrayvOES_native(Dart_NativeArguments arguments);
+void glScissorIndexedOES_native(Dart_NativeArguments arguments);
+void glScissorIndexedvOES_native(Dart_NativeArguments arguments);
+void glDepthRangeArrayfvOES_native(Dart_NativeArguments arguments);
+void glDepthRangeIndexedfOES_native(Dart_NativeArguments arguments);
 void glGenPerfMonitorsAMD_native(Dart_NativeArguments arguments);
 void glDeletePerfMonitorsAMD_native(Dart_NativeArguments arguments);
 void glBeginPerfMonitorAMD_native(Dart_NativeArguments arguments);
@@ -226,6 +234,7 @@ void glRenderbufferStorageMultisampleEXT_native(Dart_NativeArguments arguments);
 void glFramebufferTexture2DMultisampleEXT_native(
     Dart_NativeArguments arguments);
 void glReadBufferIndexedEXT_native(Dart_NativeArguments arguments);
+void glPolygonOffsetClampEXT_native(Dart_NativeArguments arguments);
 void glPrimitiveBoundingBoxEXT_native(Dart_NativeArguments arguments);
 void glRasterSamplesEXT_native(Dart_NativeArguments arguments);
 void glGetGraphicsResetStatusEXT_native(Dart_NativeArguments arguments);
@@ -266,6 +275,10 @@ void glProgramUniformMatrix2x4fvEXT_native(Dart_NativeArguments arguments);
 void glProgramUniformMatrix4x2fvEXT_native(Dart_NativeArguments arguments);
 void glProgramUniformMatrix3x4fvEXT_native(Dart_NativeArguments arguments);
 void glProgramUniformMatrix4x3fvEXT_native(Dart_NativeArguments arguments);
+void glFramebufferPixelLocalStorageSizeEXT_native(
+    Dart_NativeArguments arguments);
+void glGetFramebufferPixelLocalStorageSizeEXT_native(
+    Dart_NativeArguments arguments);
 void glTexPageCommitmentEXT_native(Dart_NativeArguments arguments);
 void glPatchParameteriEXT_native(Dart_NativeArguments arguments);
 void glTexBufferEXT_native(Dart_NativeArguments arguments);
@@ -277,6 +290,9 @@ void glTextureStorage1DEXT_native(Dart_NativeArguments arguments);
 void glTextureStorage2DEXT_native(Dart_NativeArguments arguments);
 void glTextureStorage3DEXT_native(Dart_NativeArguments arguments);
 void glTextureViewEXT_native(Dart_NativeArguments arguments);
+void glFramebufferTexture2DDownsampleIMG_native(Dart_NativeArguments arguments);
+void glFramebufferTextureLayerDownsampleIMG_native(
+    Dart_NativeArguments arguments);
 void glRenderbufferStorageMultisampleIMG_native(Dart_NativeArguments arguments);
 void glFramebufferTexture2DMultisampleIMG_native(
     Dart_NativeArguments arguments);
@@ -290,6 +306,7 @@ void glBlendBarrierNV_native(Dart_NativeArguments arguments);
 void glBeginConditionalRenderNV_native(Dart_NativeArguments arguments);
 void glEndConditionalRenderNV_native(Dart_NativeArguments arguments);
 void glSubpixelPrecisionBiasNV_native(Dart_NativeArguments arguments);
+void glConservativeRasterParameteriNV_native(Dart_NativeArguments arguments);
 void glCopyBufferSubDataNV_native(Dart_NativeArguments arguments);
 void glCoverageMaskNV_native(Dart_NativeArguments arguments);
 void glCoverageOperationNV_native(Dart_NativeArguments arguments);
@@ -359,6 +376,7 @@ void glDepthRangeIndexedfNV_native(Dart_NativeArguments arguments);
 void glEnableiNV_native(Dart_NativeArguments arguments);
 void glDisableiNV_native(Dart_NativeArguments arguments);
 void glIsEnablediNV_native(Dart_NativeArguments arguments);
+void glViewportSwizzleNV_native(Dart_NativeArguments arguments);
 void glFramebufferTextureMultiviewOVR_native(Dart_NativeArguments arguments);
 void glFramebufferTextureMultisampleMultiviewOVR_native(
     Dart_NativeArguments arguments);
