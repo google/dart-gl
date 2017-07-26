@@ -347,6 +347,21 @@ void glBindVertexArrayOES(int array) native "glBindVertexArrayOES";
 void glDeleteVertexArraysOES(List<int> values) native "glDeleteVertexArraysOES";
 List<int> glGenVertexArraysOES(int n) native "glGenVertexArraysOES";
 bool glIsVertexArrayOES(int array) native "glIsVertexArrayOES";
+void glViewportArrayvOES(int first, int count, TypedData v)
+    native "glViewportArrayvOES";
+void glViewportIndexedfOES(int index, double x, double y, double w, double h)
+    native "glViewportIndexedfOES";
+void glViewportIndexedfvOES(int index, TypedData v)
+    native "glViewportIndexedfvOES";
+void glScissorArrayvOES(int first, int count, TypedData v)
+    native "glScissorArrayvOES";
+void glScissorIndexedOES(int index, int left, int bottom, int width, int height)
+    native "glScissorIndexedOES";
+void glScissorIndexedvOES(int index, TypedData v) native "glScissorIndexedvOES";
+void glDepthRangeArrayfvOES(int first, int count, TypedData v)
+    native "glDepthRangeArrayfvOES";
+void glDepthRangeIndexedfOES(int index, double n, double f)
+    native "glDepthRangeIndexedfOES";
 List<int> glGenPerfMonitorsAMD(int n) native "glGenPerfMonitorsAMD";
 void glDeletePerfMonitorsAMD(List<int> values) native "glDeletePerfMonitorsAMD";
 void glBeginPerfMonitorAMD(int monitor) native "glBeginPerfMonitorAMD";
@@ -503,6 +518,8 @@ void glFramebufferTexture2DMultisampleEXT(
     int level,
     int samples) native "glFramebufferTexture2DMultisampleEXT";
 void glReadBufferIndexedEXT(int src, int index) native "glReadBufferIndexedEXT";
+void glPolygonOffsetClampEXT(double factor, double units, double clamp)
+    native "glPolygonOffsetClampEXT";
 void glPrimitiveBoundingBoxEXT(
     double minX,
     double minY,
@@ -586,6 +603,10 @@ void glProgramUniformMatrix3x4fvEXT(int program, int location, int count,
     int transpose, TypedData value) native "glProgramUniformMatrix3x4fvEXT";
 void glProgramUniformMatrix4x3fvEXT(int program, int location, int count,
     int transpose, TypedData value) native "glProgramUniformMatrix4x3fvEXT";
+void glFramebufferPixelLocalStorageSizeEXT(int target, int size)
+    native "glFramebufferPixelLocalStorageSizeEXT";
+int glGetFramebufferPixelLocalStorageSizeEXT(int target)
+    native "glGetFramebufferPixelLocalStorageSizeEXT";
 void glTexPageCommitmentEXT(
     int target,
     int level,
@@ -628,6 +649,22 @@ void glTextureViewEXT(
     int numlevels,
     int minlayer,
     int numlayers) native "glTextureViewEXT";
+void glFramebufferTexture2DDownsampleIMG(
+    int target,
+    int attachment,
+    int textarget,
+    int texture,
+    int level,
+    int xscale,
+    int yscale) native "glFramebufferTexture2DDownsampleIMG";
+void glFramebufferTextureLayerDownsampleIMG(
+    int target,
+    int attachment,
+    int texture,
+    int level,
+    int layer,
+    int xscale,
+    int yscale) native "glFramebufferTextureLayerDownsampleIMG";
 void glRenderbufferStorageMultisampleIMG(
     int target,
     int samples,
@@ -653,6 +690,8 @@ void glBeginConditionalRenderNV(int id, int mode)
 void glEndConditionalRenderNV() native "glEndConditionalRenderNV";
 void glSubpixelPrecisionBiasNV(int xbits, int ybits)
     native "glSubpixelPrecisionBiasNV";
+void glConservativeRasterParameteriNV(int pname, int param)
+    native "glConservativeRasterParameteriNV";
 void glCopyBufferSubDataNV(int readTarget, int writeTarget, int readOffset,
     int writeOffset, int size) native "glCopyBufferSubDataNV";
 void glCoverageMaskNV(int mask) native "glCoverageMaskNV";
@@ -817,6 +856,8 @@ void glDepthRangeIndexedfNV(int index, double n, double f)
 void glEnableiNV(int target, int index) native "glEnableiNV";
 void glDisableiNV(int target, int index) native "glDisableiNV";
 bool glIsEnablediNV(int target, int index) native "glIsEnablediNV";
+void glViewportSwizzleNV(int index, int swizzlex, int swizzley, int swizzlez,
+    int swizzlew) native "glViewportSwizzleNV";
 void glFramebufferTextureMultiviewOVR(
     int target,
     int attachment,
