@@ -119,7 +119,7 @@ void render_triangle() {
       vertexId, // Describe vertex information.
       2, // Two values: x, y
       GL_FLOAT, // Each has sizeof float.
-      GL_FALSE, // Don't normalize values.
+      false, // Don't normalize values.
       6 * float32Size, // Stride to next vertex is 6 elements.
       0); // Offset to vertex info.
 
@@ -129,7 +129,7 @@ void render_triangle() {
       colorId, // Describe color information.
       4, // Four values: r, g, b, a
       GL_FLOAT, // Each has sizeof float.
-      GL_FALSE, // Don't normalize values.
+      false, // Don't normalize values.
       6 * float32Size, // Stride to next vertex is 6 elements.
       2 * float32Size); // Offset to vertex info (skip x,y).
 
