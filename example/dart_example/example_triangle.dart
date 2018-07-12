@@ -18,7 +18,7 @@ Float32List verts = new Float32List.fromList(const [
   0.0, 1.0, 0.0, 1.0, 0.0, 1.0,
   1.0, -1.0, 0.0, 0.0, 1.0, 1.0,
 ]);
-const int float32Size = Float32List.BYTES_PER_ELEMENT;
+const int float32Size = Float32List.bytesPerElement;
 
 const String vshader_text = """
 #version 100
