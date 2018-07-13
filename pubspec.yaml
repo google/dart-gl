@@ -1,5 +1,5 @@
 name: gl
-version: "1.0.3-dev"
+version: "1.0.3"
 description: Dart GLES2 bindings
 authors:
   - John McDole <codefu@google.com>
