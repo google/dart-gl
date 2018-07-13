@@ -8,6 +8,7 @@
 #include <GLES2/gl2.h>
 #include "dart_api.h"
 
+#include "gl_extension_info.h"
 #include "instantiate_gl_classes.h"
 #include "manual_bindings.h"
 #include "util.h"
@@ -80,7 +81,7 @@ void glGetAttachedShaders_native(Dart_NativeArguments arguments) {
 
   glGetAttachedShaders(program, maxCount, NULL, shaders);
 
-  Dart_Handle shaders_obj = Dart_NewList(maxCount);
+  Dart_Handle shaders_obj = Dart_NewListOf(Dart_CoreType_Int, maxCount);
   for (int i = 0; i < maxCount; i++) {
     Dart_ListSetAt(shaders_obj, i, Dart_NewInteger(shaders[i]));
   }
@@ -95,9 +96,12 @@ void glGetBooleanv_native(Dart_NativeArguments arguments) {
 
   int length = GetGlGetResultLength(pname);
 
+  auto core_lib = GlExtensionInfo::current().core_library();
+  Dart_Handle bool_type = HandleError(
+      Dart_GetType(core_lib, Dart_NewStringFromCString("bool"), 0, nullptr));
   Dart_Handle list;
   if (length > 0) {
-    list = HANDLE(Dart_NewList(length));
+    list = HANDLE(Dart_NewListOfType(bool_type, length));
     GLboolean *data = (GLboolean *)malloc(sizeof(GLboolean) * length);
     glGetBooleanv(pname, data);
     for (int i = 0; i < length; i++) {
@@ -106,7 +110,7 @@ void glGetBooleanv_native(Dart_NativeArguments arguments) {
     }
     free(data);
   } else {
-    list = HANDLE(Dart_NewList(0));
+    list = HANDLE(Dart_NewListOfType(bool_type, 0));
   }
   Dart_SetReturnValue(arguments, list);
   TRACE_END(glGetBooleanv_);
@@ -137,9 +141,12 @@ void glGetFloatv_native(Dart_NativeArguments arguments) {
 
   int length = GetGlGetResultLength(pname);
 
+  auto core_lib = GlExtensionInfo::current().core_library();
+  Dart_Handle double_type = HandleError(
+      Dart_GetType(core_lib, Dart_NewStringFromCString("double"), 0, nullptr));
   Dart_Handle list;
   if (length > 0) {
-    list = HANDLE(Dart_NewList(length));
+    list = HANDLE(Dart_NewListOfType(double_type, length));
     GLfloat *data = (GLfloat *)malloc(sizeof(GLfloat) * length);
     glGetFloatv(pname, data);
     for (int i = 0; i < length; i++) {
@@ -148,7 +155,7 @@ void glGetFloatv_native(Dart_NativeArguments arguments) {
     }
     free(data);
   } else {
-    list = HANDLE(Dart_NewList(0));
+    list = HANDLE(Dart_NewListOfType(double_type, 0));
   }
   Dart_SetReturnValue(arguments, list);
   TRACE_END(glGetFloatv_);
@@ -187,7 +194,7 @@ void glGetIntegerv_native(Dart_NativeArguments arguments) {
 
   Dart_Handle list;
   if (length > 0) {
-    list = HANDLE(Dart_NewList(length));
+    list = HANDLE(Dart_NewListOf(Dart_CoreType_Int, length));
     GLint *data = (GLint *)malloc(sizeof(GLint) * length);
     glGetIntegerv(pname, data);
     for (int i = 0; i < length; i++) {
@@ -196,7 +203,7 @@ void glGetIntegerv_native(Dart_NativeArguments arguments) {
     }
     free(data);
   } else {
-    list = HANDLE(Dart_NewList(0));
+    list = HANDLE(Dart_NewListOf(Dart_CoreType_Int, 0));
   }
   Dart_SetReturnValue(arguments, list);
   TRACE_END(glGetIntegerv_);

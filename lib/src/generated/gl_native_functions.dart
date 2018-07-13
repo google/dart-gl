@@ -433,6 +433,20 @@ int glGetFragDataIndexEXT(int program, String name)
     native "glGetFragDataIndexEXT";
 void glBufferStorageEXT(int target, int size, TypedData data, int flags)
     native "glBufferStorageEXT";
+void glClearTexImageEXT(int texture, int level, int format, int type,
+    TypedData data) native "glClearTexImageEXT";
+void glClearTexSubImageEXT(
+    int texture,
+    int level,
+    int xoffset,
+    int yoffset,
+    int zoffset,
+    int width,
+    int height,
+    int depth,
+    int format,
+    int type,
+    TypedData data) native "glClearTexSubImageEXT";
 void glCopyImageSubDataEXT(
     int srcName,
     int srcTarget,
@@ -494,12 +508,19 @@ void glDrawArraysInstancedEXT(int mode, int start, int count, int primcount)
     native "glDrawArraysInstancedEXT";
 void glDrawElementsInstancedEXT(int mode, int count, int type,
     TypedData indices, int primcount) native "glDrawElementsInstancedEXT";
+void glDrawTransformFeedbackEXT(int mode, int id)
+    native "glDrawTransformFeedbackEXT";
+void glDrawTransformFeedbackInstancedEXT(int mode, int id, int instancecount)
+    native "glDrawTransformFeedbackInstancedEXT";
 void glFramebufferTextureEXT(int target, int attachment, int texture, int level)
     native "glFramebufferTextureEXT";
 void glVertexAttribDivisorEXT(int index, int divisor)
     native "glVertexAttribDivisorEXT";
 void glFlushMappedBufferRangeEXT(int target, int offset, int length)
     native "glFlushMappedBufferRangeEXT";
+void glDeleteMemoryObjectsEXT(List<int> values)
+    native "glDeleteMemoryObjectsEXT";
+bool glIsMemoryObjectEXT(int memoryObject) native "glIsMemoryObjectEXT";
 void glMultiDrawArraysIndirectEXT(int mode, TypedData indirect, int drawcount,
     int stride) native "glMultiDrawArraysIndirectEXT";
 void glMultiDrawElementsIndirectEXT(int mode, int type, TypedData indirect,
@@ -532,6 +553,13 @@ void glPrimitiveBoundingBoxEXT(
 void glRasterSamplesEXT(int samples, int fixedsamplelocations)
     native "glRasterSamplesEXT";
 int glGetGraphicsResetStatusEXT() native "glGetGraphicsResetStatusEXT";
+List<int> glGenSemaphoresEXT(int n) native "glGenSemaphoresEXT";
+void glDeleteSemaphoresEXT(List<int> values) native "glDeleteSemaphoresEXT";
+bool glIsSemaphoreEXT(int semaphore) native "glIsSemaphoreEXT";
+void glImportSemaphoreFdEXT(int semaphore, int handleType, int fd)
+    native "glImportSemaphoreFdEXT";
+void glImportSemaphoreWin32NameEXT(int semaphore, int handleType,
+    TypedData name) native "glImportSemaphoreWin32NameEXT";
 void glActiveShaderProgramEXT(int pipeline, int program)
     native "glActiveShaderProgramEXT";
 void glBindProgramPipelineEXT(int pipeline) native "glBindProgramPipelineEXT";
@@ -881,6 +909,16 @@ void glDisableDriverControlQCOM(int driverControl)
 void glExtTexObjectStateOverrideiQCOM(int target, int pname, int param)
     native "glExtTexObjectStateOverrideiQCOM";
 bool glExtIsProgramBinaryQCOM(int program) native "glExtIsProgramBinaryQCOM";
+void glFramebufferFoveationParametersQCOM(
+    int framebuffer,
+    int layer,
+    int focalPoint,
+    double focalX,
+    double focalY,
+    double gainX,
+    double gainY,
+    double foveaArea) native "glFramebufferFoveationParametersQCOM";
+void glFramebufferFetchBarrierQCOM() native "glFramebufferFetchBarrierQCOM";
 void glStartTilingQCOM(int x, int y, int width, int height, int preserveMask)
     native "glStartTilingQCOM";
 void glEndTilingQCOM(int preserveMask) native "glEndTilingQCOM";

@@ -164,6 +164,12 @@ typedef GLint(APIENTRY* PFGLGETPROGRAMRESOURCELOCATIONINDEXEXT)(GLuint, GLenum,
 typedef GLint(APIENTRY* PFGLGETFRAGDATAINDEXEXT)(GLuint, const GLchar*);
 typedef void(APIENTRY* PFGLBUFFERSTORAGEEXT)(GLenum, GLsizeiptr, const void*,
                                              GLbitfield);
+typedef void(APIENTRY* PFGLCLEARTEXIMAGEEXT)(GLuint, GLint, GLenum, GLenum,
+                                             const void*);
+typedef void(APIENTRY* PFGLCLEARTEXSUBIMAGEEXT)(GLuint, GLint, GLint, GLint,
+                                                GLint, GLsizei, GLsizei,
+                                                GLsizei, GLenum, GLenum,
+                                                const void*);
 typedef void(APIENTRY* PFGLCOPYIMAGESUBDATAEXT)(GLuint, GLenum, GLint, GLint,
                                                 GLint, GLint, GLuint, GLenum,
                                                 GLint, GLint, GLint, GLint,
@@ -203,11 +209,16 @@ typedef void(APIENTRY* PFGLDRAWARRAYSINSTANCEDEXT)(GLenum, GLint, GLsizei,
                                                    GLsizei);
 typedef void(APIENTRY* PFGLDRAWELEMENTSINSTANCEDEXT)(GLenum, GLsizei, GLenum,
                                                      const void*, GLsizei);
+typedef void(APIENTRY* PFGLDRAWTRANSFORMFEEDBACKEXT)(GLenum, GLuint);
+typedef void(APIENTRY* PFGLDRAWTRANSFORMFEEDBACKINSTANCEDEXT)(GLenum, GLuint,
+                                                              GLsizei);
 typedef void(APIENTRY* PFGLFRAMEBUFFERTEXTUREEXT)(GLenum, GLenum, GLuint,
                                                   GLint);
 typedef void(APIENTRY* PFGLVERTEXATTRIBDIVISOREXT)(GLuint, GLuint);
 typedef void(APIENTRY* PFGLFLUSHMAPPEDBUFFERRANGEEXT)(GLenum, GLintptr,
                                                       GLsizeiptr);
+typedef void(APIENTRY* PFGLDELETEMEMORYOBJECTSEXT)(GLsizei, const GLuint*);
+typedef GLboolean(APIENTRY* PFGLISMEMORYOBJECTEXT)(GLuint);
 typedef void(APIENTRY* PFGLMULTIDRAWARRAYSINDIRECTEXT)(GLenum, const void*,
                                                        GLsizei, GLsizei);
 typedef void(APIENTRY* PFGLMULTIDRAWELEMENTSINDIRECTEXT)(GLenum, GLenum,
@@ -226,6 +237,12 @@ typedef void(APIENTRY* PFGLPRIMITIVEBOUNDINGBOXEXT)(GLfloat, GLfloat, GLfloat,
                                                     GLfloat, GLfloat);
 typedef void(APIENTRY* PFGLRASTERSAMPLESEXT)(GLuint, GLboolean);
 typedef GLenum(APIENTRY* PFGLGETGRAPHICSRESETSTATUSEXT)();
+typedef void(APIENTRY* PFGLGENSEMAPHORESEXT)(GLsizei, GLuint*);
+typedef void(APIENTRY* PFGLDELETESEMAPHORESEXT)(GLsizei, const GLuint*);
+typedef GLboolean(APIENTRY* PFGLISSEMAPHOREEXT)(GLuint);
+typedef void(APIENTRY* PFGLIMPORTSEMAPHOREFDEXT)(GLuint, GLenum, GLint);
+typedef void(APIENTRY* PFGLIMPORTSEMAPHOREWIN32NAMEEXT)(GLuint, GLenum,
+                                                        const void*);
 typedef void(APIENTRY* PFGLACTIVESHADERPROGRAMEXT)(GLuint, GLuint);
 typedef void(APIENTRY* PFGLBINDPROGRAMPIPELINEEXT)(GLuint);
 typedef void(APIENTRY* PFGLDELETEPROGRAMPIPELINESEXT)(GLsizei, const GLuint*);
@@ -461,6 +478,9 @@ typedef void(APIENTRY* PFGLDISABLEDRIVERCONTROLQCOM)(GLuint);
 typedef void(APIENTRY* PFGLEXTTEXOBJECTSTATEOVERRIDEIQCOM)(GLenum, GLenum,
                                                            GLint);
 typedef GLboolean(APIENTRY* PFGLEXTISPROGRAMBINARYQCOM)(GLuint);
+typedef void(APIENTRY* PFGLFRAMEBUFFERFOVEATIONPARAMETERSQCOM)(
+    GLuint, GLuint, GLuint, GLfloat, GLfloat, GLfloat, GLfloat, GLfloat);
+typedef void(APIENTRY* PFGLFRAMEBUFFERFETCHBARRIERQCOM)();
 typedef void(APIENTRY* PFGLSTARTTILINGQCOM)(GLuint, GLuint, GLuint, GLuint,
                                             GLbitfield);
 typedef void(APIENTRY* PFGLENDTILINGQCOM)(GLbitfield);
@@ -536,6 +556,8 @@ struct DynamicFunctions {
   PFGLGETPROGRAMRESOURCELOCATIONINDEXEXT glGetProgramResourceLocationIndexEXT;
   PFGLGETFRAGDATAINDEXEXT glGetFragDataIndexEXT;
   PFGLBUFFERSTORAGEEXT glBufferStorageEXT;
+  PFGLCLEARTEXIMAGEEXT glClearTexImageEXT;
+  PFGLCLEARTEXSUBIMAGEEXT glClearTexSubImageEXT;
   PFGLCOPYIMAGESUBDATAEXT glCopyImageSubDataEXT;
   PFGLLABELOBJECTEXT glLabelObjectEXT;
   PFGLINSERTEVENTMARKEREXT glInsertEventMarkerEXT;
@@ -560,9 +582,13 @@ struct DynamicFunctions {
   PFGLDRAWELEMENTSINSTANCEDBASEVERTEXEXT glDrawElementsInstancedBaseVertexEXT;
   PFGLDRAWARRAYSINSTANCEDEXT glDrawArraysInstancedEXT;
   PFGLDRAWELEMENTSINSTANCEDEXT glDrawElementsInstancedEXT;
+  PFGLDRAWTRANSFORMFEEDBACKEXT glDrawTransformFeedbackEXT;
+  PFGLDRAWTRANSFORMFEEDBACKINSTANCEDEXT glDrawTransformFeedbackInstancedEXT;
   PFGLFRAMEBUFFERTEXTUREEXT glFramebufferTextureEXT;
   PFGLVERTEXATTRIBDIVISOREXT glVertexAttribDivisorEXT;
   PFGLFLUSHMAPPEDBUFFERRANGEEXT glFlushMappedBufferRangeEXT;
+  PFGLDELETEMEMORYOBJECTSEXT glDeleteMemoryObjectsEXT;
+  PFGLISMEMORYOBJECTEXT glIsMemoryObjectEXT;
   PFGLMULTIDRAWARRAYSINDIRECTEXT glMultiDrawArraysIndirectEXT;
   PFGLMULTIDRAWELEMENTSINDIRECTEXT glMultiDrawElementsIndirectEXT;
   PFGLRENDERBUFFERSTORAGEMULTISAMPLEEXT glRenderbufferStorageMultisampleEXT;
@@ -572,6 +598,11 @@ struct DynamicFunctions {
   PFGLPRIMITIVEBOUNDINGBOXEXT glPrimitiveBoundingBoxEXT;
   PFGLRASTERSAMPLESEXT glRasterSamplesEXT;
   PFGLGETGRAPHICSRESETSTATUSEXT glGetGraphicsResetStatusEXT;
+  PFGLGENSEMAPHORESEXT glGenSemaphoresEXT;
+  PFGLDELETESEMAPHORESEXT glDeleteSemaphoresEXT;
+  PFGLISSEMAPHOREEXT glIsSemaphoreEXT;
+  PFGLIMPORTSEMAPHOREFDEXT glImportSemaphoreFdEXT;
+  PFGLIMPORTSEMAPHOREWIN32NAMEEXT glImportSemaphoreWin32NameEXT;
   PFGLACTIVESHADERPROGRAMEXT glActiveShaderProgramEXT;
   PFGLBINDPROGRAMPIPELINEEXT glBindProgramPipelineEXT;
   PFGLDELETEPROGRAMPIPELINESEXT glDeleteProgramPipelinesEXT;
@@ -715,6 +746,8 @@ struct DynamicFunctions {
   PFGLDISABLEDRIVERCONTROLQCOM glDisableDriverControlQCOM;
   PFGLEXTTEXOBJECTSTATEOVERRIDEIQCOM glExtTexObjectStateOverrideiQCOM;
   PFGLEXTISPROGRAMBINARYQCOM glExtIsProgramBinaryQCOM;
+  PFGLFRAMEBUFFERFOVEATIONPARAMETERSQCOM glFramebufferFoveationParametersQCOM;
+  PFGLFRAMEBUFFERFETCHBARRIERQCOM glFramebufferFetchBarrierQCOM;
   PFGLSTARTTILINGQCOM glStartTilingQCOM;
   PFGLENDTILINGQCOM glEndTilingQCOM;
 };

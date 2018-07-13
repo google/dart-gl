@@ -10,9 +10,8 @@ homepage:
 environment:
   sdk: ">=2.0.0-dev.36.0 <3.0.0"
 dev_dependencies:
-  args: ^0.13.7
-  ccompile: "^0.2.10"
-  #glfw: any  # for examples in example/dart_example/ - needs to symlink locally
+  args: ^1.4.3
+  #glfw: ^1.0.2   # for examples in example/dart_example/ - needs to symlink locally
   glfw:
     path: ../dart-glfw
-  path: ^1.4.1
+  path: ^1.6.0

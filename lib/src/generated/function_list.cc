@@ -190,8 +190,8 @@ const struct FunctionLookup _function_list[] = {
      glDrawRangeElementsBaseVertexOES_native},
     {"glDrawElementsInstancedBaseVertexOES",
      glDrawElementsInstancedBaseVertexOES_native},
-    // {"glMultiDrawElementsBaseVertexOES",
-    // glMultiDrawElementsBaseVertexOES_native},
+    // {"glMultiDrawElementsBaseVertexEXT",
+    // glMultiDrawElementsBaseVertexEXT_native},
     {"glFramebufferTextureOES", glFramebufferTextureOES_native},
     // {"glGetProgramBinaryOES", glGetProgramBinaryOES_native},
     {"glProgramBinaryOES", glProgramBinaryOES_native},
@@ -281,6 +281,8 @@ const struct FunctionLookup _function_list[] = {
      glGetProgramResourceLocationIndexEXT_native},
     {"glGetFragDataIndexEXT", glGetFragDataIndexEXT_native},
     {"glBufferStorageEXT", glBufferStorageEXT_native},
+    {"glClearTexImageEXT", glClearTexImageEXT_native},
+    {"glClearTexSubImageEXT", glClearTexSubImageEXT_native},
     {"glCopyImageSubDataEXT", glCopyImageSubDataEXT_native},
     {"glLabelObjectEXT", glLabelObjectEXT_native},
     // {"glGetObjectLabelEXT", glGetObjectLabelEXT_native},
@@ -313,14 +315,43 @@ const struct FunctionLookup _function_list[] = {
      glDrawRangeElementsBaseVertexEXT_native},
     {"glDrawElementsInstancedBaseVertexEXT",
      glDrawElementsInstancedBaseVertexEXT_native},
-    // {"glMultiDrawElementsBaseVertexEXT",
-    // glMultiDrawElementsBaseVertexEXT_native},
     {"glDrawArraysInstancedEXT", glDrawArraysInstancedEXT_native},
     {"glDrawElementsInstancedEXT", glDrawElementsInstancedEXT_native},
+    {"glDrawTransformFeedbackEXT", glDrawTransformFeedbackEXT_native},
+    {"glDrawTransformFeedbackInstancedEXT",
+     glDrawTransformFeedbackInstancedEXT_native},
+    // {"glBufferStorageExternalEXT", glBufferStorageExternalEXT_native},
+    // {"glNamedBufferStorageExternalEXT",
+    // glNamedBufferStorageExternalEXT_native},
     {"glFramebufferTextureEXT", glFramebufferTextureEXT_native},
     {"glVertexAttribDivisorEXT", glVertexAttribDivisorEXT_native},
     // {"glMapBufferRangeEXT", glMapBufferRangeEXT_native},
     {"glFlushMappedBufferRangeEXT", glFlushMappedBufferRangeEXT_native},
+    // {"glGetUnsignedBytevEXT", glGetUnsignedBytevEXT_native},
+    // {"glGetUnsignedBytei_vEXT", glGetUnsignedBytei_vEXT_native},
+    {"glDeleteMemoryObjectsEXT", glDeleteMemoryObjectsEXT_native},
+    {"glIsMemoryObjectEXT", glIsMemoryObjectEXT_native},
+    // {"glCreateMemoryObjectsEXT", glCreateMemoryObjectsEXT_native},
+    // {"glMemoryObjectParameterivEXT", glMemoryObjectParameterivEXT_native},
+    // {"glGetMemoryObjectParameterivEXT",
+    // glGetMemoryObjectParameterivEXT_native},
+    // {"glTexStorageMem2DEXT", glTexStorageMem2DEXT_native},
+    // {"glTexStorageMem2DMultisampleEXT",
+    // glTexStorageMem2DMultisampleEXT_native},
+    // {"glTexStorageMem3DEXT", glTexStorageMem3DEXT_native},
+    // {"glTexStorageMem3DMultisampleEXT",
+    // glTexStorageMem3DMultisampleEXT_native},
+    // {"glBufferStorageMemEXT", glBufferStorageMemEXT_native},
+    // {"glTextureStorageMem2DEXT", glTextureStorageMem2DEXT_native},
+    // {"glTextureStorageMem2DMultisampleEXT",
+    // glTextureStorageMem2DMultisampleEXT_native},
+    // {"glTextureStorageMem3DEXT", glTextureStorageMem3DEXT_native},
+    // {"glTextureStorageMem3DMultisampleEXT",
+    // glTextureStorageMem3DMultisampleEXT_native},
+    // {"glNamedBufferStorageMemEXT", glNamedBufferStorageMemEXT_native},
+    // {"glImportMemoryFdEXT", glImportMemoryFdEXT_native},
+    // {"glImportMemoryWin32HandleEXT", glImportMemoryWin32HandleEXT_native},
+    // {"glImportMemoryWin32NameEXT", glImportMemoryWin32NameEXT_native},
     // {"glMultiDrawArraysEXT", glMultiDrawArraysEXT_native},
     // {"glMultiDrawElementsEXT", glMultiDrawElementsEXT_native},
     {"glMultiDrawArraysIndirectEXT", glMultiDrawArraysIndirectEXT_native},
@@ -339,6 +370,18 @@ const struct FunctionLookup _function_list[] = {
     // {"glReadnPixelsEXT", glReadnPixelsEXT_native},
     // {"glGetnUniformfvEXT", glGetnUniformfvEXT_native},
     // {"glGetnUniformivEXT", glGetnUniformivEXT_native},
+    {"glGenSemaphoresEXT", glGenSemaphoresEXT_native},
+    {"glDeleteSemaphoresEXT", glDeleteSemaphoresEXT_native},
+    {"glIsSemaphoreEXT", glIsSemaphoreEXT_native},
+    // {"glSemaphoreParameterui64vEXT", glSemaphoreParameterui64vEXT_native},
+    // {"glGetSemaphoreParameterui64vEXT",
+    // glGetSemaphoreParameterui64vEXT_native},
+    // {"glWaitSemaphoreEXT", glWaitSemaphoreEXT_native},
+    // {"glSignalSemaphoreEXT", glSignalSemaphoreEXT_native},
+    {"glImportSemaphoreFdEXT", glImportSemaphoreFdEXT_native},
+    // {"glImportSemaphoreWin32HandleEXT",
+    // glImportSemaphoreWin32HandleEXT_native},
+    {"glImportSemaphoreWin32NameEXT", glImportSemaphoreWin32NameEXT_native},
     {"glActiveShaderProgramEXT", glActiveShaderProgramEXT_native},
     {"glBindProgramPipelineEXT", glBindProgramPipelineEXT_native},
     // {"glCreateShaderProgramvEXT", glCreateShaderProgramvEXT_native},
@@ -408,7 +451,16 @@ const struct FunctionLookup _function_list[] = {
     {"glTextureStorage2DEXT", glTextureStorage2DEXT_native},
     {"glTextureStorage3DEXT", glTextureStorage3DEXT_native},
     {"glTextureViewEXT", glTextureViewEXT_native},
+    // {"glAcquireKeyedMutexWin32EXT", glAcquireKeyedMutexWin32EXT_native},
+    // {"glReleaseKeyedMutexWin32EXT", glReleaseKeyedMutexWin32EXT_native},
     // {"glWindowRectanglesEXT", glWindowRectanglesEXT_native},
+    // {"glGetTextureHandleIMG", glGetTextureHandleIMG_native},
+    // {"glGetTextureSamplerHandleIMG", glGetTextureSamplerHandleIMG_native},
+    // {"glUniformHandleui64IMG", glUniformHandleui64IMG_native},
+    // {"glUniformHandleui64vIMG", glUniformHandleui64vIMG_native},
+    // {"glProgramUniformHandleui64IMG", glProgramUniformHandleui64IMG_native},
+    // {"glProgramUniformHandleui64vIMG",
+    // glProgramUniformHandleui64vIMG_native},
     {"glFramebufferTexture2DDownsampleIMG",
      glFramebufferTexture2DDownsampleIMG_native},
     {"glFramebufferTextureLayerDownsampleIMG",
@@ -457,6 +509,11 @@ const struct FunctionLookup _function_list[] = {
     // {"glDrawBuffersNV", glDrawBuffersNV_native},
     {"glDrawArraysInstancedNV", glDrawArraysInstancedNV_native},
     {"glDrawElementsInstancedNV", glDrawElementsInstancedNV_native},
+    // {"glDrawVkImageNV", glDrawVkImageNV_native},
+    // {"glGetVkProcAddrNV", glGetVkProcAddrNV_native},
+    // {"glWaitVkSemaphoreNV", glWaitVkSemaphoreNV_native},
+    // {"glSignalVkSemaphoreNV", glSignalVkSemaphoreNV_native},
+    // {"glSignalVkFenceNV", glSignalVkFenceNV_native},
     {"glDeleteFencesNV", glDeleteFencesNV_native},
     {"glGenFencesNV", glGenFencesNV_native},
     {"glIsFenceNV", glIsFenceNV_native},
@@ -618,6 +675,11 @@ const struct FunctionLookup _function_list[] = {
     {"glExtIsProgramBinaryQCOM", glExtIsProgramBinaryQCOM_native},
     // {"glExtGetProgramBinarySourceQCOM",
     // glExtGetProgramBinarySourceQCOM_native},
+    // {"glFramebufferFoveationConfigQCOM",
+    // glFramebufferFoveationConfigQCOM_native},
+    {"glFramebufferFoveationParametersQCOM",
+     glFramebufferFoveationParametersQCOM_native},
+    {"glFramebufferFetchBarrierQCOM", glFramebufferFetchBarrierQCOM_native},
     {"glStartTilingQCOM", glStartTilingQCOM_native},
     {"glEndTilingQCOM", glEndTilingQCOM_native},
     {NULL, NULL}};
@@ -942,6 +1004,10 @@ void loadFunctions() {
       (PFGLGETFRAGDATAINDEXEXT)_dlsym(dll.handle, "glGetFragDataIndexEXT");
   dll.glBufferStorageEXT =
       (PFGLBUFFERSTORAGEEXT)_dlsym(dll.handle, "glBufferStorageEXT");
+  dll.glClearTexImageEXT =
+      (PFGLCLEARTEXIMAGEEXT)_dlsym(dll.handle, "glClearTexImageEXT");
+  dll.glClearTexSubImageEXT =
+      (PFGLCLEARTEXSUBIMAGEEXT)_dlsym(dll.handle, "glClearTexSubImageEXT");
   dll.glCopyImageSubDataEXT =
       (PFGLCOPYIMAGESUBDATAEXT)_dlsym(dll.handle, "glCopyImageSubDataEXT");
   dll.glLabelObjectEXT =
@@ -988,12 +1054,21 @@ void loadFunctions() {
       dll.handle, "glDrawArraysInstancedEXT");
   dll.glDrawElementsInstancedEXT = (PFGLDRAWELEMENTSINSTANCEDEXT)_dlsym(
       dll.handle, "glDrawElementsInstancedEXT");
+  dll.glDrawTransformFeedbackEXT = (PFGLDRAWTRANSFORMFEEDBACKEXT)_dlsym(
+      dll.handle, "glDrawTransformFeedbackEXT");
+  dll.glDrawTransformFeedbackInstancedEXT =
+      (PFGLDRAWTRANSFORMFEEDBACKINSTANCEDEXT)_dlsym(
+          dll.handle, "glDrawTransformFeedbackInstancedEXT");
   dll.glFramebufferTextureEXT =
       (PFGLFRAMEBUFFERTEXTUREEXT)_dlsym(dll.handle, "glFramebufferTextureEXT");
   dll.glVertexAttribDivisorEXT = (PFGLVERTEXATTRIBDIVISOREXT)_dlsym(
       dll.handle, "glVertexAttribDivisorEXT");
   dll.glFlushMappedBufferRangeEXT = (PFGLFLUSHMAPPEDBUFFERRANGEEXT)_dlsym(
       dll.handle, "glFlushMappedBufferRangeEXT");
+  dll.glDeleteMemoryObjectsEXT = (PFGLDELETEMEMORYOBJECTSEXT)_dlsym(
+      dll.handle, "glDeleteMemoryObjectsEXT");
+  dll.glIsMemoryObjectEXT =
+      (PFGLISMEMORYOBJECTEXT)_dlsym(dll.handle, "glIsMemoryObjectEXT");
   dll.glMultiDrawArraysIndirectEXT = (PFGLMULTIDRAWARRAYSINDIRECTEXT)_dlsym(
       dll.handle, "glMultiDrawArraysIndirectEXT");
   dll.glMultiDrawElementsIndirectEXT = (PFGLMULTIDRAWELEMENTSINDIRECTEXT)_dlsym(
@@ -1014,6 +1089,16 @@ void loadFunctions() {
       (PFGLRASTERSAMPLESEXT)_dlsym(dll.handle, "glRasterSamplesEXT");
   dll.glGetGraphicsResetStatusEXT = (PFGLGETGRAPHICSRESETSTATUSEXT)_dlsym(
       dll.handle, "glGetGraphicsResetStatusEXT");
+  dll.glGenSemaphoresEXT =
+      (PFGLGENSEMAPHORESEXT)_dlsym(dll.handle, "glGenSemaphoresEXT");
+  dll.glDeleteSemaphoresEXT =
+      (PFGLDELETESEMAPHORESEXT)_dlsym(dll.handle, "glDeleteSemaphoresEXT");
+  dll.glIsSemaphoreEXT =
+      (PFGLISSEMAPHOREEXT)_dlsym(dll.handle, "glIsSemaphoreEXT");
+  dll.glImportSemaphoreFdEXT =
+      (PFGLIMPORTSEMAPHOREFDEXT)_dlsym(dll.handle, "glImportSemaphoreFdEXT");
+  dll.glImportSemaphoreWin32NameEXT = (PFGLIMPORTSEMAPHOREWIN32NAMEEXT)_dlsym(
+      dll.handle, "glImportSemaphoreWin32NameEXT");
   dll.glActiveShaderProgramEXT = (PFGLACTIVESHADERPROGRAMEXT)_dlsym(
       dll.handle, "glActiveShaderProgramEXT");
   dll.glBindProgramPipelineEXT = (PFGLBINDPROGRAMPIPELINEEXT)_dlsym(
@@ -1293,6 +1378,11 @@ void loadFunctions() {
           dll.handle, "glExtTexObjectStateOverrideiQCOM");
   dll.glExtIsProgramBinaryQCOM = (PFGLEXTISPROGRAMBINARYQCOM)_dlsym(
       dll.handle, "glExtIsProgramBinaryQCOM");
+  dll.glFramebufferFoveationParametersQCOM =
+      (PFGLFRAMEBUFFERFOVEATIONPARAMETERSQCOM)_dlsym(
+          dll.handle, "glFramebufferFoveationParametersQCOM");
+  dll.glFramebufferFetchBarrierQCOM = (PFGLFRAMEBUFFERFETCHBARRIERQCOM)_dlsym(
+      dll.handle, "glFramebufferFetchBarrierQCOM");
   dll.glStartTilingQCOM =
       (PFGLSTARTTILINGQCOM)_dlsym(dll.handle, "glStartTilingQCOM");
   dll.glEndTilingQCOM =

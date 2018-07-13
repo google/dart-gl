@@ -200,6 +200,8 @@ void glGetProgramResourceLocationIndexEXT_native(
     Dart_NativeArguments arguments);
 void glGetFragDataIndexEXT_native(Dart_NativeArguments arguments);
 void glBufferStorageEXT_native(Dart_NativeArguments arguments);
+void glClearTexImageEXT_native(Dart_NativeArguments arguments);
+void glClearTexSubImageEXT_native(Dart_NativeArguments arguments);
 void glCopyImageSubDataEXT_native(Dart_NativeArguments arguments);
 void glLabelObjectEXT_native(Dart_NativeArguments arguments);
 void glInsertEventMarkerEXT_native(Dart_NativeArguments arguments);
@@ -225,9 +227,13 @@ void glDrawElementsInstancedBaseVertexEXT_native(
     Dart_NativeArguments arguments);
 void glDrawArraysInstancedEXT_native(Dart_NativeArguments arguments);
 void glDrawElementsInstancedEXT_native(Dart_NativeArguments arguments);
+void glDrawTransformFeedbackEXT_native(Dart_NativeArguments arguments);
+void glDrawTransformFeedbackInstancedEXT_native(Dart_NativeArguments arguments);
 void glFramebufferTextureEXT_native(Dart_NativeArguments arguments);
 void glVertexAttribDivisorEXT_native(Dart_NativeArguments arguments);
 void glFlushMappedBufferRangeEXT_native(Dart_NativeArguments arguments);
+void glDeleteMemoryObjectsEXT_native(Dart_NativeArguments arguments);
+void glIsMemoryObjectEXT_native(Dart_NativeArguments arguments);
 void glMultiDrawArraysIndirectEXT_native(Dart_NativeArguments arguments);
 void glMultiDrawElementsIndirectEXT_native(Dart_NativeArguments arguments);
 void glRenderbufferStorageMultisampleEXT_native(Dart_NativeArguments arguments);
@@ -238,6 +244,11 @@ void glPolygonOffsetClampEXT_native(Dart_NativeArguments arguments);
 void glPrimitiveBoundingBoxEXT_native(Dart_NativeArguments arguments);
 void glRasterSamplesEXT_native(Dart_NativeArguments arguments);
 void glGetGraphicsResetStatusEXT_native(Dart_NativeArguments arguments);
+void glGenSemaphoresEXT_native(Dart_NativeArguments arguments);
+void glDeleteSemaphoresEXT_native(Dart_NativeArguments arguments);
+void glIsSemaphoreEXT_native(Dart_NativeArguments arguments);
+void glImportSemaphoreFdEXT_native(Dart_NativeArguments arguments);
+void glImportSemaphoreWin32NameEXT_native(Dart_NativeArguments arguments);
 void glActiveShaderProgramEXT_native(Dart_NativeArguments arguments);
 void glBindProgramPipelineEXT_native(Dart_NativeArguments arguments);
 void glDeleteProgramPipelinesEXT_native(Dart_NativeArguments arguments);
@@ -385,6 +396,9 @@ void glEnableDriverControlQCOM_native(Dart_NativeArguments arguments);
 void glDisableDriverControlQCOM_native(Dart_NativeArguments arguments);
 void glExtTexObjectStateOverrideiQCOM_native(Dart_NativeArguments arguments);
 void glExtIsProgramBinaryQCOM_native(Dart_NativeArguments arguments);
+void glFramebufferFoveationParametersQCOM_native(
+    Dart_NativeArguments arguments);
+void glFramebufferFetchBarrierQCOM_native(Dart_NativeArguments arguments);
 void glStartTilingQCOM_native(Dart_NativeArguments arguments);
 void glEndTilingQCOM_native(Dart_NativeArguments arguments);
 

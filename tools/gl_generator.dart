@@ -423,7 +423,7 @@ writeGlBindingsC(List<CDecl> decls) {
       sink..writeln('''
   GLuint *values = static_cast<GLuint *>(malloc(sizeof(GLuint) * $count));
   ${decl.dlsym ? 'dll.' : ''}${decl.name}($count, values);
-  Dart_Handle values_obj = Dart_NewList($count);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, $count);
   for (int i = 0; i < $count; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));

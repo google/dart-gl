@@ -8,8 +8,6 @@
 
 #include "dart_api.h"
 
-extern Dart_Handle GLLibrary;
-
 Dart_NativeFunction ResolveName(Dart_Handle name, int argc,
                                 bool* auto_setup_scope);
 

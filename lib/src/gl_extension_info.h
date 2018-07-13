@@ -14,19 +14,21 @@
 // Extra data needed for this extension in each isolate.
 class GlExtensionInfo {
  public:
-  static void create(Dart_Handle gl_library);
+  static void create(Dart_Handle gl_library, Dart_Handle core_library);
 
   // Returns extra info associated with this library for the Dart isolate
   // in which it is executing.
   static GlExtensionInfo& current();
 
   const Dart_Handle& gl_library() const { return gl_library_; }
+  const Dart_Handle& core_library() const { return core_library_; }
 
  private:
-  GlExtensionInfo(Dart_Handle gl_library);
+  GlExtensionInfo(Dart_Handle gl_library, Dart_Handle core_library);
 
   // Info unique to this isolate:
   Dart_Handle gl_library_;
+  Dart_Handle core_library_;
 
   static std::map<Dart_Isolate, GlExtensionInfo*> info_for_isolate_;
   static std::mutex info_for_isolate_mutex_;

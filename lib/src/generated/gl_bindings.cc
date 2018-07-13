@@ -804,7 +804,7 @@ void glGenBuffers_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   glGenBuffers(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -832,7 +832,7 @@ void glGenFramebuffers_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   glGenFramebuffers(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -850,7 +850,7 @@ void glGenRenderbuffers_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   glGenRenderbuffers(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -868,7 +868,7 @@ void glGenTextures_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   glGenTextures(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -3022,7 +3022,7 @@ void glGenVertexArraysOES_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   dll.glGenVertexArraysOES(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -3269,7 +3269,7 @@ void glGenPerfMonitorsAMD_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   dll.glGenPerfMonitorsAMD(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -3764,6 +3764,97 @@ void glBufferStorageEXT_native(Dart_NativeArguments arguments) {
   TRACE_END(glBufferStorageEXT_);
 }
 
+void glClearTexImageEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glClearTexImageEXT) {
+    return;
+  }
+  TRACE_START(glClearTexImageEXT_);
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &texture));
+
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
+
+  int64_t format;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &format));
+
+  int64_t type;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &type));
+
+  Dart_Handle data_obj = HANDLE(Dart_GetNativeArgument(arguments, 4));
+  void* data_data = nullptr;
+  Dart_TypedData_Type data_typeddata_type;
+  intptr_t data_typeddata_length;
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data,
+                                     &data_typeddata_length));
+  }
+  const void* data = static_cast<const void*>(data_data);
+
+  dll.glClearTexImageEXT(texture, level, format, type, data);
+
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(data_obj));
+  }
+
+  TRACE_END(glClearTexImageEXT_);
+}
+
+void glClearTexSubImageEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glClearTexSubImageEXT) {
+    return;
+  }
+  TRACE_START(glClearTexSubImageEXT_);
+  int64_t texture;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &texture));
+
+  int64_t level;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &level));
+
+  int64_t xoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &xoffset));
+
+  int64_t yoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 3, &yoffset));
+
+  int64_t zoffset;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 4, &zoffset));
+
+  int64_t width;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 5, &width));
+
+  int64_t height;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 6, &height));
+
+  int64_t depth;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 7, &depth));
+
+  int64_t format;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 8, &format));
+
+  int64_t type;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 9, &type));
+
+  Dart_Handle data_obj = HANDLE(Dart_GetNativeArgument(arguments, 10));
+  void* data_data = nullptr;
+  Dart_TypedData_Type data_typeddata_type;
+  intptr_t data_typeddata_length;
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(data_obj, &data_typeddata_type, &data_data,
+                                     &data_typeddata_length));
+  }
+  const void* data = static_cast<const void*>(data_data);
+
+  dll.glClearTexSubImageEXT(texture, level, xoffset, yoffset, zoffset, width,
+                            height, depth, format, type, data);
+
+  if (!Dart_IsNull(data_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(data_obj));
+  }
+
+  TRACE_END(glClearTexSubImageEXT_);
+}
+
 void glCopyImageSubDataEXT_native(Dart_NativeArguments arguments) {
   if (!dll.glCopyImageSubDataEXT) {
     return;
@@ -3904,7 +3995,7 @@ void glGenQueriesEXT_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   dll.glGenQueriesEXT(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -4323,6 +4414,42 @@ void glDrawElementsInstancedEXT_native(Dart_NativeArguments arguments) {
   TRACE_END(glDrawElementsInstancedEXT_);
 }
 
+void glDrawTransformFeedbackEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glDrawTransformFeedbackEXT) {
+    return;
+  }
+  TRACE_START(glDrawTransformFeedbackEXT_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
+
+  int64_t id;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &id));
+
+  dll.glDrawTransformFeedbackEXT(mode, id);
+
+  TRACE_END(glDrawTransformFeedbackEXT_);
+}
+
+void glDrawTransformFeedbackInstancedEXT_native(
+    Dart_NativeArguments arguments) {
+  if (!dll.glDrawTransformFeedbackInstancedEXT) {
+    return;
+  }
+  TRACE_START(glDrawTransformFeedbackInstancedEXT_);
+  int64_t mode;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &mode));
+
+  int64_t id;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &id));
+
+  int64_t instancecount;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &instancecount));
+
+  dll.glDrawTransformFeedbackInstancedEXT(mode, id, instancecount);
+
+  TRACE_END(glDrawTransformFeedbackInstancedEXT_);
+}
+
 void glFramebufferTextureEXT_native(Dart_NativeArguments arguments) {
   if (!dll.glFramebufferTextureEXT) {
     return;
@@ -4378,6 +4505,39 @@ void glFlushMappedBufferRangeEXT_native(Dart_NativeArguments arguments) {
   dll.glFlushMappedBufferRangeEXT(target, offset, length);
 
   TRACE_END(glFlushMappedBufferRangeEXT_);
+}
+
+void glDeleteMemoryObjectsEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glDeleteMemoryObjectsEXT) {
+    return;
+  }
+  TRACE_START(glDeleteMemoryObjectsEXT_);
+  Dart_Handle values_obj = HANDLE(Dart_GetNativeArgument(arguments, 0));
+  GLuint* values = NULL;
+  intptr_t n = 0;
+  HANDLE(Dart_ListLength(values_obj, &n));
+  values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
+  for (int i = 0; i < n; i++) {
+    Dart_Handle i_obj = HANDLE(Dart_ListGetAt(values_obj, i));
+    HANDLE(Dart_IntegerToUInt(i_obj, &values[i]));
+  }
+  dll.glDeleteMemoryObjectsEXT(n, values);
+  free(values);
+
+  TRACE_END(glDeleteMemoryObjectsEXT_);
+}
+
+void glIsMemoryObjectEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glIsMemoryObjectEXT) {
+    return;
+  }
+  TRACE_START(glIsMemoryObjectEXT_);
+  int64_t memoryObject;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &memoryObject));
+
+  GLboolean ret = dll.glIsMemoryObjectEXT(memoryObject);
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsMemoryObjectEXT_);
 }
 
 void glMultiDrawArraysIndirectEXT_native(Dart_NativeArguments arguments) {
@@ -4603,6 +4763,109 @@ void glGetGraphicsResetStatusEXT_native(Dart_NativeArguments arguments) {
   TRACE_END(glGetGraphicsResetStatusEXT_);
 }
 
+void glGenSemaphoresEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glGenSemaphoresEXT) {
+    return;
+  }
+  TRACE_START(glGenSemaphoresEXT_);
+  int64_t n;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &n));
+
+  GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
+  dll.glGenSemaphoresEXT(n, values);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
+  for (int i = 0; i < n; i++) {
+    Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
+    HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
+  }
+  Dart_SetReturnValue(arguments, values_obj);
+  free(values);
+
+  TRACE_END(glGenSemaphoresEXT_);
+}
+
+void glDeleteSemaphoresEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glDeleteSemaphoresEXT) {
+    return;
+  }
+  TRACE_START(glDeleteSemaphoresEXT_);
+  Dart_Handle values_obj = HANDLE(Dart_GetNativeArgument(arguments, 0));
+  GLuint* values = NULL;
+  intptr_t n = 0;
+  HANDLE(Dart_ListLength(values_obj, &n));
+  values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
+  for (int i = 0; i < n; i++) {
+    Dart_Handle i_obj = HANDLE(Dart_ListGetAt(values_obj, i));
+    HANDLE(Dart_IntegerToUInt(i_obj, &values[i]));
+  }
+  dll.glDeleteSemaphoresEXT(n, values);
+  free(values);
+
+  TRACE_END(glDeleteSemaphoresEXT_);
+}
+
+void glIsSemaphoreEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glIsSemaphoreEXT) {
+    return;
+  }
+  TRACE_START(glIsSemaphoreEXT_);
+  int64_t semaphore;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &semaphore));
+
+  GLboolean ret = dll.glIsSemaphoreEXT(semaphore);
+  Dart_SetBooleanReturnValue(arguments, ret);
+  TRACE_END(glIsSemaphoreEXT_);
+}
+
+void glImportSemaphoreFdEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glImportSemaphoreFdEXT) {
+    return;
+  }
+  TRACE_START(glImportSemaphoreFdEXT_);
+  int64_t semaphore;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &semaphore));
+
+  int64_t handleType;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &handleType));
+
+  int64_t fd;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &fd));
+
+  dll.glImportSemaphoreFdEXT(semaphore, handleType, fd);
+
+  TRACE_END(glImportSemaphoreFdEXT_);
+}
+
+void glImportSemaphoreWin32NameEXT_native(Dart_NativeArguments arguments) {
+  if (!dll.glImportSemaphoreWin32NameEXT) {
+    return;
+  }
+  TRACE_START(glImportSemaphoreWin32NameEXT_);
+  int64_t semaphore;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &semaphore));
+
+  int64_t handleType;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &handleType));
+
+  Dart_Handle name_obj = HANDLE(Dart_GetNativeArgument(arguments, 2));
+  void* name_data = nullptr;
+  Dart_TypedData_Type name_typeddata_type;
+  intptr_t name_typeddata_length;
+  if (!Dart_IsNull(name_obj)) {
+    HANDLE(Dart_TypedDataAcquireData(name_obj, &name_typeddata_type, &name_data,
+                                     &name_typeddata_length));
+  }
+  const void* name = static_cast<const void*>(name_data);
+
+  dll.glImportSemaphoreWin32NameEXT(semaphore, handleType, name);
+
+  if (!Dart_IsNull(name_obj)) {
+    HANDLE(Dart_TypedDataReleaseData(name_obj));
+  }
+
+  TRACE_END(glImportSemaphoreWin32NameEXT_);
+}
+
 void glActiveShaderProgramEXT_native(Dart_NativeArguments arguments) {
   if (!dll.glActiveShaderProgramEXT) {
     return;
@@ -4662,7 +4925,7 @@ void glGenProgramPipelinesEXT_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   dll.glGenProgramPipelinesEXT(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -6335,7 +6598,7 @@ void glGenFencesNV_native(Dart_NativeArguments arguments) {
 
   GLuint* values = static_cast<GLuint*>(malloc(sizeof(GLuint) * n));
   dll.glGenFencesNV(n, values);
-  Dart_Handle values_obj = Dart_NewList(n);
+  Dart_Handle values_obj = Dart_NewListOf(Dart_CoreType_Int, n);
   for (int i = 0; i < n; i++) {
     Dart_Handle i_obj = HANDLE(Dart_NewInteger(values[i]));
     HANDLE(Dart_ListSetAt(values_obj, i, i_obj));
@@ -8029,6 +8292,52 @@ void glExtIsProgramBinaryQCOM_native(Dart_NativeArguments arguments) {
   GLboolean ret = dll.glExtIsProgramBinaryQCOM(program);
   Dart_SetBooleanReturnValue(arguments, ret);
   TRACE_END(glExtIsProgramBinaryQCOM_);
+}
+
+void glFramebufferFoveationParametersQCOM_native(
+    Dart_NativeArguments arguments) {
+  if (!dll.glFramebufferFoveationParametersQCOM) {
+    return;
+  }
+  TRACE_START(glFramebufferFoveationParametersQCOM_);
+  int64_t framebuffer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 0, &framebuffer));
+
+  int64_t layer;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 1, &layer));
+
+  int64_t focalPoint;
+  HANDLE(Dart_GetNativeIntegerArgument(arguments, 2, &focalPoint));
+
+  double focalX;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 3, &focalX));
+
+  double focalY;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 4, &focalY));
+
+  double gainX;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 5, &gainX));
+
+  double gainY;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 6, &gainY));
+
+  double foveaArea;
+  HANDLE(Dart_GetNativeDoubleArgument(arguments, 7, &foveaArea));
+
+  dll.glFramebufferFoveationParametersQCOM(
+      framebuffer, layer, focalPoint, focalX, focalY, gainX, gainY, foveaArea);
+
+  TRACE_END(glFramebufferFoveationParametersQCOM_);
+}
+
+void glFramebufferFetchBarrierQCOM_native(Dart_NativeArguments arguments) {
+  if (!dll.glFramebufferFetchBarrierQCOM) {
+    return;
+  }
+  TRACE_START(glFramebufferFetchBarrierQCOM_);
+  dll.glFramebufferFetchBarrierQCOM();
+
+  TRACE_END(glFramebufferFetchBarrierQCOM_);
 }
 
 void glStartTilingQCOM_native(Dart_NativeArguments arguments) {

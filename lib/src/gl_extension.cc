@@ -26,10 +26,12 @@ DART_EXPORT Dart_Handle gl_extension_Init(Dart_Handle parent_library) {
   }
 
   // Look up the GL library and stash it in the info for this isolate.
-  auto gl = HandleError(Dart_NewPersistentHandle(HandleError(
+  auto gl_lib = HandleError(Dart_NewPersistentHandle(HandleError(
       Dart_LookupLibrary(Dart_NewStringFromCString("package:gl/gl.dart")))));
+  auto core_lib = HandleError(Dart_NewPersistentHandle(
+      HandleError(Dart_LookupLibrary(Dart_NewStringFromCString("dart:core")))));
 
-  GlExtensionInfo::create(gl);
+  GlExtensionInfo::create(gl_lib, core_lib);
 
   loadFunctions();
 
