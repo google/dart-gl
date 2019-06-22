@@ -64,8 +64,10 @@ main(List<String> args) async {
   var extCalls = [];
   for (var file in ['gl2.h', 'gl2ext.h']) {
     var readStream = new File(path.join(glPath, file)).openRead();
-    await for (var line
-        in readStream.transform(utf8.decoder).transform(new LineSplitter())) {
+    await for (var line in readStream
+        .cast<List<int>>()
+        .transform(utf8.decoder)
+        .transform(new LineSplitter())) {
       if (line.startsWith('#define GL_')) {
         var match = CConst.defineReg.firstMatch(line);
         if (match == null) {
