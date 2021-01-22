@@ -23,10 +23,10 @@ main(List<String> args) async {
         valueHelp: 'path')
     ..addOption('out',
         help: 'path to output directory', abbr: 'o', valueHelp: 'path')
-    ..addOption('whitelist',
+    ..addOption('limit-api',
         help: 'list of functions that are bound',
-        abbr: 'w',
-        valueHelp: 'whitelist.txt')
+        abbr: 'l',
+        valueHelp: 'limit.txt')
     ..addFlag('debug-dll',
         negatable: true,
         defaultsTo: false,
