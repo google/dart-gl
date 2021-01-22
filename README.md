@@ -14,14 +14,14 @@ dartfmt -w generated/*.dart
 mv generated/* lib/src/generated/
 ```
 
-## Whitelisting
+## Limiting bindings to actual symbols
 
 Some GL libraries come with headers that list functions not implemented. This
 will fail at link time. To avoid this, you can dump the symbols in libGLESv2.so
-to be whitelisted and use the `--whitelist flag in`tools/gl_generator.dart`
+to be used with `--limit-api` flag in`tools/gl_generator.dart`
 
 ```shell
-nm -D /lib/libGLESv2.so | grep " T " | awk '{print $3}' > whitelist.txt
+nm -D /lib/libGLESv2.so | grep " T " | awk '{print $3}' > limit.txt
 ```
 
 # Steps to compile the bindings

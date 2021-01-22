@@ -8,7 +8,7 @@ import 'package:path/path.dart' as path;
 String outPath;
 
 /// Specific APIs that need manual bindings, but we're too lazy to write them.
-var blacklist = new Set.from([
+var manualBindingList = new Set.from([
   // Commands is not a string - it is typed data of length numCommands
   'glPathCommandsNV',
 ]);
@@ -23,10 +23,10 @@ main(List<String> args) async {
         valueHelp: 'path')
     ..addOption('out',
         help: 'path to output directory', abbr: 'o', valueHelp: 'path')
-    ..addOption('whitelist',
+    ..addOption('limit-api',
         help: 'list of functions that are bound',
-        abbr: 'w',
-        valueHelp: 'whitelist.txt')
+        abbr: 'l',
+        valueHelp: 'limit.txt')
     ..addFlag('debug-dll',
         negatable: true,
         defaultsTo: false,
@@ -638,9 +638,9 @@ class CDecl {
     name = norms[1];
     returnType = norms[0];
 
-    if (blacklist.contains(name)) {
+    if (manualBindingList.contains(name)) {
       needsManualBinding = true;
-      print("$name NEEDS MANUAL BINDING: check the blacklist");
+      print("$name NEEDS MANUAL BINDING: check the manualBindingList");
     }
 
     int noName = 0;
